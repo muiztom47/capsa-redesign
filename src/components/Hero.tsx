@@ -319,7 +319,7 @@ export default function Home() {
       i += dir;
       if (i === 3 || i === 0) dir *= -1;
       setActiveSource(i);
-    }, 1400);
+    }, 630);
     return () => clearInterval(id);
   }, []);
 
@@ -372,12 +372,12 @@ export default function Home() {
             </h1>
 
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
-              <p className="text-xl md:text-2xl text-gray-500 leading-relaxed font-light max-w-2xl">
-                Connect your firm's data, run custom investment workflows, and trace every insight back to its original source—all in one governed platform.
+                    <p className="text-[19px] text-[#011522]/70 leading-relaxed font-light max-w-2xl font-inter">
+                Connect your firm’s data, run custom investment workflows, and trace every insight back to its original source, all in one governed platform.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 shrink-0">
-                <Link to="/contact" className="bg-blue-600 text-white px-8 py-4 rounded-lg text-sm font-semibold hover:bg-blue-700 transition-all flex items-center justify-center group shadow-[0_4px_20px_rgba(37,99,235,0.25)] hover:shadow-[0_4px_25px_rgba(37,99,235,0.4)] whitespace-nowrap">
+                <Link to="/contact" className="bg-blue-600 text-white px-8 py-4 rounded-lg text-sm font-semibold hover:bg-blue-700 transition-all flex items-center justify-center group shadow-sm hover:shadow-md whitespace-nowrap">
                   Book a Demo <IconArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
                 <Link to="/platform" className="bg-white border border-gray-200 text-gray-700 px-8 py-4 rounded-lg text-sm font-semibold hover:bg-gray-50 transition-colors shadow-sm whitespace-nowrap text-center">
@@ -424,28 +424,35 @@ export default function Home() {
                     <span className="text-[10px] text-slate-400 font-medium">4 linked</span>
                   </div>
                   <div className="relative">
-                    {/* connecting thread running through the icon chips */}
-                    <div className="absolute left-7 top-7 bottom-7 w-px bg-slate-200"></div>
+                    <style>{`
+                      @keyframes capsaScan {
+                        0%   { top: 0%; }
+                        50%  { top: 100%; }
+                        100% { top: 0%; }
+                      }
+                    `}</style>
+                    {/* connecting thread — spans the full row stack, edge to edge */}
+                    <div className="absolute left-7 top-0 bottom-0 w-px bg-slate-200"></div>
 
-                    {/* the actual scan beam, sweeping down the list and back */}
+                    {/* scan beam — pure CSS animation, hits 0% and 100% exactly */}
                     <div
-                      className="absolute left-0 right-0 h-px pointer-events-none z-20 transition-[top] duration-[900ms] ease-in-out"
+                      className="absolute left-0 right-0 h-px pointer-events-none z-20"
                       style={{
-                        top: `${28 + activeSource * 60}px`,
                         background: 'linear-gradient(90deg, transparent, rgba(59,130,246,0.9), transparent)',
                         boxShadow: '0 0 10px 1px rgba(59,130,246,0.45)',
+                        animation: 'capsaScan 4s linear infinite',
                       }}
                     ></div>
 
                     <div className="space-y-1 relative">
                       {[
-                        { tag: 'PDF', name: 'Meridian — Investment memo', sub: 'Shared drive · 42 pages' },
-                        { tag: 'CRM', name: 'Meridian — Deal record', sub: 'CRM · updated 2d ago' },
+                        { tag: 'PDF', name: 'Meridian: Investment memo', sub: 'Shared drive · 42 pages' },
+                        { tag: 'CRM', name: 'Meridian: Deal record', sub: 'CRM · updated 2d ago' },
                         { tag: 'DOC', name: 'Management Q&A notes', sub: 'Data room · 14 pages' },
                         { tag: 'FS', name: 'Sector comparables', sub: 'FactSet · live' },
                       ].map((src, i) => (
                         <div key={i} className="relative flex items-center gap-3.5 rounded-xl px-3 py-3">
-                          <span className={`w-8 h-8 rounded-lg bg-white flex items-center justify-center text-[9px] font-semibold shrink-0 tracking-tight ring-1 transition-colors duration-500 relative z-10 ${
+                          <span className={`w-8 h-8 rounded-lg bg-white flex items-center justify-center text-[9px] font-semibold shrink-0 tracking-tight ring-1 transition-colors duration-300 relative z-10 ${
                             activeSource === i ? 'ring-blue-400/60 text-blue-600' : 'ring-slate-200/80 text-slate-500'
                           }`}>
                             {src.tag}
