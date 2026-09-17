@@ -128,18 +128,10 @@ const MockupUnderwriting = () => {
 
       {/* Chrome */}
       <div className="flex items-center justify-between px-8 py-3.5 border-b border-slate-200 bg-white shrink-0 relative z-10">
-        <div className="flex items-center gap-2.5">
-          <div className="w-6 h-6 rounded-md bg-[#2B4BF2] flex items-center justify-center shrink-0">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-              <polyline points="14 2 14 8 20 8"/>
-            </svg>
-          </div>
+        <div className="flex items-center gap-3">
           <span className="text-[13px] font-semibold text-slate-900 tracking-tight">Memo generator</span>
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-slate-300 shrink-0">
-            <polyline points="9 18 15 12 9 6"/>
-          </svg>
-          <span className="text-[12.5px] text-slate-500">Meridian Industrials</span>
+          <span className="text-[13px] text-slate-300 font-light select-none">/</span>
+          <span className="text-[13px] text-slate-500 font-light">Meridian Industrials</span>
         </div>
         <span className="relative h-[22px] flex items-center w-[132px] justify-end">
           <span className="capsa-loop absolute right-0 inline-flex items-center gap-1.5 text-[10px] font-medium text-slate-500 bg-slate-100 rounded-full pl-2 pr-2.5 py-1 whitespace-nowrap" style={{ animationName: 'capsaStatusThinking' }}>
@@ -157,7 +149,7 @@ const MockupUnderwriting = () => {
         </span>
       </div>
 
-      <div className="flex-1 overflow-hidden px-8 py-6 relative bg-gradient-to-b from-slate-50 to-white">
+      <div className="flex-1 overflow-hidden px-8 py-6 relative bg-white">
 
         {/* Phase 1 — prompt + toolbar */}
         <div className="capsa-loop absolute inset-0 px-8 py-10 flex items-start justify-center" style={{ animationName: 'capsaPromptPhase' }}>
@@ -179,9 +171,14 @@ const MockupUnderwriting = () => {
         </div>
 
         {/* Phase 2 — loading */}
-        <div className="capsa-loop absolute inset-0 flex flex-col items-center justify-center gap-3" style={{ animationName: 'capsaLoadingPhase' }}>
-          <div className="w-5 h-5 rounded-full border-2 border-slate-200 border-t-[#2B4BF2]" style={{ animation: 'capsaSpin 0.8s linear infinite' }}></div>
-          <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-slate-400">Generating memo…</span>
+        <div className="capsa-loop absolute inset-0 flex items-center justify-center" style={{ animationName: 'capsaLoadingPhase' }}>
+          <div className="w-full max-w-[520px] rounded-lg border border-slate-200/70 bg-white px-6 py-16 flex flex-col items-center justify-center gap-4">
+            <div
+              className="w-7 h-7 rounded-full border-[2.5px] border-[#2B4BF2]/15 border-t-[#2B4BF2]"
+              style={{ animation: 'capsaSpin 0.9s linear infinite' }}
+            ></div>
+            <span className="text-[14px] font-medium text-[#2B4BF2] tracking-tight">Generating memo…</span>
+          </div>
         </div>
 
         {/* Phase 3 — memo, then the export bar */}
