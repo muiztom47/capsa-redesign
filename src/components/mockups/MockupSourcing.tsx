@@ -158,10 +158,10 @@ const MockupSourcing = () => (
   }
   @keyframes capsaCursorMove {
     0%   { transform: translate(-36px, -52px) scale(1); opacity: 0; }
-    8%   { opacity: 1; }
-    34%  { transform: translate(-4px, -4px) scale(1); opacity: 1; }
-    38%  { transform: translate(0px, 0px) scale(0.88); opacity: 1; }
-    42%  { transform: translate(0px, 0px) scale(1); opacity: 1; }
+    22%  { opacity: 1; }
+    30%  { transform: translate(-4px, -4px) scale(1); opacity: 1; }
+    34%  { transform: translate(0px, 0px) scale(0.88); opacity: 1; }
+    38%  { transform: translate(0px, 0px) scale(1); opacity: 1; }
     86%  { transform: translate(0px, 0px) scale(1); opacity: 1; }
     100% { transform: translate(0px, 0px) scale(1); opacity: 0; }
   }
@@ -287,7 +287,7 @@ const MockupSourcing = () => (
         {/* animated cursor, arriving at the button */}
         <div
           className="absolute pointer-events-none z-30"
-          style={{ animation: 'capsaCursorMove 8s cubic-bezier(0.65,0,0.35,1) infinite', bottom: '14px', right: '96px' }}
+          style={{ animation: 'capsaCursorMove 8s cubic-bezier(0.22,0.9,0.3,1) infinite', bottom: '14px', right: '96px' }}
         >
           <span
             className="absolute rounded-full"
@@ -300,9 +300,25 @@ const MockupSourcing = () => (
               animation: 'capsaClickGlow 8s cubic-bezier(0.65,0,0.35,1) infinite',
             }}
           ></span>
-          <svg width="20" height="20" viewBox="0 0 24 24" style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.35))' }}>
-            <path d="M5.5 3.5L18.5 12.5L12.5 13.7L15.5 20L12.8 21.2L9.8 14.8L5.5 19V3.5Z" fill="#0B1220" />
+          <svg width="30" height="30" viewBox="0 0 24 24" style={{ filter: 'drop-shadow(0 1px 3px rgba(15,23,42,0.18))' }}>
+            <g transform="scale(-1,1) translate(-24,0)">
+              <path
+                d="M21 3L3 10.6L11 12.8L13.2 20.8L21 3Z"
+                fill="white"
+                stroke="#94A3B8"
+                strokeWidth="0.9"
+                strokeLinejoin="round"
+                strokeLinecap="round"
+              />
+              <path
+                d="M21 3L11 12.8"
+                stroke="#94A3B8"
+                strokeWidth="0.9"
+                strokeLinecap="round"
+              />
+            </g>
           </svg>
+
         </div>
       </div>
 

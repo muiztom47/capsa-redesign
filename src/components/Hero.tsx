@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import MockupSourcing from './mockups/MockupSourcing';
+import MockupEvaluate from './mockups/MockupEvaluate';
 import { Link } from 'react-router-dom';
 
 /* ========================================================================
@@ -113,174 +114,6 @@ const PORTFOLIO_DATA = [
    These are the full-size "product video" panels used in the workflow
    showcase further down — deliberately larger and denser than a card icon.
    ======================================================================== */
-
-
-const MockupEvaluate = ({ activeTab, setActiveTab }) => {
-  const tabs = ['Trading comps', 'Legal review', 'Enterprise search'];
-  return (
-    <div className="w-full h-full bg-white flex flex-col font-sans relative overflow-hidden">
-      {/* Chrome */}
-      <div className="flex items-center justify-between px-8 border-b border-slate-200/70 shrink-0">
-        <div className="flex items-center gap-1">
-          {tabs.map((t, ti) => (
-            <button
-              key={t}
-              onClick={() => setActiveTab(ti)}
-              className={`relative px-4 py-4 text-[12px] font-medium transition-colors ${
-                activeTab === ti ? 'text-slate-900' : 'text-slate-400 hover:text-slate-700'
-              }`}
-            >
-              {t}
-              {activeTab === ti && (
-                <span className="absolute bottom-0 left-4 right-4 h-[2px] bg-[#2B4BF2]"></span>
-              )}
-            </button>
-          ))}
-        </div>
-        <span className="text-[10px] font-mono uppercase tracking-[0.15em] text-slate-400">
-          Diligence workspace
-        </span>
-      </div>
-
-      <div className="flex-1 overflow-hidden relative">
-        {/* Trading Comps */}
-        {activeTab === 0 && (
-          <div className="h-full flex flex-col">
-            <div className="flex items-center justify-between px-8 py-5 border-b border-slate-100">
-              <h4 className="font-serif text-lg text-slate-900 tracking-tight">Trading comparables</h4>
-              <span className="text-[10px] font-mono uppercase tracking-[0.15em] text-slate-400">
-                14 comps · FactSet live
-              </span>
-            </div>
-            <div className="flex-1 overflow-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b border-slate-100 text-[10px] font-mono uppercase tracking-[0.15em] text-slate-400">
-                    <th className="text-left px-8 py-3 font-normal">Multiple</th>
-                    <th className="text-right px-8 py-3 font-normal">Low</th>
-                    <th className="text-right px-8 py-3 font-normal">Median</th>
-                    <th className="text-right px-8 py-3 font-normal">High</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-100">
-                  {[
-                    ['EV / EBITDA', '8.2x', '11.6x', '17.2x'],
-                    ['EV / Revenue', '2.1x', '3.4x', '5.8x'],
-                    ['P / E', '14.0x', '19.8x', '27.5x'],
-                  ].map((r, ri) => (
-                    <tr key={ri}>
-                      <td className="px-8 py-5 text-[13px] font-medium text-slate-900">{r[0]}</td>
-                      <td className="px-8 py-5 text-right text-[13px] font-mono text-slate-400 tabular-nums">{r[1]}</td>
-                      <td className="px-8 py-5 text-right text-[13px] font-mono text-[#2B4BF2] font-semibold tabular-nums">{r[2]}</td>
-                      <td className="px-8 py-5 text-right text-[13px] font-mono text-slate-400 tabular-nums">{r[3]}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        )}
-
-        {/* Legal Review — money shot */}
-        {activeTab === 1 && (
-          <div className="h-full flex flex-col px-8 py-8 relative">
-            <div className="flex items-center gap-3 text-[11px] font-mono uppercase tracking-[0.15em] text-slate-400 mb-5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#2B4BF2] animate-pulse"></span>
-              <span>Ask · "Summarize covenant terms in SPA_Meridian_vFinal.pdf"</span>
-            </div>
-
-            <div className="rounded-lg border border-slate-200/80 bg-white p-6 relative shadow-[0_10px_30px_-20px_rgba(15,23,42,0.15)]">
-              <div className="text-[10px] font-mono uppercase tracking-[0.15em] text-slate-400 mb-4">
-                Capsa response
-              </div>
-              <div className="text-[14px] text-slate-700 leading-[1.85] font-light">
-                <p>
-                  The agreement imposes a <span className="text-slate-900 font-normal">maximum total net leverage of 4.00:1.00</span>
-                  <SourceChip n={1} />, tested quarterly on a trailing twelve-month basis
-                  <SourceChip n={2} />. Change of control triggers mandatory prepayment subject to
-                  lender consent<span className="text-[#2B4BF2] text-[11px] align-super ml-0.5 cursor-pointer">3</span>.
-                  MAC carve-outs exclude sector-wide downturns<span className="text-[#2B4BF2] text-[11px] align-super ml-0.5 cursor-pointer">4</span>.
-                </p>
-              </div>
-
-              {/* floating preview */}
-              <div
-                className="absolute right-6 bottom-[-14px] w-[340px] rounded-lg border border-slate-200 bg-white shadow-[0_30px_70px_-20px_rgba(15,23,42,0.3)] p-4"
-                style={{ animation: 'capsaPreviewIn 6s ease-in-out infinite' }}
-              >
-                <div className="text-[10px] font-mono uppercase tracking-[0.15em] text-slate-400 mb-2">
-                  Source 1 · SPA_Meridian_vFinal.pdf
-                </div>
-                <div className="text-[12px] text-slate-700 font-mono leading-relaxed">
-                  "...the Company shall maintain a Total Net Leverage Ratio not exceeding{' '}
-                  <span className="bg-[#2B4BF2]/15 text-[#2B4BF2] px-1 rounded">4.00:1.00</span>,
-                  tested quarterly on a trailing twelve-month basis..."
-                </div>
-                <div className="mt-3 flex items-center justify-between text-[10px] font-mono uppercase tracking-[0.14em] text-slate-400">
-                  <span>Page 42 · §7.2(a)</span>
-                  <span className="text-[#2B4BF2]">Open ↗</span>
-                </div>
-              </div>
-            </div>
-
-            {/* extracted terms */}
-            <div className="mt-10">
-              <div className="text-[10px] font-mono uppercase tracking-[0.15em] text-slate-400 mb-3">
-                Extracted terms
-              </div>
-              <div className="grid grid-cols-2 gap-x-6">
-                {[
-                  ['SPA', 'Covenant · 4.0x max leverage'],
-                  ['NDA', 'Non-solicit · 24 months'],
-                  ['SPA', 'Change of control · consent required'],
-                  ['SPA', 'MAC clause · standard carve-outs'],
-                ].map((row, ri) => (
-                  <div
-                    key={ri}
-                    className="flex items-center gap-4 py-3 text-[12px] border-b border-slate-100"
-                    style={{ animation: `capsaRowReveal 6s ease-in-out ${ri * 0.4}s infinite` }}
-                  >
-                    <span className="text-[10px] font-mono uppercase tracking-[0.1em] text-slate-400 w-10 shrink-0">{row[0]}</span>
-                    <span className="text-slate-700">{row[1]}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Enterprise Search */}
-        {activeTab === 2 && (
-          <div className="h-full flex flex-col">
-            <div className="px-8 py-6 border-b border-slate-100">
-              <div className="flex items-center gap-3 text-[13px] font-mono text-slate-700">
-                <span className="text-slate-400">›</span>
-                <span>European healthcare targets</span>
-                <span className="w-[2px] h-4 bg-[#2B4BF2] ml-1" style={{ animation: 'capsaCursorBlink 1s steps(2) infinite' }}></span>
-              </div>
-            </div>
-            <div className="flex-1 divide-y divide-slate-100">
-              {[
-                ['Q3 Sector Report — EU Healthcare', 'FactSet · 2d ago'],
-                ['Helvetia Diagnostics — teaser', 'Data room · 09/12'],
-                ['Prior deal: Nordklinik (2024)', 'Deal archive'],
-              ].map((r, ri) => (
-                <div
-                  key={ri}
-                  className="flex items-center justify-between px-8 py-5 hover:bg-slate-50/70 transition-colors"
-                  style={{ animation: `capsaResultIn 6s ease-out ${ri * 0.9}s infinite`, opacity: 0 }}
-                >
-                  <span className="text-[13px] text-slate-800">{r[0]}</span>
-                  <span className="text-[11px] font-mono text-slate-400">{r[1]}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-};
 
 /* numbered source chip */
 const SourceChip = ({ n }) => (
@@ -491,17 +324,15 @@ export default function Home() {
   }, []);
 
   // Auto-advance the Evaluate stage's internal tabs so the showcase
-  // panel feels alive even before anyone touches it.
+  // panel feels alive even before anyone touches it. Depends on
+  // [activeTab] so a manual click resets the 30s countdown — whatever
+  // tab the user picks stays put for a full 30s before moving on.
   useEffect(() => {
-    let i = 0;
-    let dir = 1;
-    const id = setInterval(() => {
-      i += dir;
-      if (i === 2 || i === 0) dir *= -1;
-      setActiveTab(i);
-    }, 3400);
-    return () => clearInterval(id);
-  }, []);
+    const id = setTimeout(() => {
+      setActiveTab((prev) => (prev + 1) % 3);
+    }, 30000);
+    return () => clearTimeout(id);
+  }, [activeTab]);
 
   // One orchestrated reveal for the workflow showcase, the first time it
   // scrolls into view, rather than animating every section on every scroll.
@@ -870,7 +701,7 @@ export default function Home() {
 
                 {/* Showcase panel */}
                 <div className={i % 2 === 1 ? 'lg:order-1' : ''}>
-                  <div className={`rounded-[28px] border border-white/70 shadow-[0_30px_80px_-30px_rgba(15,23,42,0.28)] overflow-hidden backdrop-blur-2xl bg-white/50 ring-1 ring-[#011522]/[0.04] ${
+                  <div className={`rounded-[12px] border border-slate-200 overflow-hidden ${
   stage.tall ? 'h-auto' : 'h-[440px] md:h-[560px]'
 }`}>
                     {stage.render(activeTab, setActiveTab)}
