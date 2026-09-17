@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import MockupSourcing from './mockups/MockupSourcing';
+import MockupUnderwriting from './mockups/MockupUnderwriting';
 import MockupEvaluate from './mockups/MockupEvaluate';
+
 import { Link } from 'react-router-dom';
 
 /* ========================================================================
@@ -123,80 +125,6 @@ const SourceChip = ({ n }) => (
 );
 
 
-const MockupUnderwriting = () => (
-  <div className="w-full h-full bg-white flex flex-col font-sans relative overflow-hidden">
-    <div className="flex items-center justify-between px-8 py-4 border-b border-slate-200/70 shrink-0">
-      <div className="flex items-center gap-4">
-        <span className="text-[13px] font-semibold text-slate-900 tracking-tight">Memo generator</span>
-        <span className="text-slate-300">/</span>
-        <span className="text-[12px] text-slate-500 font-mono">Meridian Industrials</span>
-      </div>
-      <span className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.15em] text-[#2B4BF2]">
-        <span className="w-1.5 h-1.5 rounded-full bg-[#2B4BF2] animate-pulse"></span>
-        synthesizing
-      </span>
-    </div>
-
-    <div className="flex-1 grid grid-cols-[1fr_1.6fr] divide-x divide-slate-100 overflow-hidden">
-      <div className="p-8 font-mono text-[11px] text-slate-500 leading-[2] overflow-hidden bg-slate-50/50">
-        <div className="text-[10px] uppercase tracking-[0.15em] text-slate-400 mb-6">
-          Q3_Financials_vFinal.xlsx
-        </div>
-        <div className="space-y-0.5">
-          <div className="flex justify-between"><span>Rev_Net</span><span className="text-slate-800 tabular-nums">42,450,000</span></div>
-          <div className="flex justify-between"><span>COGS</span><span className="text-slate-800 tabular-nums">(12,100,000)</span></div>
-          <div className="flex justify-between border-t border-slate-200 pt-1.5 mt-1.5">
-            <span>Gr_Margin</span><span className="text-slate-900 font-semibold tabular-nums">30,350,000</span>
-          </div>
-          <div className="flex justify-between pt-4"><span>CAC_blended</span><span className="text-slate-800 tabular-nums">$4,120</span></div>
-          <div className="flex justify-between"><span>LTV_blended</span><span className="text-slate-800 tabular-nums">$38,500</span></div>
-        </div>
-        <div className="mt-8 pt-6 border-t border-slate-200 text-[10px] text-amber-700/80 leading-relaxed">
-          Note: $1.2M legal fees added back to adjusted EBITDA.
-        </div>
-      </div>
-
-      <div className="p-8 overflow-hidden relative">
-        <div className="text-[10px] font-mono uppercase tracking-[0.15em] text-slate-400 mb-6">
-          Investment Committee Memo — v1
-        </div>
-        <h4 className="font-serif text-[22px] text-slate-900 tracking-tight leading-tight mb-8">
-          Meridian Industrials — Proposed $45M Growth Investment
-          <span
-            className="inline-block w-[2px] h-[20px] bg-[#2B4BF2] align-middle ml-1"
-            style={{ animation: 'capsaCursorBlink 1s steps(2) infinite' }}
-          ></span>
-        </h4>
-
-        <div className="space-y-6 text-[13px] leading-[1.85] text-slate-600">
-          <div>
-            <div className="text-[10px] font-mono uppercase tracking-[0.15em] text-slate-400 mb-2">
-              Financial performance
-            </div>
-            <p>Target exhibits robust margin profiles, maintaining a 71.5% gross margin over the LTM period. Software revenue compounds efficiently.</p>
-          </div>
-          <div
-            className="border-l-2 border-[#2B4BF2] pl-4 py-1 rounded-r-md"
-            style={{ animation: 'capsaHighlight 3s ease-in-out infinite' }}
-          >
-            <div className="text-[10px] font-mono uppercase tracking-[0.15em] text-[#2B4BF2] mb-2">
-              Capsa insight
-            </div>
-            <p className="text-slate-700">
-              LTV:CAC ratio of 9.3x sits well above peer median (4.5x). The $1.2M legal add-back warrants further diligence.
-            </p>
-          </div>
-          <div>
-            <div className="text-[10px] font-mono uppercase tracking-[0.15em] text-slate-400 mb-2">
-              Covenant considerations
-            </div>
-            <p>Pro forma leverage at 2.4x provides headroom against the 4.0x maximum in the primary facility.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-);
 
 
 const MockupPortfolio = () => (
