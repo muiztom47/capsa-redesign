@@ -288,10 +288,12 @@ export default function Home() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 shrink-0">
-                <Link to="/contact" className="bg-blue-600 text-white px-8 py-4 rounded-lg text-sm font-semibold hover:bg-blue-700 transition-all flex items-center justify-center group shadow-sm hover:shadow-md whitespace-nowrap">
-                  Book a Demo <IconArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
-                <Link to="/platform" className="bg-white border border-gray-200 text-gray-700 px-8 py-4 rounded-lg text-sm font-semibold hover:bg-gray-50 transition-colors shadow-sm whitespace-nowrap text-center">
+              
+<Link to="/contact" className="bg-[#3445ee] text-white px-8 py-4 rounded-lg text-sm font-semibold hover:bg-[#2a3ad4] transition-all flex items-center justify-center group shadow-sm hover:shadow-md whitespace-nowrap">
+  Book a Demo <IconArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+</Link>
+
+                <Link to="/platform" className="border border-gray-200 text-gray-700 px-8 py-4 rounded-lg text-sm font-semibold hover:bg-gray-50 transition-colors shadow-sm whitespace-nowrap text-center">
                   View platform
                 </Link>
               </div>

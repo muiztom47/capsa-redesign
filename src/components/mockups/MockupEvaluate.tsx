@@ -55,6 +55,10 @@ const MockupEvaluate = ({ activeTab, setActiveTab }: { activeTab: number; setAct
           0%, 100% { transform: scale(1); }
           50%      { transform: scale(0.94); }
         }
+        @keyframes evalBarGrow {
+          0%   { transform: scaleX(0); opacity: 0; }
+          100% { transform: scaleX(1); opacity: 1; }
+        }
       `}</style>
 
       {/* Chrome */}
@@ -94,7 +98,7 @@ const MockupEvaluate = ({ activeTab, setActiveTab }: { activeTab: number; setAct
             <div className="flex-1 overflow-auto px-8 py-6">
 
               {/* headline stat cards */}
-              <div className="grid grid-cols-3 gap-4 mb-7">
+              <div className="grid grid-cols-3 divide-x divide-slate-200 border-y border-slate-200 mb-8">
                 {[
                   { label: 'Median EV / EBITDA', value: '11.6x', sub: '8.2x – 17.2x range' },
                   { label: 'Implied EV', value: '€71.9M', sub: 'at €6.2M target EBITDA' },
@@ -102,14 +106,14 @@ const MockupEvaluate = ({ activeTab, setActiveTab }: { activeTab: number; setAct
                 ].map((s, si) => (
                   <div
                     key={si}
-                    className="rounded-lg border border-slate-200 px-5 py-4"
+                    className="px-6 py-5 first:pl-0 last:pr-0"
                     style={{ animation: `evalFadeUp 0.4s ease-out ${si * 0.08}s both` }}
                   >
-                    <div className="text-[9.5px] font-mono uppercase tracking-[0.12em] text-slate-400 mb-1.5">
+                    <div className="text-[9.5px] font-mono uppercase tracking-[0.14em] text-slate-400 mb-2">
                       {s.label}
                     </div>
-                    <div className="text-[22px] font-serif text-slate-900 tracking-tight">{s.value}</div>
-                    <div className="text-[11px] text-slate-400 mt-1">{s.sub}</div>
+                    <div className="text-[28px] font-serif text-slate-900 tracking-tight leading-none">{s.value}</div>
+                    <div className="text-[11px] text-slate-400 mt-2">{s.sub}</div>
                   </div>
                 ))}
               </div>
@@ -131,9 +135,9 @@ const MockupEvaluate = ({ activeTab, setActiveTab }: { activeTab: number; setAct
                   </thead>
                   <tbody className="divide-y divide-slate-100">
                     {[
-                      { m: 'EV / EBITDA', low: '8.2x', med: '11.6x', high: '17.2x', pos: 0.48 },
-                      { m: 'EV / Revenue', low: '2.1x', med: '3.4x', high: '5.8x', pos: 0.4 },
-                      { m: 'P / E', low: '14.0x', med: '19.8x', high: '27.5x', pos: 0.44 },
+                      { m: 'EV / EBITDA', low: '8.2x', med: '11.6x', high: '17.2x', lowPos: 0.1, pos: 0.48, highPos: 0.92 },
+                      { m: 'EV / Revenue', low: '2.1x', med: '3.4x', high: '5.8x', lowPos: 0.08, pos: 0.4, highPos: 0.85 },
+                      { m: 'P / E', low: '14.0x', med: '19.8x', high: '27.5x', lowPos: 0.12, pos: 0.44, highPos: 0.9 },
                     ].map((r, ri) => (
                       <tr
                         key={ri}
@@ -145,10 +149,18 @@ const MockupEvaluate = ({ activeTab, setActiveTab }: { activeTab: number; setAct
                         <td className="px-6 py-4 text-right text-[13px] font-mono text-[#2B4BF2] font-semibold tabular-nums">{r.med}</td>
                         <td className="px-6 py-4 text-right text-[13px] font-mono text-slate-400 tabular-nums">{r.high}</td>
                         <td className="px-6 py-4">
-                          <div className="relative h-[4px] rounded-full bg-slate-100">
+                          <div className="relative h-[3px] rounded-full bg-slate-100">
                             <div
-                              className="absolute top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-[#2B4BF2]"
-                              style={{ left: `calc(${r.pos * 100}% - 4px)` }}
+                              className="absolute top-0 h-full rounded-full bg-[#2B4BF2]/20 origin-left"
+                              style={{
+                                left: `${r.lowPos * 100}%`,
+                                width: `${(r.highPos - r.lowPos) * 100}%`,
+                                animation: `evalBarGrow 0.5s ease-out ${0.5 + ri * 0.08}s both`,
+                              }}
+                            ></div>
+                            <div
+                              className="absolute top-1/2 -translate-y-1/2 w-[3px] h-[10px] rounded-full bg-[#2B4BF2]"
+                              style={{ left: `calc(${r.pos * 100}% - 1.5px)`, animation: `evalFadeIn 0.3s ease-out ${0.7 + ri * 0.08}s both` }}
                             ></div>
                           </div>
                         </td>
@@ -298,7 +310,7 @@ const MockupEvaluate = ({ activeTab, setActiveTab }: { activeTab: number; setAct
             >
               <table className="w-full text-[12.5px]">
                 <thead>
-                  <tr className="border-b border-slate-200 text-[10px] font-mono uppercase tracking-[0.12em] text-slate-400 bg-slate-50/70">
+                  <tr className="border-b border-slate-200 text-[10px] font-mono uppercase tracking-[0.12em] text-slate-400 bg-[#2B4BF2]/[0.03]">
                     <th className="text-left px-4 py-3 font-normal">Company</th>
                     <th className="text-right px-4 py-3 font-normal">Revenue €m</th>
                     <th className="text-right px-4 py-3 font-normal">GP €m</th>
@@ -317,24 +329,24 @@ const MockupEvaluate = ({ activeTab, setActiveTab }: { activeTab: number; setAct
                   ].map((r, ri) => (
                     <tr
                       key={ri}
-                      className={r.highlight ? 'bg-[#2B4BF2]/[0.03]' : ''}
+                      className={r.highlight ? 'bg-[#2B4BF2]/[0.05]' : ''}
                       style={{ animation: `evalFadeUp 0.35s ease-out ${3.0 + ri * 0.08}s both` }}
                     >
-                      <td className="px-4 py-3 font-medium text-slate-900 whitespace-nowrap">
+                      <td className={`px-4 py-3 font-medium text-slate-900 whitespace-nowrap border-l-2 ${r.highlight ? 'border-l-[#2B4BF2]' : 'border-l-transparent'}`}>
                         {r.name}
                         {r.highlight && (
-                          <span className="ml-2 text-[9px] font-mono uppercase tracking-[0.1em] text-[#2B4BF2] bg-[#2B4BF2]/10 px-1.5 py-0.5 rounded align-middle">
+                          <span className="ml-2 text-[9px] font-mono uppercase tracking-[0.1em] text-white bg-[#2B4BF2] px-1.5 py-0.5 rounded align-middle">
                             Target
                           </span>
                         )}
                       </td>
                       <td className="px-4 py-3 text-right font-mono tabular-nums text-slate-600">{r.rev}</td>
                       <td className="px-4 py-3 text-right font-mono tabular-nums text-slate-600">{r.gp}</td>
-                      <td className={`px-4 py-3 text-right font-mono tabular-nums font-medium ${r.gpmUp ? 'bg-emerald-50 text-emerald-700' : 'bg-rose-50 text-rose-600'}`}>
+                      <td className={`px-4 py-3 text-right font-mono tabular-nums font-medium ${r.gpmUp ? 'bg-[#2B4BF2]/[0.07] text-[#2B4BF2]' : 'text-slate-400'}`}>
                         {r.gpm}
                       </td>
                       <td className="px-4 py-3 text-right font-mono tabular-nums text-slate-600">{r.ebitda}</td>
-                      <td className={`px-4 py-3 text-right font-mono tabular-nums font-medium ${r.ebmUp ? 'bg-emerald-50 text-emerald-700' : 'bg-rose-50 text-rose-600'}`}>
+                      <td className={`px-4 py-3 text-right font-mono tabular-nums font-medium ${r.ebmUp ? 'bg-[#2B4BF2]/[0.07] text-[#2B4BF2]' : 'text-slate-400'}`}>
                         {r.ebm}
                       </td>
                     </tr>
