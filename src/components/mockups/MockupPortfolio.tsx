@@ -32,15 +32,13 @@ const IconAlert = () => (
 const PORTFOLIO_DATA = [
   { name: 'Meridian Renewables', sector: 'Infrastructure', arr: '$45.2M', ebitda: '$12.1M', yoy: '+18.4%', trend: 'up', status: 'On Track', risk: 'Low' },
   { name: 'Cobalt Grid Storage', sector: 'Energy', arr: '$18.9M', ebitda: '-$2.4M', yoy: '-6.2%', trend: 'down', status: 'Review', risk: 'Med' },
-  { name: 'Vanguard Logistics', sector: 'Industrial', arr: '$112.5M', ebitda: '$41.8M', yoy: '+12.1%', trend: 'up', status: 'On Track', risk: 'Low' },
   { name: 'Amberline Health', sector: 'Healthcare', arr: '$34.1M', ebitda: '$4.2M', yoy: '-2.8%', trend: 'down', status: 'Flagged', risk: 'High' },
-  { name: 'Apex Infrastructure', sector: 'Infrastructure', arr: '$280.0M', ebitda: '$88.5M', yoy: '+9.7%', trend: 'up', status: 'On Track', risk: 'Low' },
 ];
 
 const KPIS = [
-  { label: 'Portfolio ARR', value: '$490.7M', delta: '+11.2%', trend: 'up' },
-  { label: 'Blended EBITDA', value: '$144.2M', delta: '+8.4%', trend: 'up' },
-  { label: 'Covenant Health', value: '4 / 5', delta: '1 flagged', trend: 'down' },
+  { label: 'Portfolio ARR', value: '$98.2M', delta: '+3.1%', trend: 'up' },
+  { label: 'Blended EBITDA', value: '$13.9M', delta: '+1.4%', trend: 'up' },
+  { label: 'Covenant Health', value: '2 / 3', delta: '1 flagged', trend: 'down' },
   { label: 'Next Review', value: 'Q3 2026', delta: 'in 24 days', trend: 'flat' },
 ];
 
@@ -71,7 +69,7 @@ const MockupPortfolio = () => {
       {/* Header */}
       <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-white shrink-0">
         <div className="flex items-center gap-3">
-          <span className="text-[13px] font-semibold text-slate-900 tracking-tight">Fund IV — Operating Metrics</span>
+     <span className="text-[13px] font-semibold text-slate-900 tracking-tight">Fund IV Operating Metrics</span>
           <span className="text-[13px] text-slate-300 font-light select-none">/</span>
           <span className="text-[13px] text-slate-500 font-light">Q3 2026</span>
         </div>
@@ -88,41 +86,43 @@ const MockupPortfolio = () => {
       </div>
 
       {/* KPI strip */}
-      <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-slate-100 border-b border-slate-200 bg-white shrink-0">
+ <div className="grid grid-cols-2 md:grid-cols-4 border-b border-slate-100 bg-white shrink-0">
         {KPIS.map((k, i) => (
           <div
             key={k.label}
             className={`px-6 py-5 transition-colors duration-500 ${pulseIdx === i ? 'bg-[#2B4BF2]/[0.025]' : 'bg-white'}`}
              
           >
-            <div className="text-[9px] font-mono uppercase tracking-[0.15em] text-slate-400 mb-2">{k.label}</div>
+            <div className="text-[11px] font-mono uppercase tracking-[0.15em] text-slate-400 mb-2">{k.label}</div>
             <div className="flex items-end justify-between gap-2">
-              <div className="text-[24px] font-serif text-slate-900 tracking-tight leading-none">{k.value}</div>
-              {k.trend === 'up' && (
-                <span className="text-[#2B4BF2] flex items-center gap-0.5 text-[10px] font-medium mb-0.5">
-                  <IconTrendUp /> {k.delta}
+              <div className="text-[28px] font-serif text-slate-900 tracking-tight leading-none">{k.value}</div>
+          
+                      {k.trend === 'up' && (
+                <span className="text-slate-400 flex items-center gap-0.5 text-[12px] font-normal mb-0.5">
+                  {k.delta}
                 </span>
               )}
               {k.trend === 'down' && (
-                <span className="text-rose-600 flex items-center gap-0.5 text-[10px] font-medium mb-0.5">
-                  <IconAlert /> {k.delta}
+                <span className="text-rose-600 flex items-center gap-0.5 text-[12px] font-normal mb-0.5">
+                  {k.delta}
                 </span>
               )}
               {k.trend === 'flat' && (
-                <span className="text-slate-400 text-[10px] font-medium mb-0.5">{k.delta}</span>
+                <span className="text-slate-400 text-[12px] font-medium mb-0.5">{k.delta}</span>
               )}
+
             </div>
           </div>
         ))}
       </div>
 
       {/* Table header */}
-      <div className="grid grid-cols-[1.6fr_0.9fr_0.9fr_0.7fr_0.8fr] gap-4 px-6 py-2.5 border-b border-slate-100 bg-[#2B4BF2]/[0.02] shrink-0">
-        <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-slate-400">Asset</span>
-        <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-slate-400 text-right">ARR</span>
-        <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-slate-400 text-right">EBITDA</span>
-        <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-slate-400 text-right">YoY</span>
-        <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-slate-400 text-right">Status</span>
+      <div className="grid grid-cols-[1.6fr_0.9fr_0.9fr_0.7fr_0.8fr] gap-4 px-6 py-3 border-b border-slate-100 bg-[#2B4BF2]/[0.02] shrink-0">
+        <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-slate-400">Asset</span>
+        <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-slate-400 text-right">ARR</span>
+        <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-slate-400 text-right">EBITDA</span>
+        <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-slate-400 text-right">YoY</span>
+        <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-slate-400 text-right">Status</span>
       </div>
 
       {/* Rows */}
@@ -130,34 +130,38 @@ const MockupPortfolio = () => {
         {PORTFOLIO_DATA.map((item, i) => (
           <div
             key={i}
-            className="grid grid-cols-[1.6fr_0.9fr_0.9fr_0.7fr_0.8fr] gap-4 items-center px-6 py-3.5 border-b border-slate-100 hover:bg-slate-50/60 transition-colors"
+            className="grid grid-cols-[1.6fr_0.9fr_0.9fr_0.7fr_0.8fr] gap-4 items-center px-6 py-4 border-b border-slate-100 hover:bg-slate-50/60 transition-colors"
               
           >
             {/* Asset + sector */}
             <div className="min-w-0">
-              <div className="text-[12.5px] font-medium text-slate-900 truncate">{item.name}</div>
-              <div className="text-[10.5px] text-slate-400 font-light truncate">{item.sector}</div>
+              <div className="text-[14.5px] font-medium text-slate-900 truncate">{item.name}</div>
+              <div className="text-[12px] text-slate-400 font-light truncate">{item.sector}</div>
             </div>
 
-            <div className="text-[12px] font-mono text-slate-700 text-right">{item.arr}</div>
+            <div className="text-[14px] font-mono text-slate-700 text-right">{item.arr}</div>
 
-            <div className={`text-[12px] font-mono text-right ${item.ebitda.startsWith('-') ? 'text-rose-500' : 'text-slate-700'}`}>
+            <div className={`text-[14px] font-mono text-right ${item.ebitda.startsWith('-') ? 'text-rose-500' : 'text-slate-700'}`}>
               {item.ebitda}
             </div>
 
-            <div className={`text-[11px] font-mono text-right flex items-center justify-end gap-0.5 ${
-              item.trend === 'up' ? 'text-[#2B4BF2]' : 'text-rose-500'
+            <div className={`text-[13px] font-mono text-right ${
+              item.trend === 'up' ? 'text-slate-500' : 'text-rose-500'
             }`}>
-              {item.trend === 'up' ? <IconTrendUp /> : <IconTrendDown />}
               {item.yoy}
             </div>
 
             <div className="flex justify-end">
-              <span className={`px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.1em] rounded-full ${
-                item.status === 'On Track' ? 'bg-[#2B4BF2]/[0.08] text-[#2B4BF2]' :
-                item.status === 'Review' ? 'bg-amber-50 text-amber-700' :
-                'bg-rose-600 text-white'
+            <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 text-[10.5px] font-medium uppercase tracking-[0.1em] rounded-full ${
+                item.status === 'On Track' ? 'text-slate-500' :
+                item.status === 'Review' ? 'text-amber-700' :
+                'text-rose-600'
               }`}>
+                <span className={`w-1 h-1 rounded-full ${
+                  item.status === 'On Track' ? 'bg-[#2B4BF2]' :
+                  item.status === 'Review' ? 'bg-amber-500' :
+                  'bg-rose-500'
+                }`}></span>
                 {item.status}
               </span>
             </div>

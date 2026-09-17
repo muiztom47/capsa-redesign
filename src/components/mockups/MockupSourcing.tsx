@@ -268,7 +268,7 @@ const MockupSourcing = () => (
           </div>
 
           <button
-            className="relative flex items-center gap-1.5 bg-[#2B4BF2] text-white text-[12px] font-semibold tracking-wide px-5 py-2.5 rounded-lg shadow-[0_10px_25px_-10px_rgba(43,75,242,0.8)]"
+            className="relative flex items-center gap-1.5 bg-[#2B4BF2] text-white text-[12px] font-semibold tracking-wide px-5 py-2.5 rounded-lg"
             style={{ animation: 'capsaClick 8s ease-in-out infinite' }}
           >
             Ask Capsa

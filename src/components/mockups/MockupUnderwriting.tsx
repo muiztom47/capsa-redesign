@@ -62,7 +62,7 @@ const IconDownload = () => (
 );
 
 const MockupUnderwriting = () => {
-  const CYCLE = 24;
+  const CYCLE = 30;
 
   return (
     <div className="w-full h-full bg-white flex flex-col font-sans relative overflow-hidden">
@@ -72,55 +72,88 @@ const MockupUnderwriting = () => {
           0%, 49% { opacity: 1; }
           50%, 100% { opacity: 0; }
         }
-        @keyframes capsaStatusThinking {
-          0%, 9% { opacity: 1; }
-          13%, 100% { opacity: 0; }
+         @keyframes capsaStatusThinking {
+          0%, 27% { opacity: 1; }
+          30%, 100% { opacity: 0; }
         }
         @keyframes capsaStatusSynth {
-          0%, 15% { opacity: 0; }
-          18%, 23% { opacity: 1; }
-          26%, 100% { opacity: 0; }
+          0%, 32% { opacity: 0; }
+          34%, 38% { opacity: 1; }
+          41%, 100% { opacity: 0; }
         }
         @keyframes capsaStatusDone {
-          0%, 25% { opacity: 0; }
-          28%, 97% { opacity: 1; }
+          0%, 40% { opacity: 0; }
+          42%, 98% { opacity: 1; }
           100% { opacity: 0; }
         }
         @keyframes capsaPromptPhase {
-          0%, 9% { opacity: 1; }
-          13%, 100% { opacity: 0; }
+          0%, 27% { opacity: 1; }
+          30%, 100% { opacity: 0; }
         }
-        @keyframes capsaButtonPress {
-          0%, 8%, 100% { transform: scale(1); }
-          10% { transform: scale(0.92); }
-          11% { transform: scale(1); }
+  @keyframes capsaButtonPress {
+          0%, 26%, 100% { transform: scale(1); }
+          28% { transform: scale(0.92); }
+          29% { transform: scale(1); }
+        }
+  
+        @keyframes capsaClickGlowMemo {
+          0%, 25%  { opacity: 0; transform: scale(0.6); }
+          28%      { opacity: 1; transform: scale(1); }
+          31%      { opacity: 0; transform: scale(1.8); }
+          100%     { opacity: 0; transform: scale(1.8); }
+        }
+        @keyframes capsaRippleMemo {
+          0%, 25%  { opacity: 0; transform: scale(1); }
+          27%      { opacity: 0.9; transform: scale(1); }
+          31%      { opacity: 0; transform: scale(1.6); }
+          100%     { opacity: 0; transform: scale(1.6); }
+        }
+     @keyframes capsaCursorMoveMemo {
+          0%, 22%  { transform: translate(-40px, -46px) scale(1); opacity: 0; }
+          23%      { opacity: 1; }
+          25%      { transform: translate(-4px, -4px) scale(1); opacity: 1; }
+          27%      { transform: translate(0px, 0px) scale(0.88); opacity: 1; }
+          28%, 29% { transform: translate(0px, 0px) scale(1); opacity: 1; }
+          31%, 100% { transform: translate(0px, 0px) scale(1); opacity: 0; }
+        }
+        @keyframes capsaClickGlowMemo {
+          0%, 25%  { opacity: 0; transform: scale(0.6); }
+          28%      { opacity: 1; transform: scale(1); }
+          31%      { opacity: 0; transform: scale(1.8); }
+          100%     { opacity: 0; transform: scale(1.8); }
+        }
+        @keyframes capsaRippleMemo {
+          0%, 25%  { opacity: 0; transform: scale(1); }
+          27%      { opacity: 0.9; transform: scale(1); }
+          31%      { opacity: 0; transform: scale(1.6); }
+          100%     { opacity: 0; transform: scale(1.6); }
         }
         @keyframes capsaLoadingPhase {
-          0%, 13% { opacity: 0; }
-          16%, 22% { opacity: 1; }
-          25%, 100% { opacity: 0; }
+          0%, 30% { opacity: 0; }
+          33%, 38% { opacity: 1; }
+          40%, 100% { opacity: 0; }
         }
         @keyframes capsaSpin {
           to { transform: rotate(360deg); }
         }
-        @keyframes capsaMemoPhase {
-          0%, 24% { opacity: 0; transform: translateY(8px); }
-          28%, 96% { opacity: 1; transform: translateY(0); }
+       @keyframes capsaMemoPhase {
+          0%, 39% { opacity: 0; transform: translateY(8px); }
+          42%, 97% { opacity: 1; transform: translateY(0); }
           99%, 100% { opacity: 0; transform: translateY(8px); }
         }
         @keyframes capsaChatShow {
-          0%, 38% { opacity: 0; transform: translateY(6px); }
-          42%, 96% { opacity: 1; transform: translateY(0); }
+          0%, 50% { opacity: 0; transform: translateY(6px); }
+          54%, 97% { opacity: 1; transform: translateY(0); }
           99%, 100% { opacity: 0; transform: translateY(6px); }
         }
         @keyframes capsaChatType {
-          0%, 42% { width: 0%; }
-          54%, 96% { width: 100%; }
+          0%, 54% { width: 0%; }
+          63%, 97% { width: 100%; }
           99%, 100% { width: 0%; }
         }
         @keyframes capsaSendShow {
-          0%, 54% { opacity: 0; transform: translateX(4px); }
-          58%, 96% { opacity: 1; transform: translateX(0); }
+          0%, 63% { opacity: 0; transform: translateX(4px); }
+          66%, 97% { opacity: 1; transform: translateX(0); }
           99%, 100% { opacity: 0; transform: translateX(4px); }
         }
         .capsa-loop { animation-duration: ${CYCLE}s; animation-timing-function: ease-out; animation-iteration-count: infinite; animation-fill-mode: both; }
@@ -129,7 +162,7 @@ const MockupUnderwriting = () => {
       {/* Chrome */}
       <div className="flex items-center justify-between px-8 py-3.5 border-b border-slate-200 bg-white shrink-0 relative z-10">
         <div className="flex items-center gap-3">
-          <span className="text-[13px] font-semibold text-slate-900 tracking-tight">Memo generator</span>
+          <span className="text-[13px] font-semibold text-slate-900 tracking-tight">Memo Workspace</span>
           <span className="text-[13px] text-slate-300 font-light select-none">/</span>
           <span className="text-[13px] text-slate-500 font-light">Meridian Industrials</span>
         </div>
@@ -153,9 +186,9 @@ const MockupUnderwriting = () => {
 
         {/* Phase 1 — prompt + toolbar */}
         <div className="capsa-loop absolute inset-0 px-8 py-10 flex items-start justify-center" style={{ animationName: 'capsaPromptPhase' }}>
-          <div className="w-full max-w-[640px] rounded-lg border border-slate-200 bg-white px-5 py-4 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+           <div className="relative w-full max-w-[640px] rounded-lg border border-slate-200 bg-white px-5 py-4 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
             <div className="text-[13.5px] text-slate-800 leading-[1.6] font-light mb-4">
-              Generate an IC memo for the Meridian Industrials opportunity — focus on LTV:CAC and covenant headroom.
+                          Draft the IC memo for Meridian. I need LTV:CAC benchmarked against peers, and I want to know we still clear covenant under a downside case.
             </div>
             <div className="flex items-center justify-between pt-3 border-t border-slate-100">
               <div className="flex items-center gap-3 text-slate-400">
@@ -166,6 +199,41 @@ const MockupUnderwriting = () => {
               <button className="capsa-loop bg-[#2B4BF2] text-white text-[12px] font-medium px-4 py-1.5 rounded-md" style={{ animationName: 'capsaButtonPress' }}>
                 Ask Capsa
               </button>
+            </div>
+
+            {/* animated cursor, arriving at the button — same treatment as Sourcing */}
+            <div
+              className="capsa-loop absolute pointer-events-none z-30"
+              style={{ animationName: 'capsaCursorMoveMemo', bottom: '14px', right: '18px' }}
+            >
+              <span
+                className="capsa-loop absolute rounded-full"
+                style={{
+                  width: '28px',
+                  height: '28px',
+                  left: '-4px',
+                  top: '-4px',
+                  background: 'radial-gradient(circle, rgba(43,75,242,0.35) 0%, transparent 70%)',
+                  animationName: 'capsaClickGlowMemo',
+                }}
+              ></span>
+              <svg width="30" height="30" viewBox="0 0 24 24" style={{ filter: 'drop-shadow(0 1px 3px rgba(15,23,42,0.18))' }}>
+                <g transform="scale(-1,1) translate(-24,0)">
+                  <path
+                    d="M21 3L3 10.6L11 12.8L13.2 20.8L21 3Z"
+                    fill="white"
+                    stroke="#94A3B8"
+                    strokeWidth="0.9"
+                    strokeLinejoin="round"
+                    strokeLinecap="round"
+                  />
+                  <path d="M21 3L11 12.8" stroke="#94A3B8" strokeWidth="0.9" strokeLinecap="round" />
+                </g>
+              </svg>
+              <span
+                className="capsa-loop absolute inset-0 rounded-lg pointer-events-none"
+                style={{ border: '2px solid #2B4BF2', animationName: 'capsaRippleMemo' }}
+              ></span>
             </div>
           </div>
         </div>
@@ -219,7 +287,7 @@ const MockupUnderwriting = () => {
               <div className="space-y-4 text-[12.5px] leading-[1.65] text-slate-700 font-light">
                 <div>
                   <div className="text-[10px] font-mono uppercase tracking-[0.15em] text-slate-400 mb-1.5">I. Financial Performance</div>
-                  <p>Target exhibits robust margin profiles, maintaining a 71.5% gross margin over the LTM period.</p>
+                              <p>Gross margin held at 71.5% through the LTM period, roughly 800 bps above the peer median, with no material seasonality in the underlying revenue mix.</p>
                 </div>
 
                 {/* Capsa Insight Callout */}
@@ -228,14 +296,14 @@ const MockupUnderwriting = () => {
                   <div className="pl-4 border-l-2 border-[#2B4BF2]/30">
                     <div className="text-[9.5px] font-mono uppercase tracking-[0.15em] text-[#2B4BF2] mb-1 pt-0.5">Capsa Insight</div>
                     <p className="text-slate-700 pb-0.5 pr-4">
-                      LTV:CAC ratio of 9.3x sits well above peer median (4.5x)<sup className="text-[#2B4BF2] font-mono not-italic ml-0.5">1</sup>. The $1.2M legal add-back warrants further diligence<sup className="text-[#2B4BF2] font-mono not-italic ml-0.5">2</sup>.
+                      LTV:CAC of 9.3x is more than double the peer median of 4.5x<sup className="text-[#2B4BF2] font-mono not-italic ml-0.5">1</sup>, and it's retention driving that gap, not pricing. One flag worth surfacing to committee: the $1.2M legal add-back inflates adjusted EBITDA by roughly 24 bps of margin and should be tested against the underlying litigation docket before it's treated as clean<sup className="text-[#2B4BF2] font-mono not-italic ml-0.5">2</sup>.
                     </p>
                   </div>
                 </div>
 
                 <div>
                   <div className="text-[10px] font-mono uppercase tracking-[0.15em] text-slate-400 mb-1.5">II. Covenant Considerations</div>
-                  <p>Pro forma leverage at 2.4x provides meaningful headroom against the 4.0x maximum permitted under the primary facility.</p>
+                     <p>Pro forma leverage of 2.4x leaves 1.6x of headroom against the 4.0x covenant ceiling, enough to absorb a full turn of EBITDA compression before a breach becomes a real risk.</p>
                 </div>
               </div>
 
@@ -262,9 +330,9 @@ const MockupUnderwriting = () => {
                 <span className="inline-block align-bottom" style={{ width: 'max-content' }}>
                   <span
                     className="text-slate-900 inline-block overflow-hidden whitespace-nowrap align-bottom"
-                    style={{ animation: 'capsaChatType 24s steps(200, end) infinite' }}
+                     style={{ animation: 'capsaChatType 30s steps(200, end) infinite' }}
                   >
-                    Tighten the covenant section — two sentences max.
+                                     Cut the covenant section to two sentences. Lead with the headroom number.
                   </span>
                   <span
                     className="inline-block w-[1.5px] h-[16px] bg-[#2B4BF2] align-middle ml-1"

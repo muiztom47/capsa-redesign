@@ -140,32 +140,50 @@ const TESTIMONIALS = [
    FAQ — objection-focused, mapped to PE buyer concerns
    ======================================================================== */
 
+
 const FAQS = [
+
   {
-    q: 'Where does Capsa sit in our existing stack?',
-    a: 'Alongside it. Capsa sits on top of the systems you already run — your data room, CRM, ERP, and shared drives. Nothing is migrated, nothing is replaced, and no downstream workflows are disrupted.',
+    q: 'What does a Capsa deployment include?',
+    a: 'A deployment includes the connections, permissions, workflows, and configuration required to put Capsa into your investment process. This can cover CRM, data rooms, shared drives, spreadsheets, external research, firm templates, investment criteria, and recurring portfolio workflows. Capsa is configured around the way your teams already work, so the platform supports existing processes rather than requiring the firm to adopt a separate operating model.'
   },
+
+
+
   {
-    q: 'How does the model avoid hallucination?',
-    a: 'Every output is grounded. Each claim links back to the exact source document and page it came from, so your team validates findings before they enter the committee record.',
+    q: 'How is our investment data isolated and protected?',
+    a: 'Capsa can be deployed in a single tenant environment with administrator controlled access and controls designed for institutional investment data. Client information is not used to train underlying models. Security considerations can be addressed during deployment across access, data handling, integrations, and governance. Capsa also maintains SOC 2 Type II and GDPR requirements, with DORA relevant controls for firms operating in regulated environments.'
   },
+
   {
-    q: 'What happens to our data?',
-    a: 'It stays yours. Capsa is deployed single-tenant, access is admin-controlled, and no client data is ever used to train underlying models. SOC 2 Type II, GDPR, and DORA-ready.',
+    q: 'How do we verify Capsa’s analysis before relying on it?',
+    a: 'Capsa keeps analysis tied to its supporting evidence. When the platform answers a question or identifies a finding, users can review the underlying document, page, section, or connected data source. This is particularly important for diligence and investment committee work, where an analyst needs to understand how a conclusion was reached. Teams can review the evidence, challenge the finding, and approve the final analysis.'
   },
+
   {
-    q: 'How long until a team is live?',
-    a: 'Weeks, not quarters. Capsa connects to your existing sources, mirrors your firm’s templates and mandate logic, and goes live on a live deal — not a synthetic sandbox.',
+    q: 'Can Capsa use our historical deal and portfolio data?',
+    a: 'Yes. Historical deal folders, investment committee materials, diligence documents, CRM records, portfolio information, and previous analysis can be connected to Capsa. That information can then be used when researching new opportunities, finding comparable transactions, or reviewing previous investment decisions. Instead of relying on individual team members to remember where relevant precedent sits, Capsa makes that internal information available within the current investment workflow.'
   },
+
+
+
   {
-    q: 'Do we need an engineering team to run it?',
-    a: 'No. Setup is handled by our team, workflows are configured to your firm’s existing standards, and day-to-day usage is entirely within the investment and portfolio teams.',
+    q: 'Can Capsa work across multiple strategies and investment teams?',
+    a: 'Yes. Capsa can support different investment strategies, teams, mandates, and workflows within the same firm. Access and workflows can be configured around the requirements of each group, while relevant information remains available according to the permissions applied. This allows sourcing, investment, diligence, and portfolio teams to work with the information relevant to their mandate without forcing every team into the same workflow.'
   },
+
   {
-    q: 'How is this different from a general-purpose AI tool?',
-    a: 'Generic tools are not built for private capital. Capsa is purpose-built around the deal lifecycle: sourcing, diligence, IC, close, and portfolio monitoring — with the governance those stages demand.',
+    q: 'How are Capsa workflows configured to our firm’s requirements?',
+    a: 'Workflows can be configured around the criteria, templates, approval processes, and recurring tasks your teams already use. That can include sourcing mandates, diligence questions, investment committee formats, reporting requirements, and portfolio monitoring schedules. The objective is not simply to give teams access to an AI assistant. It is to configure repeatable workflows around the specific information and decisions your firm handles throughout the investment lifecycle.'
   },
-];
+
+  {
+    q: 'What determines the cost of a Capsa deployment?',
+    a: 'Pricing is determined by the requirements of the deployment rather than a standard software package. Relevant factors include the number of teams and users, connected systems and data sources, workflows required, deployment configuration, and the level of support involved. Capsa can be scoped around the firm’s intended use, whether that begins with a specific investment team or extends across sourcing, diligence, and portfolio operations.'
+  },
+
+]
+
 
 /* ========================================================================
    UI MOCKUP COMPONENTS (Light, Glassy, Enterprise)
@@ -233,6 +251,7 @@ export default function Home() {
   const [activeSource, setActiveSource] = useState(0);
   const [activeTab, setActiveTab] = useState(0);
   const [workflowsVisible, setWorkflowsVisible] = useState(false);
+  const [openFaq, setOpenFaq] = useState(null);
   const workflowsRef = useRef(null);
 
   useEffect(() => {
@@ -628,8 +647,8 @@ Connect your firm’s data, automate the work between sourcing and IC, and give 
                           onClick={() => setActiveTab(ti)}
                           className={`px-4 py-2 rounded-full text-[12px] font-semibold transition-colors border ${
                             activeTab === ti
-                              ? 'bg-[#011522] text-white border-[#011522]'
-                              : 'text-[#011522]/55 border-[#011522]/20 hover:border-[#011522]/40'
+                              ? 'bg-[#0508b3] text-white border-[#0508b3]'
+                              : 'text-[#011522]/55 border-[#011522]/20 hover:border-[#0508b3]/40'
                           }`}
                         >
                           {t}
@@ -789,56 +808,95 @@ Connect your firm’s data, automate the work between sourcing and IC, and give 
                   Frequently asked
                 </span>
               </div>
-              <p className="text-[13.5px] text-[#011522]/50 leading-[1.7] font-light max-w-xs">
-                The questions every investment committee asks before signing off on a new system.
+              <p className="text-[13.5px] text-[#011522]/80 leading-[1.7] font-light max-w-2xl">
+                Everything you need to know about Capsa, from integrations and security to pricing and deployment.
               </p>
             </div>
-            <h2 className="font-serif text-4xl md:text-6xl text-[#011522] leading-[1.05] tracking-tight max-w-3xl">
-              Built for the questions your IC will ask.
+            <h2 className="font-serif text-4xl md:text-6xl text-[#011522] leading-[1.05] tracking-tight max-w-4xl">
+              What investment teams need to know before deploying Capsa.
             </h2>
           </div>
 
-          {/* FAQ list — numbered, hairline separated, no cards */}
+          {/* FAQ list — numbered, accent-on-open, premium hairline system */}
           <div className="border-t border-gray-200/70">
-            {FAQS.map((faq, i) => (
-              <details
-                key={i}
-                className="group border-b border-gray-200/70 open:bg-[#FAFAFA]/40 transition-colors duration-300"
-              >
-                <summary className="cursor-pointer list-none py-8 lg:py-10 grid grid-cols-1 lg:grid-cols-[80px_1fr_40px] gap-6 lg:gap-10 items-start">
-                  {/* index */}
-                  <span className="text-[11px] font-mono tracking-[0.2em] text-[#011522]/30 pt-2">
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
+            {FAQS.map((faq, i) => {
+              const isOpen = openFaq === i;
+              return (
+                <div
+                  key={i}
+                  className="group relative border-b border-gray-200/70 transition-colors duration-300"
+                >
+                  {/* left accent bar — hidden until hover/open */}
+                  <span
+                    className={`absolute left-0 top-0 bottom-0 w-[2px] bg-[#0508b3] origin-top transition-transform duration-500 ease-out ${
+                      isOpen ? 'scale-y-100' : 'scale-y-0 group-hover:scale-y-100'
+                    }`}
+                  ></span>
 
-                  {/* question */}
-                  <span className="font-serif text-[22px] md:text-[28px] leading-[1.25] text-[#011522] tracking-tight group-hover:text-[#0508b3] transition-colors">
-                    {faq.q}
-                  </span>
-
-                  {/* plus/minus indicator */}
-                  <span className="hidden lg:flex items-center justify-center w-9 h-9 rounded-full border border-[#011522]/15 text-[#011522]/60 group-open:bg-[#011522] group-open:text-white group-open:border-[#011522] group-hover:border-[#011522]/40 transition-all duration-300 self-center">
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth={1.5}
-                      className="w-3.5 h-3.5 transition-transform duration-300 group-open:rotate-45"
+                  <button
+                    type="button"
+                    onClick={() => setOpenFaq(isOpen ? null : i)}
+                    className="w-full text-left cursor-pointer py-8 lg:py-10 pl-6 lg:pl-8 grid grid-cols-1 lg:grid-cols-[64px_1fr_40px] gap-6 lg:gap-10 items-start"
+                  >
+                    {/* index badge */}
+                    <span
+                      className={`inline-flex items-center justify-center w-8 h-8 rounded-full border transition-all duration-300 ${
+                        isOpen
+                          ? 'border-[#0508b3]/30 text-[#0508b3] bg-[#0508b3]/[0.04]'
+                          : 'border-[#011522]/12 text-[#011522]/40'
+                      }`}
                     >
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 5v14M5 12h14" />
-                    </svg>
-                  </span>
-                </summary>
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
 
-                <div className="grid grid-cols-1 lg:grid-cols-[80px_1fr_40px] gap-6 lg:gap-10 pb-10">
-                  <span className="hidden lg:block" />
-                  <p className="text-[15.5px] text-[#011522]/60 leading-[1.8] font-light max-w-2xl">
-                    {faq.a}
-                  </p>
-                  <span className="hidden lg:block" />
+                    {/* question */}
+                    <span
+                      className={`font-serif text-[22px] md:text-[28px] leading-[1.25] tracking-tight transition-colors duration-300 ${
+                        isOpen
+                          ? 'text-[#0508b3]'
+                          : 'text-[#011522] group-hover:text-[#0508b3]'
+                      }`}
+                    >
+                      {faq.q}
+                    </span>
+
+                    {/* plus/minus indicator */}
+                    <span
+                      className={`flex items-center justify-center w-9 h-9 rounded-full border transition-all duration-300 self-center shrink-0 ${
+                        isOpen
+                          ? 'bg-[#0508b3] text-white border-[#0508b3]'
+                          : 'border-[#011522]/15 text-[#011522]/60 group-hover:border-[#0508b3]/40'
+                      }`}
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={1.5}
+                        className={`w-3.5 h-3.5 transition-transform duration-300 ${isOpen ? 'rotate-45' : ''}`}
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 5v14M5 12h14" />
+                      </svg>
+                    </span>
+                  </button>
+
+                  {/* answer — animated open/close */}
+                  <div
+                    className={`grid grid-cols-1 lg:grid-cols-[64px_1fr_40px] gap-6 lg:gap-10 overflow-hidden transition-all duration-500 ease-out ${
+                      isOpen ? 'max-h-[600px] opacity-100 pb-10' : 'max-h-0 opacity-0 pb-0'
+                    } pl-6 lg:pl-8`}
+                  >
+                    <span className="hidden lg:block" />
+                    <div className="pl-5 border-l-2 border-[#0508b3]/15 max-w-8xl">
+                      <p className="text-[15.5px] text-[#011522]/65 leading-[1.8] font-light">
+                        {faq.a}
+                      </p>
+                    </div>
+                    <span className="hidden lg:block" />
+                  </div>
                 </div>
-              </details>
-            ))}
+              );
+            })}
           </div>
 
         </div>
@@ -862,45 +920,38 @@ Connect your firm’s data, automate the work between sourcing and IC, and give 
             {/* Left: headline + description */}
             <div>
               <h2 className="font-serif text-4xl md:text-[4rem] leading-[1.05] text-[#FAFAF9] tracking-tight mb-7 max-w-2xl">
-                See Capsa on your<br />own pipeline.
+              See what Capsa looks<br /> like in practice.
               </h2>
-              <p className="text-[17px] text-[#E5E5E5]/70 leading-[1.7] font-light max-w-2xl">
-                Bring a live deal and we'll walk through sourcing, underwriting, and monitoring using your own data—no generic demo environment.
+              <p className="text-[17px] text-[#E5E5E5]/70 leading-[1.7] font-light max-w-xl">
+                Get a closer look at the platform, from the underlying technology to the workflows your team can configure around it.
               </p>
             </div>
 
-            {/* Right: actions, stacked, hairline separated */}
+            {/* Right: single primary action, editorial-weight button */}
             <div className="flex flex-col">
-
-              {/* primary action row */}
-              <Link
-                to="/demo"
-                className="group flex items-center justify-between gap-6 py-6 border-t border-[#1E1F2E] hover:border-white/30 transition-colors"
+              <a
+                href="https://capsa.ai/contact"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center justify-between gap-8 px-8 py-6 rounded-xl bg-[#0508b3] hover:bg-[#2a3ad4] transition-all duration-300 shadow-[0_8px_30px_-12px_rgba(5,8,179,0.6)]"
               >
-                <div className="flex flex-col">
-                  <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/40 mb-2">Primary</span>
-                  <span className="text-[19px] font-medium text-[#FAFAF9] tracking-tight">Book a technical demo</span>
-                </div>
-                <span className="flex items-center justify-center w-11 h-11 rounded-full border border-white/15 group-hover:bg-white group-hover:border-white transition-colors shrink-0">
-                  <IconArrowRight className="w-4 h-4 text-white group-hover:text-[#05050F] transition-colors" />
+                <span className="text-[19px] font-medium text-[#FAFAF9] tracking-tight whitespace-nowrap">
+                  Book a demo
                 </span>
-              </Link>
-
-              {/* secondary action row */}
-              <Link
-                to="/contact"
-                className="group flex items-center justify-between gap-6 py-6 border-t border-b border-[#1E1F2E] hover:border-white/30 transition-colors"
-              >
-                <div className="flex flex-col">
-                  <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/40 mb-2">Contact</span>
-                  <span className="text-[19px] font-medium text-[#FAFAF9] tracking-tight">Talk to sales</span>
-                </div>
-                <span className="flex items-center justify-center w-11 h-11 rounded-full border border-white/15 group-hover:bg-white group-hover:border-white transition-colors shrink-0">
-                  <IconArrowRight className="w-4 h-4 text-white group-hover:text-[#05050F] transition-colors" />
+                <span className="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 group-hover:bg-white transition-colors shrink-0">
+                  <IconArrowRight className="w-4 h-4 text-white group-hover:text-[#0508b3] transition-colors" />
                 </span>
-              </Link>
+              </a>
 
-    
+              <p className="text-[13px] text-[#E5E5E5]/40 font-light mt-4 text-center lg:text-left">
+                Or write to us at{' '}
+                <a
+                  href="mailto:contact@capsa.ai"
+                  className="text-[#E5E5E5]/70 hover:text-white transition-colors underline decoration-white/20 underline-offset-4"
+                >
+                 contact@capsa.ai
+                </a>
+              </p>
             </div>
           </div>
 

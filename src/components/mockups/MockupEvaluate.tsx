@@ -12,7 +12,7 @@ import React from 'react';
    the entrance animation replays cleanly every time.
    ============================================================ */
 
-const TABS = ['Trading comps', 'Legal review', 'Enterprise search'];
+const TABS = ['Trading Comparables', 'Legal Review', 'Enterprise Search'];
 
 const MockupEvaluate = ({ activeTab, setActiveTab }: { activeTab: number; setActiveTab: (i: number) => void }) => {
   return (
@@ -89,7 +89,7 @@ const MockupEvaluate = ({ activeTab, setActiveTab }: { activeTab: number; setAct
         {activeTab === 0 && (
           <div key={activeTab} className="h-full flex flex-col" style={{ animation: 'evalFadeIn 0.4s ease-out' }}>
             <div className="flex items-center justify-between px-8 py-5 border-b border-slate-100">
-              <h4 className="font-serif text-lg text-slate-900 tracking-tight">Trading comparables</h4>
+              <h4 className="font-serif text-lg text-slate-900 tracking-tight">Trading Comparables</h4>
               <span className="text-[10px] font-mono uppercase tracking-[0.15em] text-slate-400">
                 14 comps · FactSet live
               </span>
@@ -170,8 +170,8 @@ const MockupEvaluate = ({ activeTab, setActiveTab }: { activeTab: number; setAct
                 </table>
               </div>
 
-              <div
-                className="text-[10px] font-mono text-slate-400"
+                           <div
+                className="text-[10px] font-mono text-[#011522]/70"
                 style={{ animation: 'evalFadeUp 0.35s ease-out 0.6s both' }}
               >
                 Methodology: EU healthcare services, revenue €20–100M, last synced 2 min ago
@@ -193,7 +193,7 @@ const MockupEvaluate = ({ activeTab, setActiveTab }: { activeTab: number; setAct
                 className="text-[14px] text-slate-800 leading-[1.6] font-light overflow-hidden whitespace-nowrap"
                 style={{ animation: 'evalTypeRevealOnce 1.2s steps(60,end) both' }}
               >
-                Summarize the covenant terms in SPA_Meridian_vFinal.pdf
+                Summarise the covenant terms in SPA_Meridian_vFinal.pdf
               </div>
             </div>
 
@@ -282,7 +282,7 @@ const MockupEvaluate = ({ activeTab, setActiveTab }: { activeTab: number; setAct
                 Ask Capsa
               </div>
               <div className="text-[14px] text-slate-800 leading-[1.6] font-light overflow-hidden whitespace-nowrap" style={{ animation: 'evalTypeRevealOnce 1.3s steps(60,end) both' }}>
-                How does Helvetia Diagnostics compare to similar deals we've evaluated?
+                How does Helvetia Diagnostics compare to similar deals we’ve evaluated?
               </div>
             </div>
 
@@ -292,7 +292,7 @@ const MockupEvaluate = ({ activeTab, setActiveTab }: { activeTab: number; setAct
               style={{ animation: 'evalStatusOut 0.3s ease-in 2.5s both' }}
             >
               <span className="w-1.5 h-1.5 rounded-full bg-[#2B4BF2]" style={{ animation: 'evalSearchPulse 0.8s ease-in-out infinite 1.5s' }}></span>
-              <span style={{ animation: 'evalFadeIn 0.2s ease-out 1.5s both' }}>Analyzing 6 comparable deals across your data room…</span>
+              <span style={{ animation: 'evalFadeIn 0.2s ease-out 1.5s both' }}>Analysing 6 comparable deals across your data room…</span>
             </div>
 
             {/* response line */}
@@ -300,7 +300,7 @@ const MockupEvaluate = ({ activeTab, setActiveTab }: { activeTab: number; setAct
               className="text-[13px] text-slate-700 leading-[1.7] font-light mb-4"
               style={{ animation: 'evalFadeUp 0.4s ease-out 2.6s both' }}
             >
-              Helvetia leads the set on GP margin and sits mid-pack on EBITDA margin — highlighted below against five comparable healthcare assets.
+              Helvetia ranks first on GP margin at 50%, while its 10% EBITDA margin places it below the stronger-margin assets in the comparable set.
             </div>
 
             {/* color-coded comp table */}
