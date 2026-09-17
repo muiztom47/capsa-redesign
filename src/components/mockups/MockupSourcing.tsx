@@ -136,11 +136,7 @@ const BrandIcon = ({ domain, label }: { domain: string; label: string }) => (
    capsaLoadingBar, capsaResultIn, capsaPulse.
    ============================================================ */
 const MockupSourcing = () => (
-  <div className="w-full h-full bg-white flex flex-col font-sans relative overflow-hidden">
-
-
-
-
+  <div className="w-full h-auto bg-white flex flex-col font-sans relative overflow-hidden">
 <style>{`
   @keyframes capsaTypeReveal {
     0%, 2%    { width: 0%; }
@@ -156,11 +152,11 @@ const MockupSourcing = () => (
     0%, 49%   { opacity: 1; }
     50%, 100% { opacity: 0; }
   }
-  @keyframes capsaCursorMove {
-    0%   { transform: translate(-36px, -52px) scale(1); opacity: 0; }
-    22%  { opacity: 1; }
-    30%  { transform: translate(-4px, -4px) scale(1); opacity: 1; }
-    34%  { transform: translate(0px, 0px) scale(0.88); opacity: 1; }
+ @keyframes capsaCursorMove {
+    0%, 31% { transform: translate(-36px, -52px) scale(1); opacity: 0; }
+    32%  { opacity: 1; }
+    34%  { transform: translate(-4px, -4px) scale(1); opacity: 1; }
+    36%  { transform: translate(0px, 0px) scale(0.88); opacity: 1; }
     38%  { transform: translate(0px, 0px) scale(1); opacity: 1; }
     86%  { transform: translate(0px, 0px) scale(1); opacity: 1; }
     100% { transform: translate(0px, 0px) scale(1); opacity: 0; }
@@ -231,7 +227,7 @@ const MockupSourcing = () => (
       className="text-slate-900 inline-block overflow-hidden whitespace-nowrap align-bottom"
       style={{ animation: 'capsaTypeReveal 8s steps(200, end) infinite' }}
     >
-      Sourcing add-on targets in European healthcare with{' '}
+   Find me add-on targets in European healthcare with&nbsp;&nbsp;
       <span className="inline-block rounded-md px-1.5 -mx-0.5 font-medium bg-[#2B4BF2]/10 text-[#2B4BF2]">
         EBITDA &gt; €5M
       </span>
@@ -333,8 +329,8 @@ const MockupSourcing = () => (
       </div>
     </div>
 
-    {/* Results */}
-    <div className="flex-1 overflow-hidden px-8 pb-6">
+ {/* Results */}
+    <div className="overflow-hidden px-8 pb-6">
       <div className="text-[10px] font-mono uppercase tracking-[0.16em] text-slate-400 mb-3 mt-4">
         Ranked matches · 2
       </div>
@@ -367,11 +363,7 @@ const MockupSourcing = () => (
       </div>
     </div>
 
-    {/* Footer */}
-    <div className="px-8 py-3 border-t border-slate-200/70 flex items-center justify-between shrink-0 text-[10px] font-mono uppercase tracking-[0.16em] text-slate-400 bg-slate-50/50">
-      <span>Indexed 12 min ago</span>
-      <span>⌘K for filters</span>
-    </div>
+ 
   </div>
 );
 

@@ -46,6 +46,12 @@ const KPIS = [
 
 const MockupPortfolio = () => {
   const [pulseIdx, setPulseIdx] = useState(0);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const t = setTimeout(() => setMounted(true), 50);
+    return () => clearTimeout(t);
+  }, []);
 
   // subtle rotating highlight across the KPI cards so the panel feels live
   useEffect(() => {
@@ -55,6 +61,12 @@ const MockupPortfolio = () => {
 
   return (
     <div className="w-full h-full bg-white flex flex-col font-sans relative overflow-hidden">
+      <style>{`
+        @keyframes portfolioFadeUp {
+          0%   { opacity: 0; transform: translateY(8px); }
+          100% { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
 
       {/* Header */}
       <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-white shrink-0">
@@ -76,37 +88,36 @@ const MockupPortfolio = () => {
       </div>
 
       {/* KPI strip */}
-      <div className="grid grid-cols-2 md:grid-cols-4 border-b border-slate-200 bg-white shrink-0">
+      <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-slate-100 border-b border-slate-200 bg-white shrink-0">
         {KPIS.map((k, i) => (
           <div
             key={k.label}
-            className={`px-6 py-5 border-r border-slate-100 last:border-r-0 transition-colors duration-500 ${
-              pulseIdx === i ? 'bg-slate-50/70' : 'bg-white'
-            }`}
+            className={`px-6 py-5 transition-colors duration-500 ${pulseIdx === i ? 'bg-[#2B4BF2]/[0.025]' : 'bg-white'}`}
+             
           >
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-slate-400">{k.label}</span>
+            <div className="text-[9px] font-mono uppercase tracking-[0.15em] text-slate-400 mb-2">{k.label}</div>
+            <div className="flex items-end justify-between gap-2">
+              <div className="text-[24px] font-serif text-slate-900 tracking-tight leading-none">{k.value}</div>
               {k.trend === 'up' && (
-                <span className="text-emerald-600 flex items-center gap-0.5 text-[10px] font-medium">
+                <span className="text-[#2B4BF2] flex items-center gap-0.5 text-[10px] font-medium mb-0.5">
                   <IconTrendUp /> {k.delta}
                 </span>
               )}
               {k.trend === 'down' && (
-                <span className="text-rose-600 flex items-center gap-0.5 text-[10px] font-medium">
+                <span className="text-rose-600 flex items-center gap-0.5 text-[10px] font-medium mb-0.5">
                   <IconAlert /> {k.delta}
                 </span>
               )}
               {k.trend === 'flat' && (
-                <span className="text-slate-400 text-[10px] font-medium">{k.delta}</span>
+                <span className="text-slate-400 text-[10px] font-medium mb-0.5">{k.delta}</span>
               )}
             </div>
-            <div className="text-[20px] font-serif text-slate-900 tracking-tight">{k.value}</div>
           </div>
         ))}
       </div>
 
       {/* Table header */}
-      <div className="grid grid-cols-[1.6fr_0.9fr_0.9fr_0.7fr_0.8fr] gap-4 px-6 py-2.5 border-b border-slate-100 bg-slate-50/40 shrink-0">
+      <div className="grid grid-cols-[1.6fr_0.9fr_0.9fr_0.7fr_0.8fr] gap-4 px-6 py-2.5 border-b border-slate-100 bg-[#2B4BF2]/[0.02] shrink-0">
         <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-slate-400">Asset</span>
         <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-slate-400 text-right">ARR</span>
         <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-slate-400 text-right">EBITDA</span>
@@ -120,6 +131,7 @@ const MockupPortfolio = () => {
           <div
             key={i}
             className="grid grid-cols-[1.6fr_0.9fr_0.9fr_0.7fr_0.8fr] gap-4 items-center px-6 py-3.5 border-b border-slate-100 hover:bg-slate-50/60 transition-colors"
+              
           >
             {/* Asset + sector */}
             <div className="min-w-0">
@@ -129,22 +141,22 @@ const MockupPortfolio = () => {
 
             <div className="text-[12px] font-mono text-slate-700 text-right">{item.arr}</div>
 
-            <div className={`text-[12px] font-mono text-right ${item.ebitda.startsWith('-') ? 'text-rose-600' : 'text-slate-700'}`}>
+            <div className={`text-[12px] font-mono text-right ${item.ebitda.startsWith('-') ? 'text-rose-500' : 'text-slate-700'}`}>
               {item.ebitda}
             </div>
 
             <div className={`text-[11px] font-mono text-right flex items-center justify-end gap-0.5 ${
-              item.trend === 'up' ? 'text-emerald-600' : 'text-rose-600'
+              item.trend === 'up' ? 'text-[#2B4BF2]' : 'text-rose-500'
             }`}>
               {item.trend === 'up' ? <IconTrendUp /> : <IconTrendDown />}
               {item.yoy}
             </div>
 
             <div className="flex justify-end">
-              <span className={`px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.1em] rounded-full border ${
-                item.status === 'On Track' ? 'bg-emerald-50 text-emerald-700 border-emerald-200/60' :
-                item.status === 'Review' ? 'bg-amber-50 text-amber-700 border-amber-200/60' :
-                'bg-rose-50 text-rose-700 border-rose-200/60'
+              <span className={`px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.1em] rounded-full ${
+                item.status === 'On Track' ? 'bg-[#2B4BF2]/[0.08] text-[#2B4BF2]' :
+                item.status === 'Review' ? 'bg-amber-50 text-amber-700' :
+                'bg-rose-600 text-white'
               }`}>
                 {item.status}
               </span>
@@ -154,7 +166,10 @@ const MockupPortfolio = () => {
       </div>
 
       {/* Footer strip */}
-      <div className="flex items-center justify-between px-6 py-3 border-t border-slate-100 bg-slate-50/40 shrink-0">
+      <div
+        className="flex items-center justify-between px-6 py-3 border-t border-slate-100 bg-slate-50/40 shrink-0"
+           
+      >
         <span className="text-[10px] font-mono uppercase tracking-[0.15em] text-slate-400">
           Auto-refresh · ERP + Banking APIs · 12 min ago
         </span>

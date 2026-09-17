@@ -74,12 +74,14 @@ const IconDatabase = ({ className = "w-5 h-5" }) => (
    ======================================================================== */
 
 const LOGOS = [
-  { name: "ORION", type: "serif" },
-  { name: "SWISS CREDIT", type: "sans" },
-  { name: "QUADRIGA", type: "mono" },
-  { name: "CAPITAL D", type: "bold" },
-  { name: "DEUTSCHE BETEILIGUNGS", type: "light" },
-  { name: "NOVA CAPITAL", type: "serif" }
+  { src: "/images/bu-deutsche.svg", alt: "BU Deutsche Unternehmenscapital" },
+  { src: "/images/genui.svg", alt: "GENUI" },
+  { src: "/images/novum.svg", alt: "Novum Capital" },
+  { src: "/images/bba.svg", alt: "BBA" },
+  { src: "/images/bregal.svg", alt: "Bregal" },
+  { src: "/images/hannover-finanz.svg", alt: "Hannover Finanz" },
+  { src: "/images/quadriga.svg", alt: "Quadriga Capital" },
+  { src: "/images/capital-d.svg", alt: "Capital D" },
 ];
 
 const METRICS = [
@@ -134,7 +136,36 @@ const TESTIMONIALS = [
   },
 ];
 
- 
+/* ========================================================================
+   FAQ — objection-focused, mapped to PE buyer concerns
+   ======================================================================== */
+
+const FAQS = [
+  {
+    q: 'Where does Capsa sit in our existing stack?',
+    a: 'Alongside it. Capsa sits on top of the systems you already run — your data room, CRM, ERP, and shared drives. Nothing is migrated, nothing is replaced, and no downstream workflows are disrupted.',
+  },
+  {
+    q: 'How does the model avoid hallucination?',
+    a: 'Every output is grounded. Each claim links back to the exact source document and page it came from, so your team validates findings before they enter the committee record.',
+  },
+  {
+    q: 'What happens to our data?',
+    a: 'It stays yours. Capsa is deployed single-tenant, access is admin-controlled, and no client data is ever used to train underlying models. SOC 2 Type II, GDPR, and DORA-ready.',
+  },
+  {
+    q: 'How long until a team is live?',
+    a: 'Weeks, not quarters. Capsa connects to your existing sources, mirrors your firm’s templates and mandate logic, and goes live on a live deal — not a synthetic sandbox.',
+  },
+  {
+    q: 'Do we need an engineering team to run it?',
+    a: 'No. Setup is handled by our team, workflows are configured to your firm’s existing standards, and day-to-day usage is entirely within the investment and portfolio teams.',
+  },
+  {
+    q: 'How is this different from a general-purpose AI tool?',
+    a: 'Generic tools are not built for private capital. Capsa is purpose-built around the deal lifecycle: sourcing, diligence, IC, close, and portfolio monitoring — with the governance those stages demand.',
+  },
+];
 
 /* ========================================================================
    UI MOCKUP COMPONENTS (Light, Glassy, Enterprise)
@@ -161,15 +192,16 @@ const STAGES = [
     eyebrow: 'Source',
     tagline: 'Find the deal',
     title: 'Sourcing & add-on search',
-    desc: "Source and screen proprietary and add-on targets across your deal universe in seconds, scored against every live mandate the firm is running.",
+    desc: "Search across CRM, data rooms, and internal records to find proprietary and add-on targets that match your firm's active investment mandates.",
     render: () => <MockupSourcing />,
+    tall: true,
   },
   {
     n: '02',
     eyebrow: 'Evaluate',
     tagline: 'Diligence & research',
     title: 'A single diligence workspace',
-    desc: "Build trading comps, extract covenant terms from legal documents, and search every data room instantly, all grounded in the same live sources.",
+    desc: "Work across financial models, legal documents, trading comps, and market research in one diligence workspace, with key findings linked directly to supporting evidence.",
     tabs: ['Trading Comps', 'Legal Review', 'Enterprise Search'],
     render: (activeTab, setActiveTab) => <MockupEvaluate activeTab={activeTab} setActiveTab={setActiveTab} />,
   },
@@ -178,7 +210,7 @@ const STAGES = [
     eyebrow: 'Execute',
     tagline: 'Committee & close',
     title: 'IC materials creation',
-    desc: "Generate investment committee memos in minutes, pulling financials, covenant flags, and market context directly from the data room into your firm's exact template.",
+    desc: "Build investment committee memos from deal financials, diligence findings, market data, and risk flags, using your firm’s existing templates and review process.",
     render: () => <MockupUnderwriting />,
   },
  {
@@ -186,7 +218,7 @@ const STAGES = [
   eyebrow: 'Monitor',
   tagline: 'Post-close',
   title: 'Portfolio tracking & scheduled workflows',
-  desc: "Track KPIs and covenant compliance across the portfolio automatically, with quarterly reporting and market scans running on a schedule your team sets once.",
+  desc: "Monitor portfolio company KPIs, debt covenants, and reporting requirements across connected sources, with recurring workflows running on schedule.",
   render: () => <MockupPortfolio />,
   tall: true,
 },
@@ -251,12 +283,20 @@ export default function Home() {
     return () => observer.disconnect();
   }, []);
 
+ const scrollToPlatform = (e) => {
+    e.preventDefault();
+    const element = document.getElementById('platform');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#FAFAFA] text-gray-900 font-sans selection:bg-blue-100 selection:text-blue-900 antialiased">
 
 
       {/* ---------- HERO SECTION ---------- */}
-      <section className="relative pt-16 pb-40 overflow-hidden">
+      <section className="relative pt-16 pb-20 overflow-hidden">
 
         {/* Light, Glassy Background */}
         <div className="absolute inset-0 pointer-events-none -z-10 bg-[#FAFAFA]">
@@ -283,19 +323,27 @@ export default function Home() {
             </h1>
 
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
-                    <p className="text-[19px] text-[#011522]/70 leading-relaxed font-light max-w-2xl font-inter">
-                Connect your firm’s data, run custom investment workflows, and trace every insight back to its original source, all in one governed platform.
+                    <p className="text-[19px] text-[#011522]/80 leading-relaxed font-light max-w-3xl font-inter">
+Connect your firm’s data, automate the work between sourcing and IC, and give every investment decision the context, evidence, and institutional memory behind it.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 shrink-0">
               
-<Link to="/contact" className="bg-[#3445ee] text-white px-8 py-4 rounded-lg text-sm font-semibold hover:bg-[#2a3ad4] transition-all flex items-center justify-center group shadow-sm hover:shadow-md whitespace-nowrap">
+<a  href="https://capsa.ai/contact"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="bg-[#0508b3] text-white px-8 py-4 rounded-lg text-sm font-semibold hover:bg-[#2a3ad4] transition-all flex items-center justify-center group shadow-sm hover:shadow-md whitespace-nowrap"
+>
   Book a Demo <IconArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-</Link>
-
-                <Link to="/platform" className="border border-gray-200 text-gray-700 px-8 py-4 rounded-lg text-sm font-semibold hover:bg-gray-50 transition-colors shadow-sm whitespace-nowrap text-center">
-                  View platform
-                </Link>
+</a>
+              
+                            <a 
+                  href="#platform" 
+                  onClick={scrollToPlatform}
+                  className="border border-gray-200 text-gray-700 px-8 py-4 rounded-lg text-sm font-semibold hover:bg-gray-50 transition-colors shadow-sm whitespace-nowrap text-center cursor-pointer"
+                >
+                  Explore the product
+                </a>
               </div>
             </div>
           </div>
@@ -303,7 +351,7 @@ export default function Home() {
 
                   {/* Premium Glass Enterprise Dashboard Card */}
           <div>
-            <div className="bg-white/50 border border-white/70 rounded-[28px] shadow-[0_20px_50px_-20px_rgba(15,23,42,0.12)] overflow-hidden backdrop-blur-2xl relative">
+<div className="bg-white/60 border border-slate-200/60 rounded-[28px] shadow-[0_1px_2px_rgba(15,23,42,0.04),0_8px_24px_-12px_rgba(15,23,42,0.08)] overflow-hidden backdrop-blur-2xl relative">
               <div className="pointer-events-none absolute inset-0 rounded-[28px] ring-1 ring-inset ring-white/60"></div>
 
               {/* Top Bar */}
@@ -384,49 +432,46 @@ export default function Home() {
                       <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-[0.2em]">Historical knowledge</span>
                       <span className="text-[10px] text-emerald-600 font-medium">Connected</span>
                     </div>
-                    <p className="text-[11.5px] text-slate-400 leading-relaxed">
-                      Past deal folders surface relevant precedent, diligence structures, and institutional context.
-                    </p>
+              <p className="text-[11.5px] text-[#011522] opacity-70 leading-relaxed">
+  Past deal folders surface relevant precedent, diligence structures, and institutional context.
+</p>
                   </div>
                 </div>
-
                 {/* Middle: Analysis */}
                 <div className="p-8 relative">
                   <div className="flex items-center justify-between mb-3">
-                    <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-[0.2em]">Custom PE workflow</span>
+                    <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-[0.2em]">Deal Intelligence</span>
                     <span className="flex items-center gap-1.5 text-[10px] text-slate-500 font-medium">
-                      <span className="w-1 h-1 rounded-full bg-blue-500"></span> 3 citations linked
+                      <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span> Analysing · 2 sources cited
                     </span>
                   </div>
 
-                  <h4 className="text-slate-900 text-[32px] font-serif font-medium mb-6 tracking-tight">Source-grounded analysis</h4>
+           
+        <h4 className="text-slate-900 text-[28px] pt-2 font-serif font-medium mb-6 tracking-tight leading-tight">“What’s revenue quality like at Meridian”</h4>
 
-                  <p className="text-[15.5px] text-slate-600 leading-[1.75] mb-8">
-                    Revenue quality is supported by multi-year agreements, while customer concentration remains a key diligence area.{' '}
-                    <span className="text-slate-800 border-b border-slate-300 hover:border-blue-400 transition-colors cursor-pointer">Every observation stays linked to the original document</span>
-                    <sup className="text-blue-500 ml-0.5 text-[10px]">1</sup>, allowing the investment team to validate the output before it enters the committee record.
-                    <sup className="text-blue-500 ml-0.5 text-[10px]">2</sup>
-                  </p>
+<p className="text-[15.5px] text-slate-600 leading-[1.75] mb-8">
 
-                  <div className="grid grid-cols-3 gap-3 mb-8">
-                    {[
-                      { label: 'Sources', value: '18' },
-                      { label: 'Citations', value: '32' },
-                      { label: 'Status', value: 'Review' },
-                    ].map((s, i) => (
-                      <div key={i} className="rounded-xl px-4 py-3.5 bg-slate-900/[0.02] ring-1 ring-slate-900/[0.05]">
-                        <div className="text-[9px] text-slate-400 uppercase tracking-[0.15em] mb-1.5">{s.label}</div>
-                        <div className="text-lg font-semibold text-slate-900">{s.value}</div>
-                      </div>
-                    ))}
+  ARR expanded 24% YoY to{' '}
+  <span className="text-slate-800 border-b border-slate-300 hover:border-blue-400 transition-colors cursor-pointer">$18.4M</span>
+  <sup className="text-blue-500 ml-0.5 text-[10px]">1</sup>
+  , driven by 112% net retention across core accounts. However, the top three customers represent{' '}
+  <span className="text-slate-800 border-b border-slate-300 hover:border-blue-400 transition-colors cursor-pointer">42% of total revenue</span>
+  <sup className="text-blue-500 ml-0.5 text-[10px]">2</sup>
+  , with Vantex Logistics’ primary contract expiring in Q3.
+</p>
+                  
+                                    <div className="flex items-center gap-5 mb-8 px-4 py-3.5 rounded-xl bg-slate-900/[0.02] ring-1 ring-slate-900/[0.05] text-[12.5px] text-slate-500">
+                    <span><span className="font-semibold text-slate-800">18</span> sources</span>
+                    <span className="w-px h-3 bg-slate-300"></span>
+                    <span><span className="font-semibold text-slate-800">32</span> citations</span>
                   </div>
 
                   <div className="flex items-center gap-3">
                     <button className="text-[13px] font-semibold text-slate-700 px-4 py-2.5 rounded-lg ring-1 ring-slate-200 hover:ring-slate-300 hover:text-slate-900 transition-all">
-                      View cited source ↗
+                      View cited sources ↗
                     </button>
                     <button className="text-[13px] font-semibold text-slate-700 px-4 py-2.5 rounded-lg ring-1 ring-slate-200 hover:ring-slate-300 hover:text-slate-900 transition-all">
-                      Flag for partner
+                      Flag for partner review
                     </button>
                   </div>
                 </div>
@@ -442,18 +487,18 @@ export default function Home() {
                     <div className="absolute left-[11px] top-1 bottom-1 w-px bg-slate-200"></div>
                     <div className="space-y-6 relative">
                       {[
-                        { name: 'Data ingest', status: 'Complete', done: true },
-                        { name: 'Source analysis', status: 'In progress', active: true },
-                        { name: 'Diligence output', status: 'Queued' },
-                        { name: 'Committee review', status: 'Pending' },
-                      ].map((w, i) => (
+                       { num: 1, name: 'Data ingest', status: 'Complete', done: true },
+{ num: 2, name: 'Source analysis', status: 'In progress', active: true },
+{ num: 3, name: 'Diligence output', status: 'Queued' },
+{ num: 4, name: 'Committee review', status: 'Pending' },
+].map((w, i) => (
                         <div key={i} className="flex items-center gap-4 relative">
                           <span className={`w-[23px] h-[23px] rounded-full flex items-center justify-center text-[9px] font-semibold shrink-0 bg-white ${
-                            w.done ? 'ring-1 ring-slate-900 bg-slate-900 text-white' :
-                            w.active ? 'ring-2 ring-blue-500 text-blue-600' :
+                         w.done ? 'ring-1 ring-slate-900 bg-white text-slate-900' :
+                             w.active ? 'ring-2 ring-blue-500 text-blue-600 animate-pulse' :
                             'ring-1 ring-slate-200 text-slate-300'
                           }`}>
-                            {w.done ? <IconCheck className="w-3 h-3" /> : i + 1}
+                          {w.num}
                           </span>
                           <div>
                             <div className={`text-[14px] font-semibold ${w.active ? 'text-slate-900' : w.done ? 'text-slate-700' : 'text-slate-400'}`}>{w.name}</div>
@@ -481,19 +526,21 @@ export default function Home() {
       </section>
 
       {/* ---------- LOGOS / INSTITUTIONAL PROOF ---------- */}
-      <section className="py-24 bg-white border-y border-gray-100 overflow-hidden">
-        <div className="max-w-[140rem] mx-auto px-6 md:px-12">
-          <div className="flex flex-col items-center gap-12">
-            <p className="text-[11px] font-medium text-gray-400 uppercase tracking-[0.3em] text-center">
-              Trusted by leading global institutions managing over $40B
-            </p>
+<section className="relative py-8 bg-gradient-to-b from-[#0F0F1A] to-[#050507] border-y border-white/10 overflow-hidden">
+  {/* ambient shine — makes the surface feel reflective rather than flat */}
+  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.05)_0%,transparent_70%)] pointer-events-none"></div>
+
+  <div className="max-w-[140rem] mx-auto px-6 md:px-12 relative">
+    <div className="flex flex-col items-center gap-4">
+      <p className="text-[11px] font-medium text-white/50 uppercase tracking-[0.3em] mb-2 text-center">
+        Trusted by leading global institutions managing over $40B
+      </p>
 
             {/* Marquee */}
             <div className="relative w-full">
               {/* edge fades */}
-              <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-white to-transparent z-10"></div>
-              <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-white to-transparent z-10"></div>
-
+<div className="pointer-events-none absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[#0A0A12] to-transparent z-10"></div>
+<div className="pointer-events-none absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[#0A0A12] to-transparent z-10"></div>
               <style>{`
                 @keyframes logoMarquee {
                   0%   { transform: translateX(0); }
@@ -505,28 +552,20 @@ export default function Home() {
                 className="flex items-center gap-24 w-max"
                 style={{ animation: 'logoMarquee 40s linear infinite' }}
               >
-                {[...LOGOS, ...LOGOS].map((logo, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center justify-center opacity-50 hover:opacity-100 grayscale hover:grayscale-0 transition-all duration-500 shrink-0"
-                  >
-                    {logo.type === 'serif' && (
-                      <span className="font-serif text-2xl font-bold text-gray-700 tracking-tight whitespace-nowrap">{logo.name}</span>
-                    )}
-                    {logo.type === 'sans' && (
-                      <span className="font-sans text-base font-semibold text-gray-600 tracking-[0.2em] uppercase whitespace-nowrap">{logo.name}</span>
-                    )}
-                    {logo.type === 'mono' && (
-                      <span className="font-mono text-lg font-bold text-gray-700 tracking-tighter whitespace-nowrap">{logo.name}</span>
-                    )}
-                    {logo.type === 'bold' && (
-                      <span className="font-sans text-xl font-black text-gray-800 tracking-tight italic whitespace-nowrap">{logo.name}</span>
-                    )}
-                    {logo.type === 'light' && (
-                      <span className="font-sans text-xs font-light text-gray-600 tracking-[0.3em] uppercase whitespace-nowrap">{logo.name}</span>
-                    )}
-                  </div>
-                ))}
+           
+             {[...LOGOS, ...LOGOS].map((logo, index) => (
+  <div
+  key={index}
+  className="flex items-center justify-center shrink-0 opacity-80 hover:opacity-100 transition-opacity duration-500"
+><img
+  src={logo.src}
+  alt={logo.alt}
+  className="h-7 md:h-8 w-auto select-none pointer-events-none brightness-0 invert opacity-70"
+  draggable={false}
+/>
+  </div>
+))}
+
               </div>
             </div>
           </div>
@@ -534,7 +573,7 @@ export default function Home() {
       </section>
 
       {/* ---------- CORE WORKFLOWS (ALTERNATING, FULL-SIZE SHOWCASE) ---------- */}
-      <section ref={workflowsRef} className="py-32 bg-[#FAFAFA] border-t border-gray-100 overflow-hidden">
+      <section id="platform" ref={workflowsRef} className="py-32 bg-[#FAFAFA] border-t border-gray-100 overflow-hidden scroll-mt-24">
         <div className="max-w-[100rem] mx-auto px-6 md:px-12">
 
           {/* Section heading */}
@@ -547,7 +586,7 @@ export default function Home() {
               Workflows built for private capital teams.
             </h2>
             <p className="text-lg text-[#011522]/60 leading-relaxed font-light">
-              Domain-specific workflows designed for investment and portfolio analyses, organized by where they fit in the deal lifecycle.
+              Capsa connects the data, analysis, and workflows behind each stage of the investment process, from sourcing and diligence through committee, close, and portfolio monitoring.
             </p>
           </div>
 
@@ -737,34 +776,68 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ---------- METRICS ---------- */}
-      <section className="py-24 bg-white border-t border-gray-100">
+      {/* ---------- FAQ ---------- */}
+      <section className="py-32 bg-white border-t border-gray-100">
         <div className="max-w-[100rem] mx-auto px-6 md:px-12">
 
-          {/* Small section eyebrow, matching the rhythm of the rest of the page */}
-          <div className="flex items-center gap-3 mb-14">
-            <span className="w-8 h-px bg-[#011522]"></span>
-            <span className="text-[11px] font-semibold text-[#011522] uppercase tracking-[0.25em]">Measured impact</span>
+          {/* Section header — editorial split, eyebrow left, headline right */}
+          <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,360px)_1fr] gap-12 lg:gap-20 mb-24">
+            <div>
+              <div className="flex items-center gap-3 mb-6">
+                <span className="w-8 h-px bg-[#011522]"></span>
+                <span className="text-[11px] font-semibold text-[#011522] uppercase tracking-[0.25em]">
+                  Frequently asked
+                </span>
+              </div>
+              <p className="text-[13.5px] text-[#011522]/50 leading-[1.7] font-light max-w-xs">
+                The questions every investment committee asks before signing off on a new system.
+              </p>
+            </div>
+            <h2 className="font-serif text-4xl md:text-6xl text-[#011522] leading-[1.05] tracking-tight max-w-3xl">
+              Built for the questions your IC will ask.
+            </h2>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-y-12 gap-x-10 md:divide-x md:divide-gray-200/70">
-            {METRICS.map((metric, i) => (
-              <div key={i} className={`flex flex-col ${i !== 0 ? 'md:pl-10' : ''}`}>
-                {/* tiny mono index */}
-                <div className="text-[10px] font-mono tracking-[0.2em] text-[#011522]/30 mb-5">
-                  {String(i + 1).padStart(2, '0')}
-                </div>
+          {/* FAQ list — numbered, hairline separated, no cards */}
+          <div className="border-t border-gray-200/70">
+            {FAQS.map((faq, i) => (
+              <details
+                key={i}
+                className="group border-b border-gray-200/70 open:bg-[#FAFAFA]/40 transition-colors duration-300"
+              >
+                <summary className="cursor-pointer list-none py-8 lg:py-10 grid grid-cols-1 lg:grid-cols-[80px_1fr_40px] gap-6 lg:gap-10 items-start">
+                  {/* index */}
+                  <span className="text-[11px] font-mono tracking-[0.2em] text-[#011522]/30 pt-2">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
 
-                {/* value — fixed height so every cell's baseline aligns */}
-                <div className="font-serif font-semibold text-[2rem] md:text-[3.25rem] text-[#011522] tracking-[-0.035em] leading-none mb-6 whitespace-nowrap flex items-center h-[2rem] md:h-[3.25rem]">
-                  {metric.value}
-                </div>
+                  {/* question */}
+                  <span className="font-serif text-[22px] md:text-[28px] leading-[1.25] text-[#011522] tracking-tight group-hover:text-[#0508b3] transition-colors">
+                    {faq.q}
+                  </span>
 
-                {/* label — same for every cell */}
-                <div className="text-[13px] text-[#011522]/60 tracking-[0.02em] whitespace-nowrap">
-                  {metric.label}
+                  {/* plus/minus indicator */}
+                  <span className="hidden lg:flex items-center justify-center w-9 h-9 rounded-full border border-[#011522]/15 text-[#011522]/60 group-open:bg-[#011522] group-open:text-white group-open:border-[#011522] group-hover:border-[#011522]/40 transition-all duration-300 self-center">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={1.5}
+                      className="w-3.5 h-3.5 transition-transform duration-300 group-open:rotate-45"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 5v14M5 12h14" />
+                    </svg>
+                  </span>
+                </summary>
+
+                <div className="grid grid-cols-1 lg:grid-cols-[80px_1fr_40px] gap-6 lg:gap-10 pb-10">
+                  <span className="hidden lg:block" />
+                  <p className="text-[15.5px] text-[#011522]/60 leading-[1.8] font-light max-w-2xl">
+                    {faq.a}
+                  </p>
+                  <span className="hidden lg:block" />
                 </div>
-              </div>
+              </details>
             ))}
           </div>
 
