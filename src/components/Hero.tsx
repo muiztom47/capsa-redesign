@@ -83,24 +83,54 @@ const LOGOS = [
 ];
 
 const METRICS = [
-  { value: '$45B+', label: 'Committed capital tracked' },
-  { value: '1.2M+', label: 'Documents processed monthly' },
-  { value: '40+', label: 'Leading global institutions' },
-  { value: '99.99%', label: 'Uptime (SOC 2 Type II)' },
+  { value: '$15T', label: 'Private capital AUM' },
+  { value: '48h → 5min', label: 'Financial data processing' },
+  { value: '100x', label: 'Companies analyzed' },
+  { value: '$35B', label: 'Manual search costs' },
 ];
 
-const USE_CASES = [
+const TESTIMONIALS = [
   {
-    title: 'Private Credit',
-    desc: 'Automate covenant testing and ingest heavy credit agreements without manual data entry.',
+    quote: 'Capsa is like having an AI member on our IC, providing us sharper insights and making us more competitive.',
+    name: 'Mario Puclin',
+    role: 'Investment Manager',
+    firm: 'Hannover Finanz',
+    logo: (
+      <img
+        src="/images/hannover-finanz.svg"
+        alt="Hannover Finanz"
+        className="h-7 w-auto"
+        draggable={false}
+      />
+    ),
   },
   {
-    title: 'Growth Equity',
-    desc: 'Standardize metric collection across diverse, high-growth portfolios instantly.',
+    quote: 'We move faster, with more conviction. Capsa is now essential to our investment processes.',
+    name: 'Deniz Varan',
+    role: 'Senior Investment Manager',
+    firm: 'Quadriga Capital',
+    logo: (
+      <img
+        src="/images/quadriga.svg"
+        alt="Quadriga Capital"
+        className="h-7 w-auto"
+        draggable={false}
+      />
+    ),
   },
   {
-    title: 'Infrastructure',
-    desc: 'Track complex capital deployment schedules and long-term project yields in one unified ledger.',
+    quote: "Capsa connects the dots across our entire firm's knowledge base. Pursuing our disruption theme, we spot patterns faster and move on opportunities with more conviction.",
+    name: 'Lucas Angibeau',
+    role: 'Senior Associate',
+    firm: 'Capital D',
+    logo: (
+      <img
+        src="/images/capital-d.svg"
+        alt="Capital D"
+        className="h-7 w-auto"
+        draggable={false}
+      />
+    ),
   },
 ];
 
@@ -583,200 +613,226 @@ export default function Home() {
       </section>
 
       {/* ---------- ENTERPRISE SECURITY ---------- */}
-      <section className="py-32 bg-white border-t border-gray-100">
-        <div className="max-w-[140rem] mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
-          <div>
-            <h2 className="font-serif text-4xl md:text-6xl text-gray-900 leading-tight mb-8 tracking-tight">
-              Institutional grade infrastructure.
-            </h2>
-            <p className="text-xl text-gray-500 font-light leading-relaxed mb-16">
-              We understand that private capital data is your most guarded asset. Capsa is engineered from the ground up for absolute data segregation, auditability, and compliance.
-            </p>
+      <section
+        className="py-20 md:py-24 border-t border-[#1E1F2E] relative overflow-hidden"
+        style={{ backgroundColor: '#05050F' }}
+      >
+        <div className="max-w-[100rem] mx-auto px-6 md:px-12 relative z-10">
 
-            <div className="space-y-10">
-              <div className="flex gap-6">
-                <div className="w-12 h-12 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center flex-shrink-0">
-                  <IconLock className="text-blue-600 w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="text-lg font-medium text-gray-900 mb-2">Zero-Retention LLMs</h4>
-                  <p className="text-sm text-gray-500 leading-relaxed">
-                    Models process your documents statelessly. Your deal data is never used to train foundational models. Period.
-                  </p>
-                </div>
-              </div>
-              <div className="flex gap-6">
-                <div className="w-12 h-12 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center flex-shrink-0">
-                  <IconDatabase className="text-blue-600 w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="text-lg font-medium text-gray-900 mb-2">Dedicated VPC Deployments</h4>
-                  <p className="text-sm text-gray-500 leading-relaxed">
-                    For enterprise clients, Capsa can be deployed in a dedicated Virtual Private Cloud, physically isolating your compute and storage.
-                  </p>
-                </div>
-              </div>
-              <div className="flex gap-6">
-                <div className="w-12 h-12 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center flex-shrink-0">
-                  <IconSecurity className="text-blue-600 w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="text-lg font-medium text-gray-900 mb-2">SOC 2 Type II & GDPR Compliant</h4>
-                  <p className="text-sm text-gray-500 leading-relaxed">
-                    Continuous monitoring and independent auditing ensure controls meet the highest regulatory standards globally.
-                  </p>
-                </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+
+            {/* Left: heading, description, and three inline trust points */}
+            <div>
+              <h2 className="font-serif text-4xl md:text-[3.5rem] leading-[1.08] text-[#FAFAF9] tracking-tight mb-7 max-w-3xl">
+                Security and compliance<br />
+                you can trust
+              </h2>
+              <p className="text-[17px] text-[#E5E5E5] leading-[1.7] font-light mb-12 max-w-3xl">
+                Capsa is independently audited and continuously monitored to meet the compliance expectations of regulated financial institutions.
+              </p>
+
+              {/* compact inline trust points */}
+              <div className="space-y-5">
+                {[
+                  { icon: <IconLock className="w-4 h-4" />, label: 'No training on client data' },
+                  { icon: <IconSecurity className="w-4 h-4" />, label: 'SOC 2 Type II' },
+                  { icon: <IconDatabase className="w-4 h-4" />, label: 'GDPR, DORA-ready' },
+                ].map((p, i) => (
+                  <div key={i} className="flex items-center gap-3.5">
+                    <span className="text-[#727276] shrink-0">{p.icon}</span>
+                    <span className="text-[15px] text-[#E5E5E5] font-light">{p.label}</span>
+                  </div>
+                ))}
               </div>
             </div>
-          </div>
 
-          <div className="bg-white border border-gray-200 p-10 md:p-14 rounded-2xl relative overflow-hidden shadow-xl">
-             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-100 via-blue-500 to-blue-100"></div>
-             <div className="font-mono text-sm text-gray-500 space-y-5">
-               <p className="text-gray-400">{`> Executing security protocols...`}</p>
-               <p className="text-emerald-600 flex items-center gap-3"><span className="w-2 h-2 rounded-full bg-emerald-400"></span> [OK] End-to-end encryption verified</p>
-               <p className="text-emerald-600 flex items-center gap-3"><span className="w-2 h-2 rounded-full bg-emerald-400"></span> [OK] SSO Identity Provider synced</p>
-               <p className="text-emerald-600 flex items-center gap-3"><span className="w-2 h-2 rounded-full bg-emerald-400"></span> [OK] Audit logs actively streaming</p>
-               <p className="mt-10 text-gray-400">{`> Pinging dedicated tenant database...`}</p>
-               <p className="text-blue-600 animate-pulse flex items-center gap-3"><span className="w-2 h-2 rounded-full bg-blue-500"></span> Establishing secure tunnel...</p>
-             </div>
+            {/* Right: 2×2 compliance badge grid — hairline cell dividers, no outer fill */}
+            <div
+              className="grid grid-cols-2"
+              style={{
+                borderTop: '1px solid #1E1F2E',
+                borderLeft: '1px solid #1E1F2E',
+              }}
+            >
+              {[
+                { src: 'https://framerusercontent.com/images/sjTaDP8QeVltg5FFfM4oNc958M.png', alt: 'AICPA SOC 2' },
+                { src: 'https://framerusercontent.com/images/aMU5VbtvMLQPgMkMcuPOwrWihSw.png', alt: 'GDPR compliant — EU' },
+                { src: 'https://framerusercontent.com/images/Q4JsFopfw372TXU7efDQ3Fmi0Jc.png', alt: 'APP certified' },
+                { src: 'https://framerusercontent.com/images/wWDJ16ZSX4oy39M8BoU7bT0TvbE.png', alt: 'California Privacy Rights Act' },
+              ].map((badge, i) => (
+                <div
+                  key={i}
+                  className="aspect-[3/2] flex items-center justify-center"
+                  style={{
+                    backgroundColor: '#05050F',
+                    borderRight: '1px solid #1E1F2E',
+                    borderBottom: '1px solid #1E1F2E',
+                  }}
+                >
+                  <img
+                    src={badge.src}
+                    alt={badge.alt}
+                    className="w-[62%] h-[62%] object-contain select-none pointer-events-none"
+                    draggable={false}
+                  />
+                </div>
+              ))}
+            </div>
+
           </div>
         </div>
       </section>
 
-      {/* ---------- USE CASES ---------- */}
+      {/* ---------- TESTIMONIALS ---------- */}
       <section className="py-32 bg-[#FAFAFA] border-t border-gray-100">
-        <div className="max-w-[140rem] mx-auto px-6 md:px-12">
-          <div className="text-center max-w-3xl mx-auto mb-24">
-            <h2 className="font-serif text-4xl md:text-6xl text-gray-900 leading-tight mb-8 tracking-tight">
-              Tailored for complex asset classes.
-            </h2>
-            <p className="text-xl text-gray-500 font-light leading-relaxed">
-              Generic tools break down on bespoke deals. Capsa's data extraction models are specifically trained on private markets documentation.
-            </p>
+        <div className="max-w-[100rem] mx-auto px-6 md:px-12">
+
+          {/* Header row: eyebrow on the left, count on the right — signals precision */}
+          <div className="flex items-end justify-between mb-16 pb-6 border-b border-gray-200/70">
+            <div>
+              <div className="flex items-center gap-3 mb-5">
+                <span className="w-8 h-px bg-[#011522]"></span>
+                <span className="text-[11px] font-semibold text-[#011522] uppercase tracking-[0.25em]">Operator perspective</span>
+              </div>
+              <h2 className="font-serif text-4xl md:text-6xl text-[#011522] leading-[1.05] tracking-tight max-w-3xl">
+                What leading investors say about Capsa.
+              </h2>
+            </div>
+            <span className="hidden md:block text-[11px] font-mono uppercase tracking-[0.2em] text-[#011522]/40 pb-1">
+              03 / 03 references
+            </span>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {USE_CASES.map((useCase, i) => (
-              <div key={i} className="bg-white border border-gray-200 p-12 rounded-xl hover:shadow-lg transition-all duration-300 group">
-                <div className="w-12 h-12 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
-                  <IconChart className="w-6 h-6 text-blue-600" />
+          {/* Three-column reference cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-gray-200/70 border border-gray-200/70">
+            {TESTIMONIALS.map((t, i) => (
+              <div
+                key={i}
+                className="bg-white p-10 lg:p-12 flex flex-col hover:bg-[#FAFAFA]/60 transition-colors duration-500"
+              >
+                {/* logo lockup */}
+                <div className="mb-12 h-8 flex items-center">{t.logo}</div>
+
+                {/* quote */}
+                <blockquote className="font-serif text-[22px] leading-[1.4] text-[#011522] tracking-tight mb-16 flex-1">
+                  <span className="text-[#011522]/25 mr-1 select-none">&ldquo;</span>
+                  {t.quote}
+                </blockquote>
+
+                {/* attribution */}
+                <div className="pt-6 border-t border-gray-100">
+                  <div className="text-[14px] font-medium text-[#011522] tracking-tight">{t.name}</div>
+                  <div className="text-[12.5px] text-[#011522]/50 font-light mt-1">
+                    {t.role} <span className="text-[#011522]/30 mx-1">·</span> {t.firm}
+                  </div>
                 </div>
-                <h3 className="text-xl font-medium text-gray-900 mb-4">{useCase.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">
-                  {useCase.desc}
-                </p>
               </div>
             ))}
           </div>
+
+  
+
         </div>
       </section>
 
       {/* ---------- METRICS ---------- */}
       <section className="py-24 bg-white border-t border-gray-100">
-        <div className="max-w-[140rem] mx-auto px-6 md:px-12">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-12 divide-x divide-gray-100">
+        <div className="max-w-[100rem] mx-auto px-6 md:px-12">
+
+          {/* Small section eyebrow, matching the rhythm of the rest of the page */}
+          <div className="flex items-center gap-3 mb-14">
+            <span className="w-8 h-px bg-[#011522]"></span>
+            <span className="text-[11px] font-semibold text-[#011522] uppercase tracking-[0.25em]">Measured impact</span>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-y-12 gap-x-10 md:divide-x md:divide-gray-200/70">
             {METRICS.map((metric, i) => (
-              <div key={i} className={i !== 0 ? "pl-12" : ""}>
-                <div className="font-serif text-4xl md:text-6xl font-semibold text-gray-900 mb-3 tracking-tight">
+              <div key={i} className={`flex flex-col ${i !== 0 ? 'md:pl-10' : ''}`}>
+                {/* tiny mono index */}
+                <div className="text-[10px] font-mono tracking-[0.2em] text-[#011522]/30 mb-5">
+                  {String(i + 1).padStart(2, '0')}
+                </div>
+
+                {/* value — fixed height so every cell's baseline aligns */}
+                <div className="font-serif font-semibold text-[2rem] md:text-[3.25rem] text-[#011522] tracking-[-0.035em] leading-none mb-6 whitespace-nowrap flex items-center h-[2rem] md:h-[3.25rem]">
                   {metric.value}
                 </div>
-                <div className="text-xs font-medium text-gray-400 uppercase tracking-[0.2em]">
+
+                {/* label — same for every cell */}
+                <div className="text-[13px] text-[#011522]/60 tracking-[0.02em] whitespace-nowrap">
                   {metric.label}
                 </div>
               </div>
             ))}
           </div>
+
         </div>
       </section>
 
       {/* ---------- CTA ---------- */}
-      <section className="py-40 bg-[#FAFAFA] relative overflow-hidden border-t border-gray-100">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-blue-100/50 rounded-full blur-[150px] pointer-events-none"></div>
+      <section
+        className="py-32 md:py-40 border-t border-[#1E1F2E] relative overflow-hidden"
+        style={{ backgroundColor: '#05050F' }}
+      >
+        <div className="max-w-[100rem] mx-auto px-6 md:px-12 relative z-10">
 
-        <div className="max-w-5xl mx-auto px-6 md:px-12 text-center relative z-10">
-          <h2 className="font-serif text-5xl md:text-7xl text-gray-900 leading-tight mb-10 tracking-tight">
-            See Capsa on your own pipeline.
-          </h2>
-          <p className="text-xl text-gray-500 font-light mb-16 max-w-2xl mx-auto">
-            Bring a live deal and we'll walk through sourcing, underwriting, and monitoring using your own data—no generic demo environment.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-            <Link to="/demo" className="w-full sm:w-auto bg-gray-900 text-white px-10 py-5 rounded-lg text-base font-semibold hover:bg-gray-800 transition-colors shadow-lg">
-              Book a technical demo
-            </Link>
-            <Link to="/contact" className="w-full sm:w-auto px-10 py-5 text-base font-medium text-gray-600 hover:text-gray-900 transition-colors border border-gray-300 rounded-lg hover:border-gray-400 bg-white shadow-sm">
-              Contact Sales
-            </Link>
+          {/* eyebrow */}
+          <div className="flex items-center gap-3 mb-14">
+            <span className="w-8 h-px bg-white/40"></span>
+            <span className="text-[11px] font-semibold text-white/60 uppercase tracking-[0.25em]">Get started</span>
           </div>
-        </div>
-      </section>
 
-      {/* ---------- FOOTER ---------- */}
-      <footer className="bg-white border-t border-gray-100 pt-24 pb-12">
-        <div className="max-w-[140rem] mx-auto px-6 md:px-12">
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-12 mb-20">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_minmax(0,480px)] gap-16 lg:gap-24 items-end">
 
-            <div className="col-span-2 lg:col-span-2">
-              <Link to="/" className="flex items-center gap-3 mb-8">
-                <IconDatabase className="w-5 h-5 text-gray-900" />
-                <span className="font-serif text-2xl font-semibold tracking-tight text-gray-900">capsa.ai</span>
-              </Link>
-              <p className="text-sm text-gray-500 max-w-xs leading-relaxed">
-                The definitive AI operating system built exclusively for private capital markets and institutional investors.
+            {/* Left: headline + description */}
+            <div>
+              <h2 className="font-serif text-4xl md:text-[4rem] leading-[1.05] text-[#FAFAF9] tracking-tight mb-7 max-w-2xl">
+                See Capsa on your<br />own pipeline.
+              </h2>
+              <p className="text-[17px] text-[#E5E5E5]/70 leading-[1.7] font-light max-w-2xl">
+                Bring a live deal and we'll walk through sourcing, underwriting, and monitoring using your own data—no generic demo environment.
               </p>
             </div>
 
-            <div>
-              <h4 className="text-[10px] font-semibold text-gray-900 uppercase tracking-[0.2em] mb-8">Platform</h4>
-              <ul className="space-y-5 text-sm text-gray-500">
-                <li><Link to="/sourcing" className="hover:text-blue-600 transition-colors">Sourcing</Link></li>
-                <li><Link to="/underwriting" className="hover:text-blue-600 transition-colors">Underwriting</Link></li>
-                <li><Link to="/portfolio" className="hover:text-blue-600 transition-colors">Portfolio Monitoring</Link></li>
-                <li><Link to="/security" className="hover:text-blue-600 transition-colors">Security & Trust</Link></li>
-              </ul>
-            </div>
+            {/* Right: actions, stacked, hairline separated */}
+            <div className="flex flex-col">
 
-            <div>
-              <h4 className="text-[10px] font-semibold text-gray-900 uppercase tracking-[0.2em] mb-8">Company</h4>
-              <ul className="space-y-5 text-sm text-gray-500">
-                <li><Link to="/about" className="hover:text-blue-600 transition-colors">About Us</Link></li>
-                <li><Link to="/careers" className="hover:text-blue-600 transition-colors">Careers</Link></li>
-                <li><Link to="/news" className="hover:text-blue-600 transition-colors">Press & News</Link></li>
-                <li><Link to="/contact" className="hover:text-blue-600 transition-colors">Contact</Link></li>
-              </ul>
-            </div>
+              {/* primary action row */}
+              <Link
+                to="/demo"
+                className="group flex items-center justify-between gap-6 py-6 border-t border-[#1E1F2E] hover:border-white/30 transition-colors"
+              >
+                <div className="flex flex-col">
+                  <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/40 mb-2">Primary</span>
+                  <span className="text-[19px] font-medium text-[#FAFAF9] tracking-tight">Book a technical demo</span>
+                </div>
+                <span className="flex items-center justify-center w-11 h-11 rounded-full border border-white/15 group-hover:bg-white group-hover:border-white transition-colors shrink-0">
+                  <IconArrowRight className="w-4 h-4 text-white group-hover:text-[#05050F] transition-colors" />
+                </span>
+              </Link>
 
-            <div className="col-span-2 lg:col-span-2">
-              <h4 className="text-[10px] font-semibold text-gray-900 uppercase tracking-[0.2em] mb-8">Stay Updated</h4>
-              <p className="text-sm text-gray-500 mb-6">Subscribe to our newsletter for product updates and private market AI insights.</p>
-              <form className="flex">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-l-md focus:ring-1 focus:ring-blue-500 focus:border-blue-500 block w-full p-3.5 outline-none placeholder:text-gray-400"
-                  required
-                />
-                <button type="submit" className="bg-gray-900 text-white px-6 py-3.5 rounded-r-md text-sm font-semibold hover:bg-gray-800 transition-colors">
-                  Subscribe
-                </button>
-              </form>
-            </div>
+              {/* secondary action row */}
+              <Link
+                to="/contact"
+                className="group flex items-center justify-between gap-6 py-6 border-t border-b border-[#1E1F2E] hover:border-white/30 transition-colors"
+              >
+                <div className="flex flex-col">
+                  <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/40 mb-2">Contact</span>
+                  <span className="text-[19px] font-medium text-[#FAFAF9] tracking-tight">Talk to sales</span>
+                </div>
+                <span className="flex items-center justify-center w-11 h-11 rounded-full border border-white/15 group-hover:bg-white group-hover:border-white transition-colors shrink-0">
+                  <IconArrowRight className="w-4 h-4 text-white group-hover:text-[#05050F] transition-colors" />
+                </span>
+              </Link>
 
+    
+            </div>
           </div>
 
-          <div className="border-t border-gray-100 pt-10 flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="text-xs text-gray-400">
-              &copy; {new Date().getFullYear()} Capsa AI, Inc. All rights reserved.
-            </div>
-            <div className="flex items-center gap-8 text-xs text-gray-500">
-              <Link to="/privacy" className="hover:text-gray-900 transition-colors">Privacy Policy</Link>
-              <Link to="/terms" className="hover:text-gray-900 transition-colors">Terms of Service</Link>
-              <Link to="/cookies" className="hover:text-gray-900 transition-colors">Cookie Settings</Link>
-            </div>
-          </div>
         </div>
-      </footer>
+      </section>
+
+ 
 
     </div>
   );
