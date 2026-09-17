@@ -22,7 +22,6 @@ export default {
         logoMarquee: 'logoMarquee 40s linear infinite',
       },
       fontFamily: {
-      fontFamily: {
         serif: ['"Fraunces"', 'Georgia', 'serif'],
         sans: ['"Inter"', 'system-ui', 'sans-serif'],
       },
