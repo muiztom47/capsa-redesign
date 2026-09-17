@@ -16,7 +16,7 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-40 bg-ink/95 backdrop-blur border-b border-line">
       <div className="bg-accent text-paper text-sm">
-        <div className="mx-auto max-w-7xl px-6 py-2 flex items-center justify-center gap-2 text-center">
+        <div className="mx-auto max-w-[100rem] px-6 py-2 flex items-center justify-center gap-2 text-center">
           <span>Capsa closes $18M Series A to build the operating layer for private capital.</span>
           <Link to="/news" className="underline underline-offset-2 hover:opacity-80 whitespace-nowrap">
             Read the announcement
@@ -24,7 +24,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      <nav className="mx-auto max-w-7xl px-6 h-20 flex items-center justify-between">
+      <nav className="mx-auto max-w-[100rem] px-6 h-20 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
           <svg width="26" height="26" viewBox="0 0 32 32" fill="none">
             <path d="M16 5L26 11V21L16 27L6 21V11L16 5Z" stroke="#2B4BF2" strokeWidth="2" />

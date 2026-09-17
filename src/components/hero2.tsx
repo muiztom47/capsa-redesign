@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 /* ========================================================================
@@ -65,6 +65,32 @@ const IconDatabase = ({ className = "w-5 h-5" }) => (
 );
 
 /* ========================================================================
+   WORKFLOW CARD (Premium lifecycle card w/ embedded visual)
+   ======================================================================== */
+
+const WorkflowCard = ({ icon, title, desc, visual }) => (
+  <div className="group bg-white border border-gray-200 rounded-md overflow-hidden hover:border-[#011522]/40 transition-colors duration-300 flex flex-col">
+    {/* Visual surface */}
+    <div className="relative h-44 bg-[#FBFBFA] border-b border-gray-200 p-6 overflow-hidden">
+      <div className="relative h-full flex items-center">
+        <div className="w-full">{visual}</div>
+      </div>
+    </div>
+
+    {/* Content */}
+    <div className="p-7 flex flex-col flex-1">
+      <div className="flex items-center gap-3.5 mb-4">
+        <div className="w-9 h-9 rounded-sm border border-[#011522]/15 bg-[#011522]/[0.03] text-[#011522] flex items-center justify-center shrink-0">
+          {icon}
+        </div>
+        <h3 className="text-[16px] font-semibold text-[#011522] leading-tight tracking-tight">{title}</h3>
+      </div>
+      <p className="text-[13.5px] text-[#011522]/55 leading-[1.7]">{desc}</p>
+    </div>
+  </div>
+);
+
+/* ========================================================================
    DATA OBJECTS & MOCK DATA
    ======================================================================== */
 
@@ -109,367 +135,88 @@ const PORTFOLIO_DATA = [
 
 /* ========================================================================
    UI MOCKUP COMPONENTS (Light, Glassy, Enterprise)
-   These are the full-size "product video" panels used in the workflow
-   showcase further down — deliberately larger and denser than a card icon.
    ======================================================================== */
+
 const MockupSourcing = () => (
-  <div className="w-full h-full bg-white flex flex-col font-sans relative overflow-hidden">
-    {/* Chrome */}
-    <div className="flex items-center justify-between px-8 py-4 border-b border-slate-200/70 shrink-0">
+  <div className="w-full h-full bg-white/60 border border-white/40 shadow-2xl flex flex-col font-sans text-sm rounded-xl overflow-hidden backdrop-blur-xl">
+    <div className="border-b border-gray-200/50 bg-white/50 px-6 py-5 flex items-center justify-between">
       <div className="flex items-center gap-4">
-        <span className="text-[13px] font-semibold text-slate-900 tracking-tight">Ask Capsa</span>
-        <span className="text-slate-300">/</span>
-        <span className="text-[12px] text-slate-500 font-mono">Sourcing workspace</span>
-      </div>
-      <span className="text-[10px] font-mono uppercase tracking-[0.15em] text-slate-400">Q3 2026</span>
-    </div>
-
-    {/* Big prompt box */}
-    <div className="px-8 pt-8 pb-4 shrink-0">
-      <div className="relative rounded-lg border border-[#2B4BF2]/40 bg-white p-5 shadow-[0_0_0_4px_rgba(43,75,242,0.06),0_20px_50px_-25px_rgba(43,75,242,0.35)]">
-        <div className="min-h-[64px] text-[15px] leading-[1.6] text-slate-800 font-light">
-          <span className="text-slate-900">Sourcing add-on targets in European healthcare with EBITDA &gt; €5M</span>
-          <span
-            className="inline-block w-[2px] h-[18px] bg-[#2B4BF2] align-middle ml-1"
-            style={{ animation: 'capsaCursorBlink 1s steps(2) infinite' }}
-          ></span>
+        <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-md">
+          <IconSearch className="w-5 h-5 text-white" />
         </div>
-
-        <div className="flex items-center justify-between mt-6 pt-4 border-t border-slate-100">
-          <div className="flex items-center gap-5 text-[11px] font-mono uppercase tracking-[0.14em] text-slate-400">
-            <span>+ attach</span>
-            <span>⌥ filters</span>
-            <span>⌘ workflow</span>
-          </div>
-      <button
-  className="relative bg-[#2B4BF2] text-white text-[12px] font-semibold tracking-wide px-5 py-2.5 rounded-md shadow-[0_10px_25px_-10px_rgba(43,75,242,0.8)]"
-  style={{ animation: 'capsaClick 6s ease-in-out infinite' }}
->
-  Run scan
-  {/* ripple ring, synced to the click */}
-  <span
-    className="absolute inset-0 rounded-md pointer-events-none"
-    style={{
-      border: '2px solid #2B4BF2',
-      animation: 'capsaRipple 8s ease-out infinite',
-    }}
-  ></span>
-</button>
+        <div>
+          <div className="text-sm font-semibold text-gray-900 tracking-tight">Sourcing Engine</div>
+          <div className="text-[10px] text-gray-500 font-mono tracking-wider">v2.4.1 // ACTIVE</div>
         </div>
-
-        {/* animated cursor */}
-     <svg
-  className="absolute pointer-events-none z-30"
-  width="22" height="22" viewBox="0 0 24 24"
-  style={{
-    animation: 'capsaCursorMove 8s ease-in-out infinite',
-    top: '76%',
-    right: '22px',
-  }}
->
-  <path d="M4 2 L4 18 L9 13 L12 21 L15 20 L12 12 L20 12 Z"
-        fill="#0B1220" stroke="#ffffff" strokeWidth="1.4"/>
-</svg>
       </div>
-
-      <div className="mt-3 h-[2px] bg-slate-100 overflow-hidden rounded-full">
-        <div
-          className="h-full bg-[#2B4BF2]"
-          style={{ animation: 'capsaLoadingBar 8s ease-in-out infinite' }}
-        ></div>
-      </div>
-      <div className="mt-3 flex items-center justify-between text-[10px] font-mono uppercase tracking-[0.16em] text-slate-400">
-        <span>Scanning 2,140 documents across 4 mandates</span>
-        <span style={{ animation: 'capsaPulse 1.6s ease-in-out infinite' }} className="text-[#2B4BF2]">
-          running…
-        </span>
+      <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 bg-emerald-50 text-emerald-700 px-3 py-1.5 rounded-full text-[10px] font-semibold uppercase tracking-wider border border-emerald-200/50">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Live Scan
+        </div>
       </div>
     </div>
 
-    {/* Results */}
-    <div className="flex-1 overflow-hidden px-8 pb-6">
-      <div className="text-[10px] font-mono uppercase tracking-[0.16em] text-slate-400 mb-3 mt-4">
-        Ranked matches · 3
-      </div>
-      <div className="space-y-2">
-        {[
-          { name: 'Helvetia Diagnostics', meta: 'Teaser · Data room · 09/12', score: 94, reason: 'EBITDA €6.2M · fragmented EU market' },
-          { name: 'Nordklinik Group', meta: 'Precedent · 2024 · passed', score: 88, reason: 'EBITDA €5.8M · 6 clinic roll-up' },
-          { name: 'Baltic Care Partners', meta: 'Inbound · 3d ago', score: 81, reason: 'EBITDA €5.1M · reimbursement tailwinds' },
-        ].map((r, i) => (
-          <div
-            key={i}
-            className="flex items-center justify-between gap-4 rounded-md border border-slate-200/80 bg-white px-4 py-3 hover:border-[#2B4BF2]/40 hover:bg-[#2B4BF2]/[0.02] transition-colors"
-            style={{ animation: `capsaResultIn 6s ease-out ${i * 0.35}s infinite`, opacity: 1 }}
-          >
-            <div className="min-w-0 flex-1">
-              <div className="flex items-center gap-3">
-                <span className="text-[13px] font-medium text-slate-900">{r.name}</span>
-                <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-slate-400">{r.meta}</span>
+    <div className="grid grid-cols-3 gap-px bg-gray-200/50 border-b border-gray-200/50">
+      {[
+        { label: 'Inbound Teaser', value: '14', sub: 'New today' },
+        { label: 'Mandate Match', value: '8', sub: '>80% fit' },
+        { label: 'IC Ready', value: '3', sub: 'Draft memos' },
+      ].map((stat, i) => (
+        <div key={i} className="bg-white/50 p-6 text-center">
+          <div className="text-[10px] font-medium text-gray-500 uppercase tracking-wider mb-2">{stat.label}</div>
+          <div className="text-3xl font-serif text-gray-900 tracking-tight mb-1">{stat.value}</div>
+          <div className="text-[10px] text-gray-400">{stat.sub}</div>
+        </div>
+      ))}
+    </div>
+
+    <div className="flex-1 p-6 bg-white/30 overflow-hidden">
+      <div className="bg-white/80 border border-gray-200/60 rounded-lg shadow-sm overflow-hidden h-full flex flex-col">
+        <div className="grid grid-cols-12 gap-4 px-6 py-4 bg-gray-50/80 border-b border-gray-200/60 text-[10px] font-semibold text-gray-500 uppercase tracking-wider">
+          <div className="col-span-4">Target Company</div>
+          <div className="col-span-2 text-center">Fit Score</div>
+          <div className="col-span-3">Extracted Thesis</div>
+          <div className="col-span-3">Status</div>
+        </div>
+        <div className="flex-1 overflow-y-auto">
+          {[
+            { name: 'Helios Aerospace', fit: 94, thesis: 'Strong margin expansion, govt contracts', status: 'Shortlist', color: 'emerald' },
+            { name: 'Riverstone Logistics', fit: 88, thesis: 'Consolidation play in fragmented market', status: 'Shortlist', color: 'emerald' },
+            { name: 'Nexus Payment Systems', fit: 42, thesis: 'EBITDA below fund minimum threshold', status: 'Pass', color: 'amber' },
+            { name: 'Alt-Protein Corp', fit: 12, thesis: 'Pre-revenue, outside current mandate', status: 'Pass', color: 'gray' },
+          ].map((row, i) => (
+            <div key={i} className="grid grid-cols-12 gap-4 px-6 py-4 border-b border-gray-100 items-center hover:bg-blue-50/50 transition-colors cursor-pointer group">
+              <div className="col-span-4 font-medium text-gray-800 text-xs flex items-center gap-2">
+                <IconDocument className="text-gray-400 w-4 h-4 group-hover:text-blue-500 transition-colors" />
+                {row.name}
               </div>
-              <div className="text-[11.5px] text-slate-500 mt-0.5 truncate">{r.reason}</div>
+              <div className="col-span-2 flex justify-center">
+                <div className={`w-12 h-12 rounded-full flex items-center justify-center text-sm font-bold border-2 ${
+                  row.fit >= 80 ? 'border-emerald-500 text-emerald-600 bg-emerald-50' :
+                  row.fit >= 40 ? 'border-amber-500 text-amber-600 bg-amber-50' :
+                  'border-gray-300 text-gray-500 bg-gray-50'
+                }`}>
+                  {row.fit}
+                </div>
+              </div>
+              <div className="col-span-3 text-gray-500 text-[11px] leading-snug line-clamp-2">{row.thesis}</div>
+              <div className="col-span-3">
+                <span className={`px-3 py-1.5 rounded-full text-[10px] font-semibold uppercase tracking-wider border ${
+                  row.status === 'Shortlist' ? 'bg-emerald-50 text-emerald-700 border-emerald-200/50' : 
+                  'bg-gray-100 text-gray-500 border-gray-200'
+                }`}>
+                  {row.status}
+                </span>
+              </div>
             </div>
-            <div className="flex items-center gap-3 shrink-0">
-              <span className="text-[10px] font-mono uppercase tracking-[0.16em] text-slate-400">fit</span>
-              <span className="text-[16px] font-mono tabular-nums text-[#2B4BF2] font-semibold">{r.score}</span>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-
-    {/* Footer */}
-    <div className="px-8 py-3 border-t border-slate-200/70 flex items-center justify-between shrink-0 text-[10px] font-mono uppercase tracking-[0.16em] text-slate-400 bg-slate-50/50">
-      <span>Indexed 12 min ago</span>
-      <span>⌘K for filters</span>
-    </div>
-  </div>
-);
-
-
-const MockupEvaluate = ({ activeTab, setActiveTab }) => {
-  const tabs = ['Trading comps', 'Legal review', 'Enterprise search'];
-  return (
-    <div className="w-full h-full bg-white flex flex-col font-sans relative overflow-hidden">
-      {/* Chrome */}
-      <div className="flex items-center justify-between px-8 border-b border-slate-200/70 shrink-0">
-        <div className="flex items-center gap-1">
-          {tabs.map((t, ti) => (
-            <button
-              key={t}
-              onClick={() => setActiveTab(ti)}
-              className={`relative px-4 py-4 text-[12px] font-medium transition-colors ${
-                activeTab === ti ? 'text-slate-900' : 'text-slate-400 hover:text-slate-700'
-              }`}
-            >
-              {t}
-              {activeTab === ti && (
-                <span className="absolute bottom-0 left-4 right-4 h-[2px] bg-[#2B4BF2]"></span>
-              )}
-            </button>
           ))}
         </div>
-        <span className="text-[10px] font-mono uppercase tracking-[0.15em] text-slate-400">
-          Diligence workspace
-        </span>
-      </div>
-
-      <div className="flex-1 overflow-hidden relative">
-        {/* Trading Comps */}
-        {activeTab === 0 && (
-          <div className="h-full flex flex-col">
-            <div className="flex items-center justify-between px-8 py-5 border-b border-slate-100">
-              <h4 className="font-serif text-lg text-slate-900 tracking-tight">Trading comparables</h4>
-              <span className="text-[10px] font-mono uppercase tracking-[0.15em] text-slate-400">
-                14 comps · FactSet live
-              </span>
-            </div>
-            <div className="flex-1 overflow-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b border-slate-100 text-[10px] font-mono uppercase tracking-[0.15em] text-slate-400">
-                    <th className="text-left px-8 py-3 font-normal">Multiple</th>
-                    <th className="text-right px-8 py-3 font-normal">Low</th>
-                    <th className="text-right px-8 py-3 font-normal">Median</th>
-                    <th className="text-right px-8 py-3 font-normal">High</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-100">
-                  {[
-                    ['EV / EBITDA', '8.2x', '11.6x', '17.2x'],
-                    ['EV / Revenue', '2.1x', '3.4x', '5.8x'],
-                    ['P / E', '14.0x', '19.8x', '27.5x'],
-                  ].map((r, ri) => (
-                    <tr key={ri}>
-                      <td className="px-8 py-5 text-[13px] font-medium text-slate-900">{r[0]}</td>
-                      <td className="px-8 py-5 text-right text-[13px] font-mono text-slate-400 tabular-nums">{r[1]}</td>
-                      <td className="px-8 py-5 text-right text-[13px] font-mono text-[#2B4BF2] font-semibold tabular-nums">{r[2]}</td>
-                      <td className="px-8 py-5 text-right text-[13px] font-mono text-slate-400 tabular-nums">{r[3]}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+        <div className="px-6 py-4 bg-gray-50/80 border-t border-gray-200/60 flex items-center justify-between">
+          <div className="flex items-center gap-2 text-[10px] text-gray-500">
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span> AI Analyzing 14 teasers...
           </div>
-        )}
-
-        {/* Legal Review — money shot */}
-        {activeTab === 1 && (
-          <div className="h-full flex flex-col px-8 py-8 relative">
-            <div className="flex items-center gap-3 text-[11px] font-mono uppercase tracking-[0.15em] text-slate-400 mb-5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#2B4BF2] animate-pulse"></span>
-              <span>Ask · "Summarize covenant terms in SPA_Meridian_vFinal.pdf"</span>
-            </div>
-
-            <div className="rounded-lg border border-slate-200/80 bg-white p-6 relative shadow-[0_10px_30px_-20px_rgba(15,23,42,0.15)]">
-              <div className="text-[10px] font-mono uppercase tracking-[0.15em] text-slate-400 mb-4">
-                Capsa response
-              </div>
-              <div className="text-[14px] text-slate-700 leading-[1.85] font-light">
-                <p>
-                  The agreement imposes a <span className="text-slate-900 font-normal">maximum total net leverage of 4.00:1.00</span>
-                  <SourceChip n={1} />, tested quarterly on a trailing twelve-month basis
-                  <SourceChip n={2} />. Change of control triggers mandatory prepayment subject to
-                  lender consent<span className="text-[#2B4BF2] text-[11px] align-super ml-0.5 cursor-pointer">3</span>.
-                  MAC carve-outs exclude sector-wide downturns<span className="text-[#2B4BF2] text-[11px] align-super ml-0.5 cursor-pointer">4</span>.
-                </p>
-              </div>
-
-              {/* floating preview */}
-              <div
-                className="absolute right-6 bottom-[-14px] w-[340px] rounded-lg border border-slate-200 bg-white shadow-[0_30px_70px_-20px_rgba(15,23,42,0.3)] p-4"
-                style={{ animation: 'capsaPreviewIn 6s ease-in-out infinite' }}
-              >
-                <div className="text-[10px] font-mono uppercase tracking-[0.15em] text-slate-400 mb-2">
-                  Source 1 · SPA_Meridian_vFinal.pdf
-                </div>
-                <div className="text-[12px] text-slate-700 font-mono leading-relaxed">
-                  "...the Company shall maintain a Total Net Leverage Ratio not exceeding{' '}
-                  <span className="bg-[#2B4BF2]/15 text-[#2B4BF2] px-1 rounded">4.00:1.00</span>,
-                  tested quarterly on a trailing twelve-month basis..."
-                </div>
-                <div className="mt-3 flex items-center justify-between text-[10px] font-mono uppercase tracking-[0.14em] text-slate-400">
-                  <span>Page 42 · §7.2(a)</span>
-                  <span className="text-[#2B4BF2]">Open ↗</span>
-                </div>
-              </div>
-            </div>
-
-            {/* extracted terms */}
-            <div className="mt-10">
-              <div className="text-[10px] font-mono uppercase tracking-[0.15em] text-slate-400 mb-3">
-                Extracted terms
-              </div>
-              <div className="grid grid-cols-2 gap-x-6">
-                {[
-                  ['SPA', 'Covenant · 4.0x max leverage'],
-                  ['NDA', 'Non-solicit · 24 months'],
-                  ['SPA', 'Change of control · consent required'],
-                  ['SPA', 'MAC clause · standard carve-outs'],
-                ].map((row, ri) => (
-                  <div
-                    key={ri}
-                    className="flex items-center gap-4 py-3 text-[12px] border-b border-slate-100"
-                    style={{ animation: `capsaRowReveal 6s ease-in-out ${ri * 0.4}s infinite` }}
-                  >
-                    <span className="text-[10px] font-mono uppercase tracking-[0.1em] text-slate-400 w-10 shrink-0">{row[0]}</span>
-                    <span className="text-slate-700">{row[1]}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Enterprise Search */}
-        {activeTab === 2 && (
-          <div className="h-full flex flex-col">
-            <div className="px-8 py-6 border-b border-slate-100">
-              <div className="flex items-center gap-3 text-[13px] font-mono text-slate-700">
-                <span className="text-slate-400">›</span>
-                <span>European healthcare targets</span>
-                <span className="w-[2px] h-4 bg-[#2B4BF2] ml-1" style={{ animation: 'capsaCursorBlink 1s steps(2) infinite' }}></span>
-              </div>
-            </div>
-            <div className="flex-1 divide-y divide-slate-100">
-              {[
-                ['Q3 Sector Report — EU Healthcare', 'FactSet · 2d ago'],
-                ['Helvetia Diagnostics — teaser', 'Data room · 09/12'],
-                ['Prior deal: Nordklinik (2024)', 'Deal archive'],
-              ].map((r, ri) => (
-                <div
-                  key={ri}
-                  className="flex items-center justify-between px-8 py-5 hover:bg-slate-50/70 transition-colors"
-                  style={{ animation: `capsaResultIn 6s ease-out ${ri * 0.9}s infinite`, opacity: 0 }}
-                >
-                  <span className="text-[13px] text-slate-800">{r[0]}</span>
-                  <span className="text-[11px] font-mono text-slate-400">{r[1]}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-};
-
-/* numbered source chip */
-const SourceChip = ({ n }) => (
-  <span className="inline-flex items-center justify-center w-[16px] h-[16px] rounded-full bg-[#2B4BF2]/10 text-[#2B4BF2] text-[10px] font-mono align-middle mx-1 cursor-pointer hover:bg-[#2B4BF2]/20 transition-colors">
-    {n}
-  </span>
-);
-
-
-const MockupUnderwriting = () => (
-  <div className="w-full h-full bg-white flex flex-col font-sans relative overflow-hidden">
-    <div className="flex items-center justify-between px-8 py-4 border-b border-slate-200/70 shrink-0">
-      <div className="flex items-center gap-4">
-        <span className="text-[13px] font-semibold text-slate-900 tracking-tight">Memo generator</span>
-        <span className="text-slate-300">/</span>
-        <span className="text-[12px] text-slate-500 font-mono">Meridian Industrials</span>
-      </div>
-      <span className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.15em] text-[#2B4BF2]">
-        <span className="w-1.5 h-1.5 rounded-full bg-[#2B4BF2] animate-pulse"></span>
-        synthesizing
-      </span>
-    </div>
-
-    <div className="flex-1 grid grid-cols-[1fr_1.6fr] divide-x divide-slate-100 overflow-hidden">
-      <div className="p-8 font-mono text-[11px] text-slate-500 leading-[2] overflow-hidden bg-slate-50/50">
-        <div className="text-[10px] uppercase tracking-[0.15em] text-slate-400 mb-6">
-          Q3_Financials_vFinal.xlsx
-        </div>
-        <div className="space-y-0.5">
-          <div className="flex justify-between"><span>Rev_Net</span><span className="text-slate-800 tabular-nums">42,450,000</span></div>
-          <div className="flex justify-between"><span>COGS</span><span className="text-slate-800 tabular-nums">(12,100,000)</span></div>
-          <div className="flex justify-between border-t border-slate-200 pt-1.5 mt-1.5">
-            <span>Gr_Margin</span><span className="text-slate-900 font-semibold tabular-nums">30,350,000</span>
-          </div>
-          <div className="flex justify-between pt-4"><span>CAC_blended</span><span className="text-slate-800 tabular-nums">$4,120</span></div>
-          <div className="flex justify-between"><span>LTV_blended</span><span className="text-slate-800 tabular-nums">$38,500</span></div>
-        </div>
-        <div className="mt-8 pt-6 border-t border-slate-200 text-[10px] text-amber-700/80 leading-relaxed">
-          Note: $1.2M legal fees added back to adjusted EBITDA.
-        </div>
-      </div>
-
-      <div className="p-8 overflow-hidden relative">
-        <div className="text-[10px] font-mono uppercase tracking-[0.15em] text-slate-400 mb-6">
-          Investment Committee Memo — v1
-        </div>
-        <h4 className="font-serif text-[22px] text-slate-900 tracking-tight leading-tight mb-8">
-          Meridian Industrials — Proposed $45M Growth Investment
-          <span
-            className="inline-block w-[2px] h-[20px] bg-[#2B4BF2] align-middle ml-1"
-            style={{ animation: 'capsaCursorBlink 1s steps(2) infinite' }}
-          ></span>
-        </h4>
-
-        <div className="space-y-6 text-[13px] leading-[1.85] text-slate-600">
-          <div>
-            <div className="text-[10px] font-mono uppercase tracking-[0.15em] text-slate-400 mb-2">
-              Financial performance
-            </div>
-            <p>Target exhibits robust margin profiles, maintaining a 71.5% gross margin over the LTM period. Software revenue compounds efficiently.</p>
-          </div>
-          <div
-            className="border-l-2 border-[#2B4BF2] pl-4 py-1 rounded-r-md"
-            style={{ animation: 'capsaHighlight 3s ease-in-out infinite' }}
-          >
-            <div className="text-[10px] font-mono uppercase tracking-[0.15em] text-[#2B4BF2] mb-2">
-              Capsa insight
-            </div>
-            <p className="text-slate-700">
-              LTV:CAC ratio of 9.3x sits well above peer median (4.5x). The $1.2M legal add-back warrants further diligence.
-            </p>
-          </div>
-          <div>
-            <div className="text-[10px] font-mono uppercase tracking-[0.15em] text-slate-400 mb-2">
-              Covenant considerations
-            </div>
-            <p>Pro forma leverage at 2.4x provides headroom against the 4.0x maximum in the primary facility.</p>
+          <div className="w-32 h-1 bg-gray-200 rounded-full overflow-hidden">
+            <div className="h-full bg-blue-600 w-2/3"></div>
           </div>
         </div>
       </div>
@@ -477,10 +224,53 @@ const MockupUnderwriting = () => (
   </div>
 );
 
+const MockupUnderwriting = () => (
+  <div className="w-full h-full bg-white/60 border border-white/40 shadow-2xl flex flex-col font-sans text-sm rounded-xl overflow-hidden backdrop-blur-xl">
+    <div className="border-b border-gray-200/50 bg-white/50 px-6 py-4 flex items-center justify-between">
+       <div className="text-gray-500 text-xs font-mono tracking-widest">CAPSA // MEMO_GENERATOR</div>
+       <div className="flex items-center gap-2">
+         <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></div>
+         <span className="text-blue-600 text-xs font-mono font-medium">Synthesizing</span>
+       </div>
+    </div>
+    <div className="flex-1 flex">
+      {/* Left Pane - Raw Data */}
+      <div className="w-1/3 border-r border-gray-200/50 bg-gray-50/50 p-6 font-mono text-[11px] text-gray-500 leading-relaxed overflow-hidden">
+        <div className="text-gray-800 mb-4 border-b border-gray-200 pb-3 font-semibold">Source: Q3_Financials_vFinal.xlsx</div>
+        <div className="space-y-1">
+          <div>Row 42: Rev_Net ... 42,450,000</div>
+          <div>Row 43: COGS ...... (12,100,000)</div>
+          <div>Row 44: Gr_Margin.. 30,350,000 [71.5%]</div>
+          <div className="pt-4">Row 89: CAC_blended.. $4,120</div>
+          <div>Row 90: LTV_blended.. $38,500</div>
+          <div className="pt-4 text-amber-600/80">*Note: One-time adjustment of $1.2M in legal fees added back to adjusted EBITDA.</div>
+        </div>
+      </div>
+      {/* Right Pane - AI Output */}
+      <div className="w-2/3 p-8 bg-white/40 font-serif text-gray-700 overflow-hidden relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-50/30 to-transparent pointer-events-none"></div>
+        <h4 className="text-gray-900 text-2xl font-medium mb-6 tracking-tight">Investment Committee Memo</h4>
+        <div className="space-y-6 text-sm leading-relaxed relative z-10">
+          <p>
+            <strong className="text-gray-900 font-sans text-xs uppercase tracking-widest block mb-2 opacity-80">Financial Performance</strong>
+            The target exhibits robust margin profiles, maintaining a 71.5% gross margin over the LTM period. Software revenue continues to compound efficiently.
+          </p>
+          <div className="bg-blue-50/80 border-l-2 border-blue-500 p-4 text-blue-900 font-sans text-xs rounded-r-md">
+            <strong className="text-blue-700">Capsa Insight:</strong> LTV:CAC ratio is exceptionally strong at 9.3x, well above the peer group median of 4.5x. However, the $1.2M legal add-back requires further diligence.
+          </div>
+          <p>
+            <strong className="text-gray-900 font-sans text-xs uppercase tracking-widest block mb-2 opacity-80">Covenant Considerations</strong>
+            Pro forma leverage sits at 2.4x, providing significant headroom against the 4.0x maximum stipulated in the primary facility...
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+);
 
 const MockupPortfolio = () => (
-  <div className="w-full h-full bg-white/60 flex flex-col font-sans text-sm">
-    <div className="border-b border-gray-200/50 bg-white/50 px-6 py-5 flex items-center justify-between shrink-0">
+  <div className="w-full h-full bg-white/60 border border-white/40 shadow-2xl flex flex-col font-sans text-sm rounded-xl backdrop-blur-xl overflow-hidden">
+    <div className="border-b border-gray-200/50 bg-white/50 px-6 py-5 flex items-center justify-between">
       <div>
         <h4 className="text-lg font-serif text-gray-900 tracking-tight">Fund IV - Operating Metrics</h4>
         <p className="text-gray-500 text-xs mt-1 font-light">Real-time sync via ERP & Banking APIs</p>
@@ -489,8 +279,8 @@ const MockupPortfolio = () => (
         Export Report
       </button>
     </div>
-
-    <div className="flex-1 overflow-auto">
+    
+    <div className="p-0 overflow-x-auto">
       <table className="w-full text-left border-collapse">
         <thead>
           <tr className="bg-gray-50/80 text-gray-500 text-[10px] uppercase tracking-widest font-semibold border-b border-gray-200/60">
@@ -509,7 +299,7 @@ const MockupPortfolio = () => (
               <td className="px-6 py-5 font-mono text-xs text-gray-500">{item.ebitda}</td>
               <td className="px-6 py-5">
                 <span className={`inline-block w-2 h-2 rounded-full mr-3 ${
-                  item.risk === 'Low' ? 'bg-emerald-500' :
+                  item.risk === 'Low' ? 'bg-emerald-500' : 
                   item.risk === 'Med' ? 'bg-amber-500' : 'bg-red-500'
                 }`}></span>
                 <span className="text-gray-500 text-xs">{item.risk}</span>
@@ -532,56 +322,13 @@ const MockupPortfolio = () => (
 );
 
 /* ========================================================================
-   WORKFLOW LIFECYCLE DATA — drives the alternating showcase section
-   ======================================================================== */
-
-const STAGES = [
-  {
-    n: '01',
-    eyebrow: 'Source',
-    tagline: 'Find the deal',
-    title: 'Sourcing & add-on search',
-    desc: "Source and screen proprietary and add-on targets across your deal universe in seconds, scored against every live mandate the firm is running.",
-    render: () => <MockupSourcing />,
-  },
-  {
-    n: '02',
-    eyebrow: 'Evaluate',
-    tagline: 'Diligence & research',
-    title: 'A single diligence workspace',
-    desc: "Build trading comps, extract covenant terms from legal documents, and search every data room instantly, all grounded in the same live sources.",
-    tabs: ['Trading Comps', 'Legal Review', 'Enterprise Search'],
-    render: (activeTab, setActiveTab) => <MockupEvaluate activeTab={activeTab} setActiveTab={setActiveTab} />,
-  },
-  {
-    n: '03',
-    eyebrow: 'Execute',
-    tagline: 'Committee & close',
-    title: 'IC materials creation',
-    desc: "Generate investment committee memos in minutes, pulling financials, covenant flags, and market context directly from the data room into your firm's exact template.",
-    render: () => <MockupUnderwriting />,
-  },
- {
-  n: '04',
-  eyebrow: 'Monitor',
-  tagline: 'Post-close',
-  title: 'Portfolio tracking & scheduled workflows',
-  desc: "Track KPIs and covenant compliance across the portfolio automatically, with quarterly reporting and market scans running on a schedule your team sets once.",
-  render: () => <MockupPortfolio />,
-  tall: true,
-},
-];
-
-/* ========================================================================
    MAIN PAGE COMPONENT
    ======================================================================== */
 
 export default function Home() {
+  const [activeTab, setActiveTab] = useState(0);
   const [scrolled, setScrolled] = useState(false);
   const [activeSource, setActiveSource] = useState(0);
-  const [activeTab, setActiveTab] = useState(0);
-  const [workflowsVisible, setWorkflowsVisible] = useState(false);
-  const workflowsRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -602,131 +349,35 @@ export default function Home() {
     return () => clearInterval(id);
   }, []);
 
-  // Auto-advance the Evaluate stage's internal tabs so the showcase
-  // panel feels alive even before anyone touches it.
-  useEffect(() => {
-    let i = 0;
-    let dir = 1;
-    const id = setInterval(() => {
-      i += dir;
-      if (i === 2 || i === 0) dir *= -1;
-      setActiveTab(i);
-    }, 3400);
-    return () => clearInterval(id);
-  }, []);
-
-  // One orchestrated reveal for the workflow showcase, the first time it
-  // scrolls into view, rather than animating every section on every scroll.
-  useEffect(() => {
-    const el = workflowsRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setWorkflowsVisible(true);
-          observer.unobserve(el);
-        }
-      },
-      { threshold: 0.15 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+  const WORKFLOWS = [
+    {
+      title: "Intelligent Sourcing",
+      desc: "Stop triaging the same deals. Capsa ingests flow directly from inboxes and data rooms, scoring opportunities against firm-wide mandates before a human even looks at them.",
+      component: <MockupSourcing />
+    },
+    {
+      title: "Automated Underwriting",
+      desc: "Upload the data room. Capsa extracts financials, flags covenant risks, and drafts the first pass of your investment committee memo in your firm's exact template.",
+      component: <MockupUnderwriting />
+    },
+    {
+      title: "Portfolio Monitoring",
+      desc: "Know when a portfolio company drifts off plan before the board call. Capsa continuously tracks KPIs and covenant compliance, linking back to source documents automatically.",
+      component: <MockupPortfolio />
+    }
+  ];
 
   return (
     <div className="min-h-screen bg-[#FAFAFA] text-gray-900 font-sans selection:bg-blue-100 selection:text-blue-900 antialiased">
 
-   {/* Global keyframes for scan / reveal / pulse / typing animations */}
-<style>{`
-  /* --- Core reveal & status --- */
-  @keyframes capsaPulse {
-    0%, 100% { opacity: 0.35; }
-    50%      { opacity: 1; }
-  }
-  @keyframes capsaFill {
-    from { width: 0%; }
-    to   { width: var(--fill-target, 66%); }
-  }
-  @keyframes capsaRowReveal {
-    0%, 15%   { opacity: 0.25; }
-    20%, 100% { opacity: 1; }
-  }
-  @keyframes capsaHighlight {
-    0%, 100% { background-color: transparent; }
-    50%      { background-color: rgba(43,75,242,0.06); }
-  }
-
-  /* --- Hero panel scan beam --- */
-  @keyframes capsaScan {
-    0%   { top: 0%; }
-    50%  { top: 100%; }
-    100% { top: 0%; }
-  }
-
-  /* --- Typing caret --- */
-  @keyframes capsaCursorBlink {
-    0%, 49%   { opacity: 1; }
-    50%, 100% { opacity: 0; }
-  }
-
-  /* --- Loading bar (used under prompt boxes) --- */
-@keyframes capsaLoadingBar {
-  0%, 45%   { width: 0%; opacity: 0; }
-  47%       { opacity: 1; }
-  62%       { width: 100%; opacity: 1; }
-  68%       { width: 100%; opacity: 0; }
-  100%      { width: 100%; opacity: 0; }
-}
-
-@keyframes capsaResultIn {
-  0%, 62%   { opacity: 0; transform: translateY(8px); }
-  70%, 96%  { opacity: 1; transform: translateY(0); }
-  100%      { opacity: 0; transform: translateY(8px); }
-}
-
-  /* --- Prompt box interactive cursor + click --- */
-@keyframes capsaCursorMove {
-  0%   { transform: translate(-40px, -60px) scale(1); opacity: 0; }
-  8%   { opacity: 1; }
-  38%  { transform: translate(-6px, -6px) scale(1); opacity: 1; }
-  44%  { transform: translate(0px, 0px) scale(0.85); opacity: 1; }
-  48%  { transform: translate(0px, 0px) scale(1); opacity: 1; }
-  92%  { transform: translate(0px, 0px) scale(1); opacity: 1; }
-  100% { transform: translate(0px, 0px) scale(1); opacity: 0; }
-}
-
-@keyframes capsaClick {
-  0%, 44%   { transform: scale(1); }
-  47%       { transform: scale(0.94); }
-  51%, 100% { transform: scale(1); }
-}
-  /* --- Floating source preview card --- */
-  @keyframes capsaPreviewIn {
-    0%, 68%   { opacity: 0; transform: translateY(6px) scale(0.98); }
-    76%, 92%  { opacity: 1; transform: translateY(0) scale(1); }
-    100%      { opacity: 0; transform: translateY(6px) scale(0.98); }
-  }
-
-@keyframes capsaRipple {
-  0%, 43%   { opacity: 0; transform: scale(1); }
-  45%       { opacity: 0.9; transform: scale(1); }
-  58%       { opacity: 0; transform: scale(1.6); }
-  100%      { opacity: 0; transform: scale(1.6); }
-}
-
-`}</style>
-
-
-
-
       {/* ---------- HERO SECTION ---------- */}
       <section className="relative pt-16 pb-40 overflow-hidden">
-
+        
         {/* Light, Glassy Background */}
         <div className="absolute inset-0 pointer-events-none -z-10 bg-[#FAFAFA]">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[380px] bg-blue-100/20 rounded-full blur-[130px]"></div>
-          <div className="absolute inset-0 opacity-[0.02]"
-               style={{
+          <div className="absolute inset-0 opacity-[0.02]" 
+               style={{ 
                  backgroundImage: `linear-gradient(to right, #000 1px, transparent 1px), linear-gradient(to bottom, #000 1px, transparent 1px)`,
                  backgroundSize: '4rem 4rem',
                  maskImage: 'linear-gradient(to bottom, black 20%, transparent 100%)'
@@ -734,9 +385,9 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="max-w-[100rem] mx-auto px-6 md:px-12 relative z-10">
+        <div className="max-w-[140rem] mx-auto px-6 md:px-12 relative z-10">
                  {/* Left-Aligned Hero Content */}
-          <div className="mb-14">
+          <div className="max-w-7xl mx-auto mb-14">
             <div className="inline-flex items-center gap-3 bg-white/80 border border-gray-200/80 rounded-full px-5 py-2 mb-10 backdrop-blur-md shadow-sm">
               <span className="w-2 h-2 rounded-full bg-blue-600 shadow-[0_0_8px_rgba(37,99,235,0.5)]"></span>
               <span className="text-[11px] font-medium text-gray-600 tracking-widest uppercase">AI built for private capital</span>
@@ -761,10 +412,10 @@ export default function Home() {
               </div>
             </div>
           </div>
-
+        
 
                   {/* Premium Glass Enterprise Dashboard Card */}
-          <div>
+          <div className="max-w-7xl mx-auto">
             <div className="bg-white/50 border border-white/70 rounded-[28px] shadow-[0_20px_50px_-20px_rgba(15,23,42,0.12)] overflow-hidden backdrop-blur-2xl relative">
               <div className="pointer-events-none absolute inset-0 rounded-[28px] ring-1 ring-inset ring-white/60"></div>
 
@@ -995,12 +646,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ---------- CORE WORKFLOWS (ALTERNATING, FULL-SIZE SHOWCASE) ---------- */}
-      <section ref={workflowsRef} className="py-32 bg-[#FAFAFA] border-t border-gray-100 overflow-hidden">
-        <div className="max-w-[100rem] mx-auto px-6 md:px-12">
+
+
+          {/* ---------- CORE WORKFLOWS (GROUPED BY LIFECYCLE STAGE) ---------- */}
+      <section className="py-32 bg-[#FAFAFA] border-t border-gray-100">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
 
           {/* Section heading */}
-          <div className="max-w-3xl mb-24">
+          <div className="max-w-3xl mb-20">
             <div className="flex items-center gap-3 mb-6">
               <span className="w-8 h-px bg-[#011522]"></span>
               <span className="text-[11px] font-semibold text-[#011522] uppercase tracking-[0.25em]">The Capsa Platform</span>
@@ -1009,69 +662,178 @@ export default function Home() {
               Workflows built for private capital teams.
             </h2>
             <p className="text-lg text-[#011522]/60 leading-relaxed font-light">
-              Domain-specific workflows designed for investment and portfolio analyses, organized by where they fit in the deal lifecycle.
+              Domain-specific workflows designed for investment and portfolio analyses — organized by where they fit in the deal lifecycle.
             </p>
           </div>
 
-          {/* Alternating showcase rows — one per lifecycle stage */}
-          <div className="space-y-24">
-            {STAGES.map((stage, i) => (
-              <div
-                key={stage.n}
-              className={`grid grid-cols-1 ${
-  i % 2 === 1
-    ? 'lg:grid-cols-[1fr_minmax(0,420px)]'
-    : 'lg:grid-cols-[minmax(0,420px)_1fr]'
-} gap-14 lg:gap-20 items-center transition-all duration-700 ease-out ${
-  i !== 0 ? 'pt-24 border-t border-gray-200/70' : ''
-} ${workflowsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+ 
+          {/* Stage rows — one horizontal band per lifecycle stage */}
+          <div className="space-y-16">
 
-                style={{ transitionDelay: workflowsVisible ? `${i * 140}ms` : '0ms' }}
-              >
-                {/* Text */}
-                <div className={i % 2 === 1 ? 'lg:order-2' : ''}>
-                  <div className="flex items-baseline gap-5 mb-6">
-                    <span className="font-serif text-6xl md:text-7xl text-[#011522]/15 leading-none tracking-tight">{stage.n}</span>
-                    <div>
-                      <div className="text-[11px] font-semibold text-blue-600 tracking-[0.25em] uppercase mb-1">{stage.eyebrow}</div>
-                      <div className="text-[13px] text-[#011522]/45">{stage.tagline}</div>
+            {/* 01 — SOURCE */}
+            <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-10 lg:gap-16 items-start border-t border-gray-200/80 pt-10">
+              <div className="lg:sticky lg:top-24">
+                <div className="flex items-baseline gap-4 mb-3">
+                  <span className="font-serif text-5xl text-[#011522]/25 leading-none tracking-tight">01</span>
+                  <div className="text-[11px] font-semibold text-[#011522] uppercase tracking-[0.25em]">Source</div>
+                </div>
+                <p className="text-[13px] text-[#011522]/50 leading-relaxed pl-[68px]">Find the deal</p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <WorkflowCard
+                  icon={<IconSearch className="w-5 h-5" />}
+                  title="Sourcing & Add-On Search"
+                  desc="Source and screen proprietary and add-on targets across your deal universe in seconds."
+                   visual={
+                    <div className="text-[11px]">
+                      <div className="flex items-center justify-between px-1 pb-3 mb-3 border-b border-[#011522]/10">
+                        <span className="font-mono text-[#011522]/45 tracking-wide">14 new matches</span>
+                        <span className="font-mono text-[#011522]/45 tracking-wide">fit</span>
+                      </div>
+                      <div>
+                        {['Helios Aerospace', 'Riverstone Logistics', 'Apex Infrastructure', 'Nova Capital'].map((n, i) => (
+                          <div key={i} className="flex items-center justify-between py-2 border-b border-[#011522]/5 last:border-0">
+                            <span className="text-[#011522]/75 truncate">{n}</span>
+                            <span className="text-[#011522] font-mono text-[11px] font-semibold">{90 + i * 2}%</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                  <h3 className="font-serif text-3xl md:text-[2.75rem] leading-[1.1] text-[#011522] tracking-tight mb-5 max-w-md">
-                    {stage.title}
-                  </h3>
-                  <p className="text-[15.5px] text-[#011522]/60 leading-[1.75] max-w-md mb-8">
-                    {stage.desc}
-                  </p>
-                  {stage.tabs && (
-                    <div className="flex flex-wrap gap-2">
-                      {stage.tabs.map((t, ti) => (
-                        <button
-                          key={t}
-                          onClick={() => setActiveTab(ti)}
-                          className={`px-4 py-2 rounded-full text-[12px] font-semibold transition-colors border ${
-                            activeTab === ti
-                              ? 'bg-[#011522] text-white border-[#011522]'
-                              : 'text-[#011522]/55 border-[#011522]/20 hover:border-[#011522]/40'
-                          }`}
-                        >
-                          {t}
-                        </button>
+                  }
+                />
+              </div>
+            </div>
+
+            {/* 02 — EVALUATE */}
+            <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-10 lg:gap-16 items-start border-t border-gray-200/80 pt-10">
+              <div className="lg:sticky lg:top-24">
+                <div className="flex items-baseline gap-4 mb-3">
+                  <span className="font-serif text-5xl text-[#011522]/25 leading-none tracking-tight">02</span>
+                  <div className="text-[11px] font-semibold text-[#011522] uppercase tracking-[0.25em]">Evaluate</div>
+                </div>
+                <p className="text-[13px] text-[#011522]/50 leading-relaxed pl-[68px]">Diligence & research</p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <WorkflowCard
+                  icon={<IconChart className="w-5 h-5" />}
+                  title="Trading Comps & Precedents"
+                  desc="Build trading comps and precedent transaction analyses with live FactSet and PitchBook data."
+                  visual={
+                    <div className="rounded-md border border-[#011522]/10 overflow-hidden">
+                      <div className="grid grid-cols-3 text-[10px] font-mono bg-[#011522]/[0.03] text-[#011522]/50 px-3 py-2 border-b border-[#011522]/10">
+                        <span>EV/EBITDA</span><span className="text-right">Median</span><span className="text-right">P75</span>
+                      </div>
+                      <div className="grid grid-cols-3 text-[11px] font-mono px-3 py-2 text-[#011522]/70">
+                        <span>11.6x</span><span className="text-right">14.4x</span><span className="text-right">17.2x</span>
+                      </div>
+                    </div>
+                  }
+                />
+
+                <WorkflowCard
+                  icon={<IconDocument className="w-5 h-5" />}
+                  title="Legal Document Review"
+                  desc="Review and extract key terms from NDAs, SPAs, and covenant agreements in seconds, not hours."
+                  visual={
+                    <div className="space-y-2">
+                    <div className="flex items-center gap-3 text-[12px]">
+                        <span className="px-1.5 py-0.5 font-mono text-[9px] font-semibold text-[#011522]/60 border border-[#011522]/20">SPA</span>
+                        <span className="text-[#011522]/70 truncate">Covenant · 4.0x max leverage</span>
+                      </div>
+                      <div className="flex items-center gap-3 text-[12px]">
+                        <span className="px-1.5 py-0.5 font-mono text-[9px] font-semibold text-[#011522]/60 border border-[#011522]/20">NDA</span>
+                        <span className="text-[#011522]/70 truncate">Non-solicit · 24 months</span>
+                      </div>
+                    </div>
+                  }
+                />
+
+                <WorkflowCard
+                  icon={<IconSearch className="w-5 h-5" />}
+                  title="Enterprise Search"
+                  desc="Search every document, email, and data source to surface market reports, prior deal work, and intelligence instantly."
+                  visual={
+                    <div className="flex items-center gap-2 px-3 py-2 rounded-md bg-[#011522]/[0.03] border border-[#011522]/10">
+                      <IconSearch className="w-3.5 h-3.5 text-[#011522]/40" />
+                      <span className="text-[12px] text-[#011522]/70 font-mono">European healthcare targets</span>
+                    </div>
+                  }
+                />
+              </div>
+            </div>
+
+            {/* 03 — EXECUTE */}
+            <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-10 lg:gap-16 items-start border-t border-gray-200/80 pt-10">
+              <div className="lg:sticky lg:top-24">
+                <div className="flex items-baseline gap-4 mb-3">
+                  <span className="font-serif text-5xl text-[#011522]/25 leading-none tracking-tight">03</span>
+                  <div className="text-[11px] font-semibold text-[#011522] uppercase tracking-[0.25em]">Execute</div>
+                </div>
+                <p className="text-[13px] text-[#011522]/50 leading-relaxed pl-[68px]">Committee & close</p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <WorkflowCard
+                  icon={<IconActivity className="w-5 h-5" />}
+                  title="IC Materials Creation"
+                  desc="Generate IC materials in minutes by pulling from your CRM, SharePoint, and market data automatically."
+                  visual={
+                    <div className="space-y-2.5">
+                       <div className="flex items-center justify-between text-[12px]">
+                        <span className="text-[#011522]/60">Investment memo</span>
+                        <span className="text-[#011522] font-mono text-[11px] font-semibold">Draft</span>
+                      </div>
+                      <div className="h-[3px] bg-[#011522]/10 overflow-hidden">
+                        <div className="h-full w-[78%] bg-[#011522]"></div>
+                      </div>
+                      <div className="flex items-center gap-2 text-[11px] text-[#011522]/50">
+                        <span>CRM</span><span>·</span>
+                        <span>SharePoint</span><span>·</span>
+                        <span>FactSet</span>
+                      </div>
+                    </div>
+                  }
+                />
+              </div>
+            </div>
+
+            {/* 04 — MONITOR */}
+            <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-10 lg:gap-16 items-start border-t border-gray-200/80 pt-10">
+              <div className="lg:sticky lg:top-24">
+                <div className="flex items-baseline gap-4 mb-3">
+                  <span className="font-serif text-5xl text-[#011522]/25 leading-none tracking-tight">04</span>
+                  <div className="text-[11px] font-semibold text-[#011522] uppercase tracking-[0.25em]">Monitor</div>
+                </div>
+                <p className="text-[13px] text-[#011522]/50 leading-relaxed pl-[68px]">Post-close</p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <WorkflowCard
+                  icon={<IconChart className="w-5 h-5" />}
+                  title="Portfolio Tracking & Scheduled Workflows"
+                  desc="Automate recurring workflows for quarterly portfolio reporting, market research, or any task your team needs on a schedule."
+                 visual={
+                    <div>
+                      {[
+                        { label: 'Q1 Report', status: 'Sent', done: true },
+                        { label: 'Q2 Report', status: 'Scheduled', done: false },
+                        { label: 'Market scan', status: 'Queued', done: false },
+                      ].map((row, i) => (
+                        <div key={i} className="flex items-center justify-between text-[11px] font-mono py-2 border-b border-[#011522]/5 last:border-0">
+                          <span className="text-[#011522]/55">{row.label}</span>
+                          <span className="flex items-center gap-1.5 text-[#011522]/70">
+                            <span className={`w-1.5 h-1.5 rounded-full ${row.done ? 'bg-[#011522]' : 'border border-[#011522]/30'}`}></span>
+                            {row.status}
+                          </span>
+                        </div>
                       ))}
                     </div>
-                  )}
-                </div>
-
-                {/* Showcase panel */}
-                <div className={i % 2 === 1 ? 'lg:order-1' : ''}>
-                  <div className={`rounded-[28px] border border-white/70 shadow-[0_30px_80px_-30px_rgba(15,23,42,0.28)] overflow-hidden backdrop-blur-2xl bg-white/50 ring-1 ring-[#011522]/[0.04] ${
-  stage.tall ? 'h-auto' : 'h-[440px] md:h-[560px]'
-}`}>
-                    {stage.render(activeTab, setActiveTab)}
-                  </div>
-                </div>
+                  }                />
               </div>
-            ))}
+            </div>
+
           </div>
         </div>
       </section>
@@ -1086,7 +848,7 @@ export default function Home() {
             <p className="text-xl text-gray-500 font-light leading-relaxed mb-16">
               We understand that private capital data is your most guarded asset. Capsa is engineered from the ground up for absolute data segregation, auditability, and compliance.
             </p>
-
+            
             <div className="space-y-10">
               <div className="flex gap-6">
                 <div className="w-12 h-12 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center flex-shrink-0">
@@ -1123,7 +885,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-
+          
           <div className="bg-white border border-gray-200 p-10 md:p-14 rounded-2xl relative overflow-hidden shadow-xl">
              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-100 via-blue-500 to-blue-100"></div>
              <div className="font-mono text-sm text-gray-500 space-y-5">
@@ -1187,7 +949,7 @@ export default function Home() {
       {/* ---------- CTA ---------- */}
       <section className="py-40 bg-[#FAFAFA] relative overflow-hidden border-t border-gray-100">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-blue-100/50 rounded-full blur-[150px] pointer-events-none"></div>
-
+        
         <div className="max-w-5xl mx-auto px-6 md:px-12 text-center relative z-10">
           <h2 className="font-serif text-5xl md:text-7xl text-gray-900 leading-tight mb-10 tracking-tight">
             See Capsa on your own pipeline.
@@ -1210,7 +972,7 @@ export default function Home() {
       <footer className="bg-white border-t border-gray-100 pt-24 pb-12">
         <div className="max-w-[140rem] mx-auto px-6 md:px-12">
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-12 mb-20">
-
+            
             <div className="col-span-2 lg:col-span-2">
               <Link to="/" className="flex items-center gap-3 mb-8">
                 <IconDatabase className="w-5 h-5 text-gray-900" />
@@ -1245,11 +1007,11 @@ export default function Home() {
               <h4 className="text-[10px] font-semibold text-gray-900 uppercase tracking-[0.2em] mb-8">Stay Updated</h4>
               <p className="text-sm text-gray-500 mb-6">Subscribe to our newsletter for product updates and private market AI insights.</p>
               <form className="flex">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-l-md focus:ring-1 focus:ring-blue-500 focus:border-blue-500 block w-full p-3.5 outline-none placeholder:text-gray-400"
-                  required
+                <input 
+                  type="email" 
+                  placeholder="Enter your email" 
+                  className="bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-l-md focus:ring-1 focus:ring-blue-500 focus:border-blue-500 block w-full p-3.5 outline-none placeholder:text-gray-400" 
+                  required 
                 />
                 <button type="submit" className="bg-gray-900 text-white px-6 py-3.5 rounded-r-md text-sm font-semibold hover:bg-gray-800 transition-colors">
                   Subscribe

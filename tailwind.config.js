@@ -12,6 +12,16 @@ export default {
         paper: '#F4F6FB',
         muted: '#8790A8',
       },
+            keyframes: {
+        logoMarquee: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
+      },
+      animation: {
+        logoMarquee: 'logoMarquee 40s linear infinite',
+      },
+      fontFamily: {
       fontFamily: {
         serif: ['"Fraunces"', 'Georgia', 'serif'],
         sans: ['"Inter"', 'system-ui', 'sans-serif'],
