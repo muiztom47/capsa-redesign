@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import MockupSourcing from './mockups/MockupSourcing';
 import MockupUnderwriting from './mockups/MockupUnderwriting';
 import MockupEvaluate from './mockups/MockupEvaluate';
+import MockupPortfolio from './mockups/MockupPortfolio';
 
 import { Link } from 'react-router-dom';
 
@@ -103,13 +104,7 @@ const USE_CASES = [
   },
 ];
 
-const PORTFOLIO_DATA = [
-  { name: 'Meridian Renewables', arr: '$45.2M', ebitda: '$12.1M', status: 'On Track', risk: 'Low' },
-  { name: 'Cobalt Grid Storage', arr: '$18.9M', ebitda: '-$2.4M', status: 'Review', risk: 'Med' },
-  { name: 'Vanguard Logistics', arr: '$112.5M', ebitda: '$41.8M', status: 'On Track', risk: 'Low' },
-  { name: 'Amberline Health', arr: '$34.1M', ebitda: '$4.2M', status: 'Flagged', risk: 'High' },
-  { name: 'Apex Infrastructure', arr: '$280.0M', ebitda: '$88.5M', status: 'On Track', risk: 'Low' },
-];
+ 
 
 /* ========================================================================
    UI MOCKUP COMPONENTS (Light, Glassy, Enterprise)
@@ -125,60 +120,6 @@ const SourceChip = ({ n }) => (
 );
 
 
-
-
-const MockupPortfolio = () => (
-  <div className="w-full h-full bg-white/60 flex flex-col font-sans text-sm">
-    <div className="border-b border-gray-200/50 bg-white/50 px-6 py-5 flex items-center justify-between shrink-0">
-      <div>
-        <h4 className="text-lg font-serif text-gray-900 tracking-tight">Fund IV - Operating Metrics</h4>
-        <p className="text-gray-500 text-xs mt-1 font-light">Real-time sync via ERP & Banking APIs</p>
-      </div>
-      <button className="bg-gray-900 text-white px-5 py-2.5 text-xs font-semibold rounded-md hover:bg-gray-800 transition-colors shadow-sm">
-        Export Report
-      </button>
-    </div>
-
-    <div className="flex-1 overflow-auto">
-      <table className="w-full text-left border-collapse">
-        <thead>
-          <tr className="bg-gray-50/80 text-gray-500 text-[10px] uppercase tracking-widest font-semibold border-b border-gray-200/60">
-            <th className="px-6 py-4">Asset</th>
-            <th className="px-6 py-4">ARR</th>
-            <th className="px-6 py-4">EBITDA</th>
-            <th className="px-6 py-4">Risk Profile</th>
-            <th className="px-6 py-4">Status</th>
-          </tr>
-        </thead>
-        <tbody className="text-gray-700 text-sm">
-          {PORTFOLIO_DATA.map((item, i) => (
-            <tr key={i} className="hover:bg-gray-50/80 transition-colors border-b border-gray-100">
-              <td className="px-6 py-5 font-medium text-gray-900">{item.name}</td>
-              <td className="px-6 py-5 font-mono text-xs text-gray-500">{item.arr}</td>
-              <td className="px-6 py-5 font-mono text-xs text-gray-500">{item.ebitda}</td>
-              <td className="px-6 py-5">
-                <span className={`inline-block w-2 h-2 rounded-full mr-3 ${
-                  item.risk === 'Low' ? 'bg-emerald-500' :
-                  item.risk === 'Med' ? 'bg-amber-500' : 'bg-red-500'
-                }`}></span>
-                <span className="text-gray-500 text-xs">{item.risk}</span>
-              </td>
-              <td className="px-6 py-5">
-                <span className={`px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-full border ${
-                  item.status === 'On Track' ? 'bg-emerald-50 text-emerald-700 border-emerald-200/50' :
-                  item.status === 'Review' ? 'bg-amber-50 text-amber-700 border-amber-200/50' :
-                  'bg-red-50 text-red-700 border-red-200/50'
-                }`}>
-                  {item.status}
-                </span>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  </div>
-);
 
 /* ========================================================================
    WORKFLOW LIFECYCLE DATA — drives the alternating showcase section
