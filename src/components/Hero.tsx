@@ -545,10 +545,11 @@ One system for the entire deal lifecycle. Connect your data, run diligence and I
       </section>
 
       {/* ---------- LOGOS / INSTITUTIONAL PROOF ---------- */}
-<section className="relative py-8 bg-gradient-to-b from-[#0F0F1A] to-[#050507] border-y border-white/10 overflow-hidden">
-  {/* ambient shine — makes the surface feel reflective rather than flat */}
-  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.05)_0%,transparent_70%)] pointer-events-none"></div>
-
+<section className="relative py-8 overflow-hidden border-y border-white/10"
+  style={{ background: 'linear-gradient(to bottom, #05050F 0%, #05050F 100%)' }}
+>
+  {/* ambient shine — matches navbar surface */}
+  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.03)_0%,transparent_70%)] pointer-events-none"></div>
   <div className="max-w-[140rem] mx-auto px-6 md:px-12 relative">
     <div className="flex flex-col items-center gap-4">
       <p className="text-[11px] font-medium text-white/50 uppercase tracking-[0.3em] mb-2 text-center">
@@ -558,8 +559,8 @@ One system for the entire deal lifecycle. Connect your data, run diligence and I
             {/* Marquee */}
             <div className="relative w-full">
               {/* edge fades */}
-<div className="pointer-events-none absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[#0A0A12] to-transparent z-10"></div>
-<div className="pointer-events-none absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[#0A0A12] to-transparent z-10"></div>
+<div className="pointer-events-none absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[#05050F] to-transparent z-10"></div>
+<div className="pointer-events-none absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[#05050F] to-transparent z-10"></div>
               <style>{`
                 @keyframes logoMarquee {
                   0%   { transform: translateX(0); }
@@ -640,7 +641,7 @@ One system for the entire deal lifecycle. Connect your data, run diligence and I
                     {stage.desc}
                   </p>
                   {stage.tabs && (
-                    <div className="flex flex-wrap gap-2">
+                    <div className="hidden lg:flex flex-wrap gap-2">
                       {stage.tabs.map((t, ti) => (
                         <button
                           key={t}
@@ -658,8 +659,8 @@ One system for the entire deal lifecycle. Connect your data, run diligence and I
                   )}
                 </div>
 
-                {/* Showcase panel */}
-                <div className={i % 2 === 1 ? 'lg:order-1' : ''}>
+                {/* Showcase panel — hidden on mobile, the dense interactive mockups don't read well at that size */}
+                <div className={`hidden lg:block ${i % 2 === 1 ? 'lg:order-1' : ''}`}>
                   <div className={`rounded-[12px] border border-slate-200 overflow-hidden ${
   stage.tall ? 'h-auto' : 'h-[440px] md:h-[560px]'
 }`}>
@@ -673,10 +674,11 @@ One system for the entire deal lifecycle. Connect your data, run diligence and I
       </section>
 
       {/* ---------- ENTERPRISE SECURITY ---------- */}
-      <section
-        className="py-20 md:py-24 border-t border-[#1E1F2E] relative overflow-hidden"
-        style={{ backgroundColor: '#05050F' }}
-      >
+     <section
+  id="security"
+  className="py-20 md:py-24 border-t border-white/[0.08] relative overflow-hidden scroll-mt-24"
+  style={{ backgroundColor: '#05050F' }}
+>
         <div className="max-w-[100rem] mx-auto px-6 md:px-12 relative z-10">
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
@@ -744,10 +746,10 @@ One system for the entire deal lifecycle. Connect your data, run diligence and I
       </section>
 
       {/* ---------- TESTIMONIALS ---------- */}
-      <section className="py-32 bg-[#FAFAFA] border-t border-gray-100">
-        <div className="max-w-[100rem] mx-auto px-6 md:px-12">
+    <section id="stories" className="py-32 bg-[#FAFAFA] border-t border-gray-100 scroll-mt-24">
+  <div className="max-w-[100rem] mx-auto px-6 md:px-12">
 
-          {/* Header row: eyebrow on the left, count on the right — signals precision */}
+    {/* Header row: eyebrow on the left, count on the right — signals precision */}
           <div className="flex items-end justify-between mb-16 pb-6 border-b border-gray-200/70">
             <div>
               <div className="flex items-center gap-3 mb-5">
@@ -796,10 +798,10 @@ One system for the entire deal lifecycle. Connect your data, run diligence and I
       </section>
 
       {/* ---------- FAQ ---------- */}
-      <section className="py-32 bg-white border-t border-gray-100">
-        <div className="max-w-[100rem] mx-auto px-6 md:px-12">
+<section id="faqs" className="py-32 bg-white border-t border-gray-100 scroll-mt-24">
+  <div className="max-w-[100rem] mx-auto px-6 md:px-12">
 
-          {/* Section header — editorial split, eyebrow left, headline right */}
+    {/* Section header — editorial split, eyebrow left, headline right */}
           <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,360px)_1fr] gap-12 lg:gap-20 mb-24">
             <div>
               <div className="flex items-center gap-3 mb-6">
@@ -903,10 +905,11 @@ One system for the entire deal lifecycle. Connect your data, run diligence and I
       </section>
 
       {/* ---------- CTA ---------- */}
-      <section
-        className="py-32 md:py-40 border-t border-[#1E1F2E] relative overflow-hidden"
-        style={{ backgroundColor: '#05050F' }}
-      >
+   <section
+  id="contact"
+  className="py-32 md:py-40 border-t border-white/[0.08] relative overflow-hidden scroll-mt-24"
+  style={{ backgroundColor: '#05050F' }}
+>
         <div className="max-w-[100rem] mx-auto px-6 md:px-12 relative z-10">
 
           {/* eyebrow */}

@@ -15,17 +15,23 @@ const IconDatabase = ({ className = "w-5 h-5" }) => (
 
 export default function Footer() {
   return (
-    <footer
-      className="border-t border-[#1E1F2E] pt-24 pb-12"
-      style={{ backgroundColor: '#05050F' }}
-    >
+
+
+  <footer
+  className="border-t border-white/[0.08] pt-24 pb-12"
+  style={{ backgroundColor: '#05050F' }}
+>
       <div className="max-w-[100rem] mx-auto px-6 md:px-12">
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-12 mb-20">
 
           <div className="col-span-2 lg:col-span-2">
-            <Link to="/" className="flex items-center gap-3 mb-8">
-              <IconDatabase className="w-5 h-5 text-[#FAFAF9]" />
-              <span className="font-serif text-2xl font-semibold tracking-tight text-[#FAFAF9]">capsa.ai</span>
+            <Link to="/" className="inline-flex items-center mb-8" aria-label="Capsa">
+              <img
+                src="/images/capsalogo.svg"
+                alt="Capsa"
+                className="h-7 w-auto"
+                draggable={false}
+              />
             </Link>
             <p className="text-sm text-[#E5E5E5]/55 max-w-xs leading-relaxed font-light">
               The definitive AI operating system built exclusively for private capital markets and institutional investors.
@@ -33,22 +39,22 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-[10px] font-semibold text-[#E5E5E5]/40 uppercase tracking-[0.2em] mb-8">Platform</h4>
+            <h4 className="text-[10px] font-semibold text-[#E5E5E5]/40 uppercase tracking-[0.2em] mb-8">Pages</h4>
             <ul className="space-y-5 text-sm text-[#E5E5E5]/55">
-              <li><Link to="/sourcing" className="hover:text-[#FAFAF9] transition-colors">Sourcing</Link></li>
-              <li><Link to="/underwriting" className="hover:text-[#FAFAF9] transition-colors">Underwriting</Link></li>
-              <li><Link to="/portfolio" className="hover:text-[#FAFAF9] transition-colors">Portfolio Monitoring</Link></li>
-              <li><Link to="/security" className="hover:text-[#FAFAF9] transition-colors">Security &amp; Trust</Link></li>
+              <li><a href="https://capsa.ai/product" target="_blank" rel="noopener noreferrer" className="hover:text-[#FAFAF9] transition-colors">Product</a></li>
+              <li><a href="https://capsa.ai/security" target="_blank" rel="noopener noreferrer" className="hover:text-[#FAFAF9] transition-colors">Security</a></li>
+              <li><a href="https://capsa.ai/company" target="_blank" rel="noopener noreferrer" className="hover:text-[#FAFAF9] transition-colors">Company</a></li>
+              <li><a href="https://capsa.ai/news" target="_blank" rel="noopener noreferrer" className="hover:text-[#FAFAF9] transition-colors">News</a></li>
+              <li><a href="https://capsa.ai/careers" target="_blank" rel="noopener noreferrer" className="hover:text-[#FAFAF9] transition-colors">Careers</a></li>
             </ul>
           </div>
 
           <div>
-            <h4 className="text-[10px] font-semibold text-[#E5E5E5]/40 uppercase tracking-[0.2em] mb-8">Company</h4>
+            <h4 className="text-[10px] font-semibold text-[#E5E5E5]/40 uppercase tracking-[0.2em] mb-8">Legal</h4>
             <ul className="space-y-5 text-sm text-[#E5E5E5]/55">
-              <li><Link to="/about" className="hover:text-[#FAFAF9] transition-colors">About Us</Link></li>
-              <li><Link to="/careers" className="hover:text-[#FAFAF9] transition-colors">Careers</Link></li>
-              <li><Link to="/news" className="hover:text-[#FAFAF9] transition-colors">Press &amp; News</Link></li>
-              <li><Link to="/contact" className="hover:text-[#FAFAF9] transition-colors">Contact</Link></li>
+              <li><a href="https://capsa.ai/terms" target="_blank" rel="noopener noreferrer" className="hover:text-[#FAFAF9] transition-colors">Terms of Service</a></li>
+              <li><a href="https://capsa.ai/privacy" target="_blank" rel="noopener noreferrer" className="hover:text-[#FAFAF9] transition-colors">Privacy Policy</a></li>
+              <li><a href="https://trust.capsa.ai/" target="_blank" rel="noopener noreferrer" className="hover:text-[#FAFAF9] transition-colors">Trust Center</a></li>
             </ul>
           </div>
 
@@ -70,16 +76,28 @@ export default function Footer() {
 
         </div>
 
-        <div className="border-t border-[#1E1F2E] pt-10 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="text-xs text-[#E5E5E5]/35">
-            &copy; {new Date().getFullYear()} Capsa AI, Inc. All rights reserved.
-          </div>
-          <div className="flex items-center gap-8 text-xs text-[#E5E5E5]/55">
-            <Link to="/privacy" className="hover:text-[#FAFAF9] transition-colors">Privacy Policy</Link>
-            <Link to="/terms" className="hover:text-[#FAFAF9] transition-colors">Terms of Service</Link>
-            <Link to="/cookies" className="hover:text-[#FAFAF9] transition-colors">Cookie Settings</Link>
+        {/* Concept credit — sits above the legal row, framed subtly */}
+        <div className="border-t border-white/[0.08] pt-10 mb-8">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <p className="text-[11px] text-[#E5E5E5]/40 font-light tracking-[0.01em]">
+              Concept redesign by{' '}
+              <a
+                href="https://www.seo-growup.com/?utm_source=capsa-github&utm_medium=referral&utm_campaign=capsa-case-study"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#E5E5E5]/70 hover:text-[#FAFAF9] transition-colors underline decoration-white/15 underline-offset-[3px] hover:decoration-white/40"
+              >
+                GrowUp
+              </a>
+              . Not affiliated with Capsa AI, Inc.
+            </p>
+            <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#E5E5E5]/25">
+              Portfolio piece
+            </span>
           </div>
         </div>
+
+
       </div>
     </footer>
   );

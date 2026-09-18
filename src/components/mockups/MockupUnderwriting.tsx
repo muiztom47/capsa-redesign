@@ -62,7 +62,7 @@ const IconDownload = () => (
 );
 
 const MockupUnderwriting = () => {
-  const CYCLE = 30;
+  const CYCLE = 14;
 
   return (
     <div className="w-full h-full bg-white flex flex-col font-sans relative overflow-hidden">
@@ -73,77 +73,67 @@ const MockupUnderwriting = () => {
           50%, 100% { opacity: 0; }
         }
          @keyframes capsaStatusThinking {
-          0%, 27% { opacity: 1; }
-          30%, 100% { opacity: 0; }
+          0%, 15% { opacity: 1; }
+          18%, 100% { opacity: 0; }
         }
         @keyframes capsaStatusSynth {
-          0%, 32% { opacity: 0; }
-          34%, 38% { opacity: 1; }
-          41%, 100% { opacity: 0; }
+          0%, 20% { opacity: 0; }
+          22%, 27% { opacity: 1; }
+          30%, 100% { opacity: 0; }
         }
         @keyframes capsaStatusDone {
-          0%, 40% { opacity: 0; }
-          42%, 98% { opacity: 1; }
+          0%, 29% { opacity: 0; }
+          31%, 98% { opacity: 1; }
           100% { opacity: 0; }
         }
         @keyframes capsaPromptPhase {
-          0%, 27% { opacity: 1; }
-          30%, 100% { opacity: 0; }
+          0%, 15% { opacity: 1; }
+          18%, 100% { opacity: 0; }
         }
   @keyframes capsaButtonPress {
-          0%, 26%, 100% { transform: scale(1); }
-          28% { transform: scale(0.92); }
-          29% { transform: scale(1); }
+          0%, 11%, 100% { transform: scale(1); }
+          13% { transform: scale(0.92); }
+          14% { transform: scale(1); }
         }
   
         @keyframes capsaClickGlowMemo {
-          0%, 25%  { opacity: 0; transform: scale(0.6); }
-          28%      { opacity: 1; transform: scale(1); }
-          31%      { opacity: 0; transform: scale(1.8); }
+          0%, 10%  { opacity: 0; transform: scale(0.6); }
+          13%      { opacity: 1; transform: scale(1); }
+          16%      { opacity: 0; transform: scale(1.8); }
           100%     { opacity: 0; transform: scale(1.8); }
         }
         @keyframes capsaRippleMemo {
-          0%, 25%  { opacity: 0; transform: scale(1); }
-          27%      { opacity: 0.9; transform: scale(1); }
-          31%      { opacity: 0; transform: scale(1.6); }
+          0%, 10%  { opacity: 0; transform: scale(1); }
+          12%      { opacity: 0.9; transform: scale(1); }
+          16%      { opacity: 0; transform: scale(1.6); }
           100%     { opacity: 0; transform: scale(1.6); }
         }
      @keyframes capsaCursorMoveMemo {
-          0%, 22%  { transform: translate(-40px, -46px) scale(1); opacity: 0; }
-          23%      { opacity: 1; }
-          25%      { transform: translate(-4px, -4px) scale(1); opacity: 1; }
-          27%      { transform: translate(0px, 0px) scale(0.88); opacity: 1; }
-          28%, 29% { transform: translate(0px, 0px) scale(1); opacity: 1; }
-          31%, 100% { transform: translate(0px, 0px) scale(1); opacity: 0; }
+          0%, 6%   { transform: translate(-40px, -46px) scale(1); opacity: 0; }
+          7%       { opacity: 1; }
+          10%      { transform: translate(-4px, -4px) scale(1); opacity: 1; }
+          12%      { transform: translate(0px, 0px) scale(0.88); opacity: 1; }
+          13%, 14% { transform: translate(0px, 0px) scale(1); opacity: 1; }
+          16%, 100% { transform: translate(0px, 0px) scale(1); opacity: 0; }
         }
-        @keyframes capsaClickGlowMemo {
-          0%, 25%  { opacity: 0; transform: scale(0.6); }
-          28%      { opacity: 1; transform: scale(1); }
-          31%      { opacity: 0; transform: scale(1.8); }
-          100%     { opacity: 0; transform: scale(1.8); }
-        }
-        @keyframes capsaRippleMemo {
-          0%, 25%  { opacity: 0; transform: scale(1); }
-          27%      { opacity: 0.9; transform: scale(1); }
-          31%      { opacity: 0; transform: scale(1.6); }
-          100%     { opacity: 0; transform: scale(1.6); }
-        }
+    
+       
         @keyframes capsaLoadingPhase {
-          0%, 30% { opacity: 0; }
-          33%, 38% { opacity: 1; }
-          40%, 100% { opacity: 0; }
+          0%, 18% { opacity: 0; }
+          21%, 27% { opacity: 1; }
+          29%, 100% { opacity: 0; }
         }
         @keyframes capsaSpin {
           to { transform: rotate(360deg); }
         }
        @keyframes capsaMemoPhase {
-          0%, 39% { opacity: 0; transform: translateY(8px); }
-          42%, 97% { opacity: 1; transform: translateY(0); }
+          0%, 28% { opacity: 0; transform: translateY(8px); }
+          31%, 97% { opacity: 1; transform: translateY(0); }
           99%, 100% { opacity: 0; transform: translateY(8px); }
         }
         @keyframes capsaChatShow {
-          0%, 50% { opacity: 0; transform: translateY(6px); }
-          54%, 97% { opacity: 1; transform: translateY(0); }
+          0%, 36% { opacity: 0; transform: translateY(6px); }
+          40%, 97% { opacity: 1; transform: translateY(0); }
           99%, 100% { opacity: 0; transform: translateY(6px); }
         }
         @keyframes capsaChatType {
@@ -330,7 +320,7 @@ const MockupUnderwriting = () => {
                 <span className="inline-block align-bottom" style={{ width: 'max-content' }}>
                   <span
                     className="text-slate-900 inline-block overflow-hidden whitespace-nowrap align-bottom"
-                     style={{ animation: 'capsaChatType 30s steps(200, end) infinite' }}
+                     style={{ animation: 'capsaChatType 14s steps(200, end) infinite' }}
                   >
                                      Cut the covenant section to two sentences. Lead with the headroom number.
                   </span>
