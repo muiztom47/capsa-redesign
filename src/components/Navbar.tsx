@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const links = [
   { id: 'platform', label: 'Product' },
   { id: 'security', label: 'Security' },
-  { id: 'stories', label: 'Client Stories' },
+  { id: 'stories', label: 'Investors' },
   { id: 'faqs', label: 'FAQs' },
   { id: 'contact', label: 'Contact' },
 ]

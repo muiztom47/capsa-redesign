@@ -250,9 +250,22 @@ export default function Home() {
   const [scrolled, setScrolled] = useState(false);
   const [activeSource, setActiveSource] = useState(0);
   const [activeTab, setActiveTab] = useState(0);
-  const [workflowsVisible, setWorkflowsVisible] = useState(false);
+  const [visibleStages, setVisibleStages] = useState([false, false, false, false]);
+  const stageRefs = useRef([]);
   const [openFaq, setOpenFaq] = useState(null);
+
+  // Refs for scroll-reveal sections
   const workflowsRef = useRef(null);
+  const securityRef = useRef(null);
+  const storiesRef = useRef(null);
+  const faqsRef = useRef(null);
+  const ctaRef = useRef(null);
+
+  // Visibility state for each scroll-reveal section
+  const [securityVisible, setSecurityVisible] = useState(false);
+  const [storiesVisible, setStoriesVisible] = useState(false);
+  const [faqsVisible, setFaqsVisible] = useState(false);
+  const [ctaVisible, setCtaVisible] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -284,22 +297,56 @@ export default function Home() {
     return () => clearTimeout(id);
   }, [activeTab]);
 
-  // One orchestrated reveal for the workflow showcase, the first time it
-  // scrolls into view, rather than animating every section on every scroll.
+  // Each stage row reveals independently as it individually scrolls into
+  // view, rather than all four triggering together off one section-level
+  // observer — gives a true one-at-a-time cascade as the user scrolls.
   useEffect(() => {
-    const el = workflowsRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setWorkflowsVisible(true);
-          observer.unobserve(el);
-        }
-      },
-      { threshold: 0.15 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
+    const observers = stageRefs.current.map((el, i) => {
+      if (!el) return null;
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setVisibleStages((prev) => {
+              const next = [...prev];
+              next[i] = true;
+              return next;
+            });
+            observer.unobserve(el);
+          }
+        },
+        { threshold: 0.2, rootMargin: '0px 0px -10% 0px' }
+      );
+      observer.observe(el);
+      return observer;
+    });
+    return () => observers.forEach((o) => o && o.disconnect());
+  }, []);
+
+  // Same scroll-reveal pattern applied to the remaining sections, so the whole
+  // page feels considered rather than just the hero.
+  useEffect(() => {
+    const targets = [
+      { ref: securityRef, setVisible: setSecurityVisible },
+      { ref: storiesRef, setVisible: setStoriesVisible },
+      { ref: faqsRef, setVisible: setFaqsVisible },
+      { ref: ctaRef, setVisible: setCtaVisible },
+    ];
+    const observers = targets.map(({ ref, setVisible }) => {
+      const el = ref.current;
+      if (!el) return null;
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setVisible(true);
+            observer.unobserve(el);
+          }
+        },
+        { threshold: 0.15 }
+      );
+      observer.observe(el);
+      return observer;
+    });
+    return () => observers.forEach((o) => o && o.disconnect());
   }, []);
 
  const scrollToPlatform = (e) => {
@@ -329,19 +376,31 @@ export default function Home() {
           </div>
         </div>
 
+        {/* Hero entrance animation keyframes — subtle fade + rise, staggered per element */}
+        <style>{`
+          @keyframes fadeUpIn {
+            from { opacity: 0; transform: translateY(14px); }
+            to   { opacity: 1; transform: translateY(0); }
+          }
+          .hero-fade-1 { animation: fadeUpIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both; }
+          .hero-fade-2 { animation: fadeUpIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both; }
+          .hero-fade-3 { animation: fadeUpIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both; }
+          .hero-fade-4 { animation: fadeUpIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both; }
+        `}</style>
+
         <div className="max-w-[100rem] mx-auto px-6 md:px-12 relative z-10">
                  {/* Left-Aligned Hero Content */}
           <div className="mb-14">
-            <div className="inline-flex items-center gap-3 bg-white/80 border border-gray-200/80 rounded-full px-5 py-2 mb-10 backdrop-blur-md shadow-sm">
+            <div className="hero-fade-1 inline-flex items-center gap-3 bg-white/80 border border-gray-200/80 rounded-full px-5 py-2 mb-10 backdrop-blur-md shadow-sm">
               <span className="w-2 h-2 rounded-full bg-blue-600 shadow-[0_0_8px_rgba(37,99,235,0.5)]"></span>
               <span className="text-[11px] font-medium text-gray-600 tracking-widest uppercase">AI built for private capital</span>
             </div>
 
-            <h1 className="font-serif text-[3.5rem] leading-[1.1] md:text-[5.5rem] md:leading-[1.05] text-gray-900 tracking-[-0.03em] mb-8 max-w-4xl">
+            <h1 className="hero-fade-2 font-serif text-[3.5rem] leading-[1.1] md:text-[5.5rem] md:leading-[1.05] text-gray-900 tracking-[-0.03em] mb-8 max-w-4xl">
               The AI Operating System for Private Capital
             </h1>
 
-            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+            <div className="hero-fade-3 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
                     <p className="text-[19px] text-[#011522]/80 leading-relaxed font-light max-w-3xl font-inter">
 One system for the entire deal lifecycle. Connect your data, run diligence and IC workflows, and move from raw information to investment conviction faster.
               </p>
@@ -369,8 +428,8 @@ One system for the entire deal lifecycle. Connect your data, run diligence and I
 
 
                   {/* Premium Glass Enterprise Dashboard Card */}
-          <div>
-<div className="bg-white/60 border border-slate-200/60 rounded-[28px] shadow-[0_1px_2px_rgba(15,23,42,0.04),0_8px_24px_-12px_rgba(15,23,42,0.08)] overflow-hidden backdrop-blur-2xl relative">
+          <div className="hero-fade-4">
+<div className="bg-white/60 border border-slate-200/60 rounded-[28px] shadow-[0_1px_2px_rgba(15,23,42,0.04),0_8px_24px_-12px_rgba(15,23,42,0.08)] overflow-hidden backdrop-blur-2xl relative hover:shadow-[0_1px_2px_rgba(15,23,42,0.06),0_16px_40px_-12px_rgba(15,23,42,0.14)] transition-shadow duration-700">
               <div className="pointer-events-none absolute inset-0 rounded-[28px] ring-1 ring-inset ring-white/60"></div>
 
               {/* Top Bar */}
@@ -615,20 +674,34 @@ One system for the entire deal lifecycle. Connect your data, run diligence and I
             {STAGES.map((stage, i) => (
               <div
                 key={stage.n}
-              className={`grid grid-cols-1 ${
-  i % 2 === 1
-    ? 'lg:grid-cols-[1fr_minmax(0,420px)]'
-    : 'lg:grid-cols-[minmax(0,420px)_1fr]'
-} gap-14 lg:gap-20 items-center transition-all duration-700 ease-out ${
-  i !== 0 ? 'pt-24 border-t border-gray-200/70' : ''
-} ${workflowsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-
-                style={{ transitionDelay: workflowsVisible ? `${i * 140}ms` : '0ms' }}
+                ref={(el) => (stageRefs.current[i] = el)}
+                className={`grid grid-cols-1 ${
+                  i % 2 === 1
+                    ? 'lg:grid-cols-[1fr_minmax(0,420px)]'
+                    : 'lg:grid-cols-[minmax(0,420px)_1fr]'
+                } gap-14 lg:gap-20 items-center ${
+                  i !== 0 ? 'pt-24 border-t border-gray-200/70' : ''
+                }`}
+                style={{
+                  transition: 'opacity 0.7s ease-out, transform 0.7s ease-out',
+                  opacity: visibleStages[i] ? 1 : 0,
+                  transform: visibleStages[i] ? 'translateY(0)' : 'translateY(40px)',
+                }}
               >
+
+
+
                 {/* Text */}
                 <div className={i % 2 === 1 ? 'lg:order-2' : ''}>
                   <div className="flex items-baseline gap-5 mb-6">
-                    <span className="font-serif text-6xl md:text-7xl text-[#011522]/15 leading-none tracking-tight">{stage.n}</span>
+                    <span
+                      className="font-serif text-6xl md:text-7xl text-[#011522]/15 leading-none tracking-tight"
+                      style={{
+                        transition: 'opacity 0.6s ease-out 0.1s, transform 0.6s ease-out 0.1s',
+                        opacity: visibleStages[i] ? 1 : 0,
+                        transform: visibleStages[i] ? 'scale(1)' : 'scale(0.75)',
+                      }}
+                    >{stage.n}</span>
                     <div>
                       <div className="text-[11px] font-semibold text-blue-600 tracking-[0.25em] uppercase mb-1">{stage.eyebrow}</div>
                       <div className="text-[13px] text-[#011522]/45">{stage.tagline}</div>
@@ -676,6 +749,7 @@ One system for the entire deal lifecycle. Connect your data, run diligence and I
       {/* ---------- ENTERPRISE SECURITY ---------- */}
      <section
   id="security"
+  ref={securityRef}
   className="py-20 md:py-24 border-t border-white/[0.08] relative overflow-hidden scroll-mt-24"
   style={{ backgroundColor: '#05050F' }}
 >
@@ -684,7 +758,7 @@ One system for the entire deal lifecycle. Connect your data, run diligence and I
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
 
             {/* Left: heading, description, and three inline trust points */}
-            <div>
+            <div className={`transition-all duration-700 ease-out ${securityVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
               <h2 className="font-serif text-4xl md:text-[3.5rem] leading-[1.08] text-[#FAFAF9] tracking-tight mb-7 max-w-3xl">
                 Security and compliance<br />
                 you can trust
@@ -710,7 +784,7 @@ One system for the entire deal lifecycle. Connect your data, run diligence and I
 
             {/* Right: 2×2 compliance badge grid — hairline cell dividers, no outer fill */}
             <div
-              className="grid grid-cols-2"
+              className={`grid grid-cols-2 transition-all duration-700 ease-out delay-150 ${securityVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
               style={{
                 borderTop: '1px solid #1E1F2E',
                 borderLeft: '1px solid #1E1F2E',
@@ -724,7 +798,7 @@ One system for the entire deal lifecycle. Connect your data, run diligence and I
               ].map((badge, i) => (
                 <div
                   key={i}
-                  className="aspect-[3/2] flex items-center justify-center"
+                  className="group aspect-[3/2] flex items-center justify-center transition-colors duration-500 hover:bg-white/[0.02]"
                   style={{
                     backgroundColor: '#05050F',
                     borderRight: '1px solid #1E1F2E',
@@ -734,7 +808,7 @@ One system for the entire deal lifecycle. Connect your data, run diligence and I
                   <img
                     src={badge.src}
                     alt={badge.alt}
-                    className="w-[62%] h-[62%] object-contain select-none pointer-events-none"
+                    className="w-[62%] h-[62%] object-contain select-none pointer-events-none opacity-80 group-hover:opacity-100 group-hover:scale-[1.04] transition-all duration-500"
                     draggable={false}
                   />
                 </div>
@@ -746,11 +820,11 @@ One system for the entire deal lifecycle. Connect your data, run diligence and I
       </section>
 
       {/* ---------- TESTIMONIALS ---------- */}
-    <section id="stories" className="py-32 bg-[#FAFAFA] border-t border-gray-100 scroll-mt-24">
+    <section id="stories" ref={storiesRef} className="py-32 bg-[#FAFAFA] border-t border-gray-100 scroll-mt-24">
   <div className="max-w-[100rem] mx-auto px-6 md:px-12">
 
     {/* Header row: eyebrow on the left, count on the right — signals precision */}
-          <div className="flex items-end justify-between mb-16 pb-6 border-b border-gray-200/70">
+          <div className={`flex items-end justify-between mb-16 pb-6 border-b border-gray-200/70 transition-all duration-700 ease-out ${storiesVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <div>
               <div className="flex items-center gap-3 mb-5">
                 <span className="w-8 h-px bg-[#011522]"></span>
@@ -770,7 +844,12 @@ One system for the entire deal lifecycle. Connect your data, run diligence and I
             {TESTIMONIALS.map((t, i) => (
               <div
                 key={i}
-                className="bg-white p-10 lg:p-12 flex flex-col hover:bg-[#FAFAFA]/60 transition-colors duration-500"
+                className="bg-white p-10 lg:p-12 flex flex-col hover:bg-[#FAFAFA]/60 hover:-translate-y-1 hover:shadow-[0_16px_40px_-20px_rgba(15,23,42,0.25)]"
+                style={{
+                  transition: `opacity 0.7s ease-out ${150 + i * 100}ms, transform 0.7s ease-out ${150 + i * 100}ms, box-shadow 0.3s ease-out, background-color 0.3s ease-out`,
+                  opacity: storiesVisible ? 1 : 0,
+                  transform: storiesVisible ? 'translateY(0)' : 'translateY(32px)',
+                }}
               >
                 {/* logo lockup */}
                 <div className="mb-12 h-8 flex items-center">{t.logo}</div>
@@ -798,11 +877,11 @@ One system for the entire deal lifecycle. Connect your data, run diligence and I
       </section>
 
       {/* ---------- FAQ ---------- */}
-<section id="faqs" className="py-32 bg-white border-t border-gray-100 scroll-mt-24">
+<section id="faqs" ref={faqsRef} className="py-32 bg-white border-t border-gray-100 scroll-mt-24">
   <div className="max-w-[100rem] mx-auto px-6 md:px-12">
 
     {/* Section header — editorial split, eyebrow left, headline right */}
-          <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,360px)_1fr] gap-12 lg:gap-20 mb-24">
+          <div className={`grid grid-cols-1 lg:grid-cols-[minmax(0,360px)_1fr] gap-12 lg:gap-20 mb-24 transition-all duration-700 ease-out ${faqsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <div>
               <div className="flex items-center gap-3 mb-6">
                 <span className="w-8 h-px bg-[#011522]"></span>
@@ -826,7 +905,12 @@ One system for the entire deal lifecycle. Connect your data, run diligence and I
               return (
                 <div
                   key={i}
-                  className="group relative border-b border-gray-200/70 transition-colors duration-300"
+                  className="group relative border-b border-gray-200/70 hover:bg-[#011522]/[0.015]"
+                  style={{
+                    transition: `opacity 0.6s ease-out ${i * 70}ms, transform 0.6s ease-out ${i * 70}ms, background-color 0.3s ease-out`,
+                    opacity: faqsVisible ? 1 : 0,
+                    transform: faqsVisible ? 'translateY(0)' : 'translateY(24px)',
+                  }}
                 >
                   {/* left accent bar — hidden until hover/open */}
                   <span
@@ -907,10 +991,18 @@ One system for the entire deal lifecycle. Connect your data, run diligence and I
       {/* ---------- CTA ---------- */}
    <section
   id="contact"
+  ref={ctaRef}
   className="py-32 md:py-40 border-t border-white/[0.08] relative overflow-hidden scroll-mt-24"
   style={{ backgroundColor: '#05050F' }}
 >
-        <div className="max-w-[100rem] mx-auto px-6 md:px-12 relative z-10">
+        <div
+          className="max-w-[100rem] mx-auto px-6 md:px-12 relative z-10"
+          style={{
+            transition: 'opacity 0.7s ease-out, transform 0.7s ease-out',
+            opacity: ctaVisible ? 1 : 0,
+            transform: ctaVisible ? 'translateY(0)' : 'translateY(32px)',
+          }}
+        >
 
           {/* eyebrow */}
           <div className="flex items-center gap-3 mb-14">
@@ -933,11 +1025,13 @@ One system for the entire deal lifecycle. Connect your data, run diligence and I
             {/* Right: single primary action, editorial-weight button */}
             <div className="flex flex-col">
               <a
+                              
                 href="https://capsa.ai/contact"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center justify-between gap-8 px-8 py-6 rounded-xl bg-[#0508b3] hover:bg-[#2a3ad4] transition-all duration-300 shadow-[0_8px_30px_-12px_rgba(5,8,179,0.6)]"
+                className="group relative inline-flex items-center justify-between gap-8 px-8 py-6 rounded-xl bg-[#0508b3] hover:bg-[#2a3ad4] transition-all duration-300 shadow-[0_8px_30px_-12px_rgba(5,8,179,0.6)] hover:shadow-[0_12px_40px_-10px_rgba(5,8,179,0.75)] hover:-translate-y-0.5 overflow-hidden"
               >
+                <span className="pointer-events-none absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-[1200ms] ease-out bg-gradient-to-r from-transparent via-white/10 to-transparent"></span>
                 <span className="text-[19px] font-medium text-[#FAFAF9] tracking-tight whitespace-nowrap">
                   Book a demo
                 </span>
