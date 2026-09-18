@@ -343,7 +343,7 @@ export default function Home() {
 
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
                     <p className="text-[19px] text-[#011522]/80 leading-relaxed font-light max-w-3xl font-inter">
-Connect your firm’s data, automate the work between sourcing and IC, and give every investment decision the context, evidence, and institutional memory behind it.
+One system for the entire deal lifecycle. Connect your data, run diligence and IC workflows, and move from raw information to investment conviction faster.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 shrink-0">
